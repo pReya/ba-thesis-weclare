@@ -97,14 +97,14 @@
 
 %%%%%
 %% customize (see readme.pdf for supported values)
-\HAWThesisProperties{Author={Dennis Schröder}
-                    ,Title={\textit{Agentenorientierte Softwareentwicklung} im Kontext der \textit{Multi-Roboter-Wegplanung}}
-                    ,EnglishTitle={\textit{Agent-oriented software engineering} in the context of \textit{mutli-robot path planning}}
+\HAWThesisProperties{Author={Moritz Stückler}
+                    ,Title={Entwurf und prototypische Implementierung eines webbasierten Classroom-Reponse-Systems für die Programmierlehre}
+                    ,EnglishTitle={Design and prototypical Implementation of a web based Classroom Response System for Computer Science Education}
                     ,ThesisType={Bachelorarbeit}
                     ,ExaminationType={Bachelorprüfung}
                     ,DegreeProgramme={Bachelor of Science Technische Informatik}
-                    ,ThesisExperts={Prof. Dr. Martin Becke \and Prof. Dr.-Ing. Andreas Meisel}
-                    ,ReleaseDate={1. April 2019}
+                    ,ThesisExperts={Prof. Dr. Axel Schmolitzky \and Prof. Dr. Martin Becke}
+                    ,ReleaseDate={24. April 2019}
                   }
 
 %% title
@@ -117,16 +117,13 @@
 
 %% add abstract pages
 \HAWAbstractPage
-{Agentenorientierte Softwareentwicklung, AoSE, Multi-Roboter-Wegplanung, Agenten, JADE, CoDy Algorithmus, Smart Chair, CaDS}
-{\textit{Internet of Things} (IoT), \textit{Ubiquitous Computing} und \textit{Industrie 4.0} sind Begriffe, die in letzter Zeit immer mehr an Bedeutung gewinnen. Gemeinsam haben diese Themengebiete vor allem ihren Fokus auf der Vernetzung von Rechnern. Die Anforderung an die Skalierbarkeit solcher Systeme wird mit der Anzahl der Geräte und dem Grad der Vernetzung steigen und somit zukünftig immer wichtiger werden. Auch mit dem Blick auf das Jahr 2022, in dem 50 Milliarden IoT-Geräte aktiv sein sollen.\newline
-Im Rahmen dieser Bachelorarbeit wird ein solches skalierendes System entwickelt. Eine Kernanforderung an das System ist es, mit unterschiedlichen Anzahlen von Teilnehmern souverän umgehen zu können. Die Spanne reicht von wenigen Einzelnen bis vielen Hunderten. Um diesen Grad der Skalierbarkeit zu erreichen, wird das System mit Hilfe der \textit{agentenorientierten Softwareenticklung} (AoSE) umgesetzt. Als Produkt entsteht ein Multi-Agenten-System, das durch das \textit{Java Agent Development Framework} (JADE) implementiert wird. Zusammen mit dem \textit{Cooperative Dynamic} (CoDy)-Algorithmus entsteht ein kooperatives System aus Agenten die sich in einer zweidimensionalen \textit{Gridworld} bewegen können.\newline
-Denn das Projekt, an dem die Skalierbarkeit des AoSE-Ansatzes aufgezeigt wird, beschäftigt sich mit der Erweiterung der \textit{Smart Chairs} der \textit{Communication and Distributed System} (CaDS)-Arbeitsgruppe der \textit{Hochschule für angewandte Wissenschaften Hamburg}, um die Fähigkeit an bestimmte Plätze fahren zu können.\newline
-In einer selbst entwickelten Simulationsumgebung werden dann Experimente aus \cite{book:regele} wiederholt. Anhand der Ergebnisse, den zuvor definierten qualitativen Merkmalen und Anforderungen sowie den Kerneigenschaften des Multi-Agenten-Systems, Dezentralität und Autonomie, wird dann die Skalierbarkeit diskutiert und das Projekt bewertet.}
-{Agent-oriented software engineering, AoSE, Mutli-robot path planning, Agents, JADE, CoDy Algorithm, Smart Chair, CaDS}
-{\textit{Internet of Things} (IoT), \textit{ubiquitous computing} and \textit{Industry 4.0} are terms that are gaining importance lately. These topics share a focus on more complex networked computers. The scalability requirement of such systems will increase with the number of devices and the degree of networking and thus become more important in the future. Experts estimate that in the year 2022 that 50 billion IoT devices will be active.\newline
-Such a scaling system will be developed within the scope of this bachelor thesis. A core requirement of the system is to handle different numbers of participants confidently. The range varies from a few to many hundreds individuals. To achieve this level of scalability, the system is implemented using \textit{agent-oriented software engineering} (AoSE). The product is a multi-agent system, which is implemented with the \textit{Java Agent Development Framework} (JADE). Together with the \textit{Cooperative Dynamic} (CoDy) algorithm, it creates a cooperative system of agents that can move in a two-dimensional \textit{gridworld}.\newline
-The project, which demonstrates the scalability of the AoSE approach, addresses the extension of the \textit{Smart Chairs} of the \textit{Communication and Distributed System} (CaDS) team from the \textit{Hamburg University of Applied Sciences} to be able to drive to certain places.\newline
-Experiments from \cite{book:regele} will be repeated in a self developed simulator. Based on the results, the previously defined qualitative characteristics and requirements as well as the core properties of the multi-agent system, decentralization and autonomy, the scalability is discussed and the project evaluated.}
+{Audience Response Systeme, Classroom Response Systeme, StuReSy, Webentwicklung, React, Redux, WebRTC, JavaScript}
+{Sogenannte Classroom-Response-Systeme (CRS) werden inzwischen an vielen Universitäten eingesetzt. Lehrende können mit diesen Systemen ihre Lehrveranstaltungen interaktiver gestalten. Studierende können damit während einer Veranstaltung mit ihrem Smartphone oder anderen internetfähigen Geräten Fragen zum Inhalt der Veranstaltung beantworten. Dies sorgt für zusätzliche Motivation, der Veranstaltung aufmerksam zu folgen und durch die unmittelbare Rückmeldung und Auswertung wird die Selbsteinschätzung der Studenten geschärft. Im Kontext der Programmierlehre sind bisherige CRS-Lösungen allerdings häufig nicht ideal. Im Rahmen dieser Arbeit sollen bestehende CRS-Lösungen auf ihre Eignung für den Einsatz in der Programmierlehre bewertet werden. Anschließend soll eine Software entwickelt und als Prototyp implementiert werden, die sich von bestehenden CRS in vier Kern-Aspekten unterscheidet:\newline
+Die neue Software ist vollständig webbasiert. Sie läuft als Javascript-Anwendung im Browser der beteiligten Parteien. Der Download von Software oder Installation von Plugins ist nicht erforderlich.\newline
+Die Verbindung zwischen Studenten und Dozent wird im Peer-2-Peer-Verfahren direkt zwischen den beteiligten Browsern hergestellt. Die Einrichtung und der Betrieb eines dedizierten Server-Systems ist nicht notwendig.\newline
+Die Anwendung ist optimiert auf die Darstellung und Einbettung von Quelltexten. Die syntaktische Einfärbung des Quelltexts (Syntax Highlighting) und die Darstellung in äquidistanter Schrift (Monospace) werden unterstützt.\newline
+Java-Quelltexte, welche in die Fragestellungen eingebettet werden, können direkt im Browser ausgeführt werden. Dazu wird eine Java Virtual Machine direkt im Browser ausgeführt.
+}
 
 \newpage
 \singlespacing
@@ -148,25 +145,21 @@ Experiments from \cite{book:regele} will be repeated in a self developed simulat
 \input{chapter/einleitung/index.tex}
 \label{chap:einleitung}
 %
-\chapter{Theoretischer Hintergrund}
-\label{chap:theorie}
-\input{chapter/theorie/index.tex}
+\chapter{Bewertung bestehender ARS-Lösungen}
+\label{chap:bewertung}
+\input{chapter/bewertung/index.tex}
 %
-\chapter{Software Architektur}
-\label{chap:architektur}
-\input{chapter/architektur/index.tex}
+\chapter{Formulierung von Kern-Anforderungen an eine moderne ARS-Lösung für die Informatik-Lehre:}
+\label{chap:anforderungen}
+\input{chapter/anforderungen/index.tex}
 %
-\chapter{Methodik}
-\label{chap:methodik}
-\input{chapter/methodik/index.tex}
+\chapter{Entwurf eines webbasierten ARS}
+\label{chap:entwurf}
+\input{chapter/entwurf/index.tex}
 %
-\chapter{Experimente}
-\label{chap:experimente}
-\input{chapter/experimente/index.tex}
-%
-\chapter{Diskussion}
-\label{chap:diskussion}
-\input{chapter/diskussion/index.tex}
+\chapter{Ausblick: WebAssembly als Zukunftsvision für portable Software}
+\label{chap:ausblick}
+\input{chapter/ausblick/index.tex}
 %
 \chapter{Fazit}
 \label{chap:fazit}
