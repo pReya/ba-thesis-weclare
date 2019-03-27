@@ -1,0 +1,6 @@
+In diesem Kapitel werden die zuvor erläuterten Elemente in Kontext gesetzt. 
+
+Wenn die Agenten initialisiert werden, sind ihnen die statischen Hindernisse und die eigene Position bereits bekannt. Alle Agenten werden mit den gleichen Parametern erzeugt. Weil für den ersten Berechnungsschritt die Agenten die Positionen der anderen nicht kennen, planen alle Agenten stehen zu bleiben. Ein Agent führt periodisch die nächste geplante Bewegung aus. Zwischen den Bewegungen finden die Berechnungsschritte statt. Für diese Arbeit findet aus Gründen der Übersicht, nur ein Berechnungsschritt pro Bewegungsschritt statt. Parallel zu den Bewegungs- und Berechnungsschritten, empfängt ein Agent die Nachrichten der anderen Agenten. \cite{book:regele}
+
+Ein Berechnungsschritt läuft folgendermaßen ab:\newline
+Damit ein Berechnungsschritt beginnen kann, müssen von allen Agenten, auf die gewartet wird, Nachrichten empfangen werden. Wenn das erfüllt ist, wird die Umgebungskarte zeitlich und räumlich zentriert. Darauffolgend werden die neuen geplanten Wege in die Umgebungskarte eingetragen. Jetzt plant der Agent mit Hilfe einer Erreichbarkeitskarte, den eigenen Weg. Prioritätsanpassungen und eventuelle Neuberechnungen werden gemäß \ref{chap:prioritaeten} durchgeführt. Der geplante Weg wird an alle Agenten per Nachricht übermittelt. \cite{book:regele}

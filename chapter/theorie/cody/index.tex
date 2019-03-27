@@ -1,0 +1,14 @@
+Ein Wegplanungs-Algorithmus kann entweder verteilt oder zentral arbeiten. Ein zentraler Algorithmus hat aber das Problem, dass der Berechnungsaufwand quadratisch von der Anzahl der Agenten abhängig ist (TODO Quelle). Ist für diese Arbeit also nicht interessant, da ein potentiell stark skalierendes Agenten-System zum Einsatz kommt. Ein echtzeitfähiger, verteilter und skalierender Algorithmus ist der \textit{CoDy Algorithmus}. Der CoDy Algorithmus berechnet die Wege für jeden Agenten aus Sicht der jeweiligen Agenten und löst mit Hilfe von heuristischer Prioritätsanpassung auftretende Konflikte. Der \textit{CoDy Algorithmus} hat bestimmte Voraussetzungen an das implementierende System. Es soll verteilt sein, muss den Agenten die Möglichkeit bieten, untereinander zu kommunizieren und homogen sein. Zusätzlich muss ein Agent in der Lage sein seine Umgebung zu erfassen, entweder durch die eigene Sensorik oder durch Kommunikation mit anderen Agenten. Alle Voraussetzungen können erfüllt werden. \cite{book:regele}
+
+Die Funktionsweise des CoDy Algorithmus wird in den folgenden Unterkapiteln genauer beschrieben. Es soll aber nicht Sinn dieser Arbeit sein, die Dissertation wiederzugeben. Die grundlegenden Elemente und Funktionen werden nicht nur zum Grundverständnis wiedergegeben. Vor allem soll aber eine Basis geschaffen werden, auf deren Grund dann im Kapitel (TODO link) beschrieben werden kann, wie der Algorithmus umgesetzt wird und wo es zu Abweichungen kommt.
+\subsection{Grundlagen}
+\label{chap:grundlagen}
+\input{chapter/theorie/cody/grundlagen/index.tex}
+%
+\subsection{Konfliktverarbeitung}
+\label{chap:konfliktverarbeitung}
+\input{chapter/theorie/cody/konfliktverarbeitung/index.tex}
+%
+\subsection{Algorithmus}
+\label{chap:algorithmus}
+\input{chapter/theorie/cody/algorithmus.tex}

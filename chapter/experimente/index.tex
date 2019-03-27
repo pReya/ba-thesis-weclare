@@ -1,0 +1,18 @@
+In diesem Kapitel wird eine Auswahl relevanter Experimente aus \cite{book:regele} beschrieben. Der Aufbau der Experimente wird durch Abbildungen und assistierend durch Text wiedergegeben. Auf den Abbildungen sind statische Hindernisse grau, freie Zellen weiß, die Startpositionen der Agenten blau und die Zielpositionen grün markiert. Die Experimente teilen sich in zwei Kapitel auf. Das erste Kapitel \ref{chap:allgemein} beschreibt jene Experimente, für die keine Messwerte vorliegen und Kapitel \ref{chap:mitMesswerten} diejenigen, für die Messwerte dokumentiert sind.
+
+Für die Experimente sind die Agenten wie in \cite{book:regele} konfiguriert. Die Parameter werden folgend wiederholt.
+
+Die Enfernungskarten, der Agenten, umfassen immer die gesamte Karte eines Experiments. Für jeden Bewegungsschritt führt ein Agent genau einen Berechnungsschritt durch. Ein Agent ist etwas kleiner als eine Zelle. Die Konfiguration für die Prioritätsangleichung ist wie folgt:\newline
+\(BasePrio=0\), \(PrioNoBlock=1\), \(PrioBlock=10\) und \(PrioFullBlock=19\). Ein Prioritätsüberlauf, im Falle einer ungelösten Verklemmung, tritt erst ab einem Wert von \(PrioMax=400\) auf. Wenn ein solcher Überlauf eintritt, setzt sich der Prioritätswert auf eine zufällige Zahl zwischen null und zehn zurück. Jedes Experiment wird 30 Mal wiederholt. 
+Der Durchmesser \((d)\) der Umgebungskarte variiert. Bei Experimenten mit Karten die 30 Felder breit sind, ist \(d=21\). Für die Experimente mit Messwerten beträgt \(d=13\). Für die anderen Experimente gilt \(d=9\). Die zeitliche Berechnungstiefe ist abhängig von der Dimension der Umgebungskarte und wird folgendermaßen bestimmt \(t\textsubscript{max}=0.75*d\).
+
+Sofern nicht anders gekennzeichnet, sind \cite{book:regele} als Quelle für den Aufbau der Experimente, die Messwerte und die zu erwartenden Beobachtungen anzunehmen.
+
+In den folgenden Unterkapiteln wird häufiger von Gruppen die Rede sein. Im Kontext des CoDy Algorithmus sind damit keine logisch zusammenhängenden Agenten gemeint. Eine Gruppe bezeichnet hier lediglich Agenten, die in Nähe zueinander starten.
+
+\section{Allgemeine Experimente}
+\label{chap:allgemein}
+\input{chapter/experimente/allgemein/index.tex}
+\section{Experimente mit Messwerten}
+\label{chap:mitMesswerten}
+\input{chapter/experimente/mitMesswerten/index.tex}

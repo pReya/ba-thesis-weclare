@@ -1,0 +1,12 @@
+Ein \textit{Behaviour} ist eine Aufgabe die ein Agent ausführen kann und als erbende Klasse von \texttt{jade.core.behaviours.Behaviour} implementiert ist. Für jeden Agenten startet die JADE Umgebung einen Thread. Ein \textit{Behaviour} wird über einen Scheduler auf diesem Thread ausgeführt. Der Agent fügt ein \textit{Behaviour} mit \texttt{addBehaviour()} der Scheduling-Queue hinzu. Dies kann der Agent während der Initialisierungsphase in der \texttt{steup()} Methode tun oder innerhalb eines \textit{Behaviours}. Jede \textit{Behaviour}-Subklasse muss die \texttt{action()} und \texttt{done()} Methode implementieren. Die \texttt{action()} Methode enthält die Logik, also den auszuführenden Code, des \textit{Behaviours}. Die \texttt{done()} Methode gibt einen \texttt{boolean} zurück, der Aussage darüber trifft, ob das \textit{Behaviour} seine Aufgabe abgeschlossen hat und damit aus Scheduling-Queue entfernt werden soll. Ein Agent kann mehrere \textit{Behavoiur} ausführen. Ein \textit{Behavoiur} ist jedoch nicht preemptive. Wenn die \texttt{action()} Methode vom Scheduler aufgerufen wird, kann diese nicht unterbrochen werden. Das \textit{Behaviour} muss also selbständig diese Ressource wieder freigeben. \cite{book:jade}
+
+Das JADE Framwork stellt jedoch nicht nur den Basistypen zur Verfügung, sondern implementiert weitere abstrakte \textit{Behaviour}. Folgend wird eine Auswahl aus \cite{book:jade} vorgestellt.
+
+\paragraph{One-Shot Behaviour}
+Für das \texttt{jade.core.behaviours.OneShotBehaviour} muss eine erbende Klasse nur die \texttt{action()} Methode implementieren. \texttt{done()} liefert standardmäßig \texttt{true} zurück. Ein \textit{One-Shot Berhaviour} wird also nur einmal ausgeführt.
+
+\paragraph{Cyclic Behaviour}
+Das \texttt{jade.core.behaviours.CyclicBehaviour} ist dem \textit{One-Shot Behaviour} recht ähnlich. Die \texttt{done()} Methode liefert jedoch standardmäßig \texttt{false} zurück. Ein \textit{Cyclic Behaviour} beendet sich also nie.
+
+\paragraph{Ticker Behaviour}
+Das \texttt{jade.core.behaviours.TickerBehaviour} implementiert sowohl \texttt{action()} als auch \texttt{done()} Methoden. Die \texttt{done()} Methode liefert immer \texttt{false} zurück. Die \texttt{action()} Methode führt die \texttt{onTick()} Methode periodisch aus. Das Zeitintervall wird über den Konstruktor definiert. Das \textit{Ticker Behavior} ist selbst eine abstrakte Klasse. Erbende Klassen implementieren die Methode \texttt{onTick()}.

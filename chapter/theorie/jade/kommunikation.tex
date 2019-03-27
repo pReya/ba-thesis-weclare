@@ -1,0 +1,8 @@
+Agenten interagieren miteinander. Dies geschieht indirekt über das Verändern der Umwelt oder durch direkte Kommunikation. Die direkte Kommunikation ist wahrscheinlich eines des wichtigsten Funktionen des JADE Frameworks. Die Kommunikation zwischen Agenten erfolgt durch den asynchronen Nachrichtenaustausch. Jeder Agent besitzt eine Queue in der alle Nachrichten eines Agenten empfangen werden. Eine Nachricht hält dabei mehrere Felder:
+\begin{itemize}
+\item Die ID des \textbf{Senders}
+\item Eine Liste, die alle \textbf{Empfänger} enthält.
+\item Die \textbf{Absicht} der Nachricht. Die FIPA definiert hier eine Liste mit Möglichkeiten. Zum Beispiel "'Inform"'. Der Sender berichtet den Empfänger einen Fakt.
+\item Den \textbf{Inhalt}, den der Sender mitteilen möchte.
+\item Die \textbf{Kodierung} der Nachricht. So das die Empfänger wissen, wie die Nachricht zu lesen ist.
+\end{itemize} \cite{book:jade}
