@@ -2,8 +2,8 @@
 
 StuReSy besteht aus zwei Komponenten:
 \begin{itemize}
-    \item \textbf{Server-Komponente}: In PHP geschrieben, agiert gleichzeitig als Client-Komponente für die Abstimmungs-Teilenehmer (kann über den Browser aufgerufen werden) und Administrations-Oberfläche. Benötigt eine relationale SQL-Datenbank.
-    \item \textbf{Editor-Komponente}: In Java geschrieben. Um Fragen zu erstellen und zu bearbeiten.
+    \item \textbf{Server-Komponente}: In PHP geschrieben, stellt gleichzeitig die Client-Benutzeroberfläche für die Abstimmungs-Teilenehmer als auch eine Administrations-Oberfläche bereit. Benötigt eine relationale SQL-Datenbank.
+    \item \textbf{Editor-Komponente}: In Java geschrieben, verbindet sich mit der Server-Komponente. Um Fragen zu erstellen und zu bearbeiten.
 \end{itemize}
 
 Der StuReSy-Editor verfügt über folgende Haupt-Funktionen bzw. Programmteile:
@@ -25,6 +25,7 @@ Auch wenn StuReSy erfolgreich im Hochschul-Alltag verwendet wurde, so gibt es tr
 \begin{itemize}
     \item \textbf{Software-Download und JVM notwendig}: Um StuReSy administrativ einsetzen zu können, muss eine Java-Software heruntergeladen werden und eine JVM muss auf dem jeweiligen System vorhanden sein. Eine Administration vom Tablet oder Smartphone ist damit nur schwer möglich.
     \item \textbf{Server notwendig}: Um StuReSy betreiben zu können, wird eine Server-Instanz benötigt. Diese muss von der jeweiligen Institution oder einem Dozenten aufgesetzt und gewartet werden.
+    \item \textbf{Kompliziertes System von Tokens und Lecture-IDs}: Um eine Abstimmung in StuReSy durchzuführen, muss zunächst eine Lecture-ID in der Server-Admin-Oberfläche eingerichtet werden. Anschließend muss ein generierter Token in den Java-Clien übertragen werden. Diese Vorgehensweise erscheint unnötig kompliziert.
 \end{itemize}
 
 Neben den konzeptionellen Problemen gibt es auch Probleme mit der konkreten Implementierung von StuReSy:\newline

@@ -1,0 +1,15 @@
+Wie im Rest der Arbeit soll sich auch das Fazit an den drei Kern-Anforderungen entlanghangeln, die zu Beginn festgelegt wurden. Für jeden Aspekt soll einzeln erörtert werden, ob die Zielsetzung erreicht werden konnte, und welche Erfahrungen bei der Implementation gemacht werden konnten.
+
+Webbasiert:
+Trotz einiger Nachteile, die der Browser als Laufzeitumgebung mit sich bringt, erscheint es nur logisch, ein CRS webbasiert zu implementieren. Die technischen Anforderungen an das ausführende System sind relativ gering. Die Anforderungen an die User Experience und eine gut gestaltete Benutzeroberfläche im Gegensatz dazu eher hoch. Es erscheint nicht mehr zeitgemäß für eine solch simple (in Bezug auf die technischen Anforderungen) Aufgabe Software extra herunterladen und installieren zu müssen. Bei StuReSy war diese Entwurfs-Entscheidung nachvollziehbar, da dort auch Hardware-Abstimmungsgeräte und ein Plugin-System unterstützt werden sollten, die in einer Web-Anwendung deutlich schwerer zu integrieren gewesen wären.
+
+Das React-Framework hat sich als gute Wahl für diese Aufgabe herausgestellet. Die bereitgestellten Konzepte und Bibliotheken waren relativ einfach zu verstehen und haben eine schnelle Entwicklung ermöglicht. Sicherlich hätte die Implementierung aber auch mit alternativen Frameworks erfolgreich funktioniert. Die Unterschiede der großen JavaScript-Frameworks (React, Vue) scheinen nur marginal zu sein.
+
+Peer-2-Peer-Topologie: Die Implementierung einer P2P-Topologie auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist noch nicht fertiggestellt, und die Abweichungen zwischen den Browser-Herstellern sind relativ groß. WebRTC im Produktiveinsatz mit breiter Kompatibilität zu verwenden ist sehr aufwändig. Die Verwendung von WebRTC-Wrappern, die die Schnittstelle vereinfachen und das Signalling regeln erscheint gerade in kleinen Projekten notwendig zu sein. Leider gibt es in diesem Bereich nicht sehr viele, und nicht sehr aktuelle Open-Source-Bibliotheken.
+
+Das fertige System funktioniert meistens einwandfrei. Allerdings kann es schnell zu Komplikationen kommen, zum Beispiel wenn die Verbindung der Teilnehmer unterbrochen wird, wenn Browser nicht unterstützt werden. Für den Produktiveinsatz sollte die Software an dieser Stelle noch robuster werden.
+
+Code-Ausführung im Browser: Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser grundsätzlich funktioniert.
+
+
+

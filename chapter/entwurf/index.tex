@@ -1,10 +1,24 @@
 \section{Single Page Application Frameworks}
 \label{chap:validierung}
-\input{chapter/entwurf/spa.tex}
+Um das Ziel zu erreichen, dass das neue Classroom Response System ohne einen zentralen Server funktionieren kann, muss die Software also komplett clientseitig ausgeführt werden. Es wird also eine Fat-Client-Aufteilung angestrebt.
+
+Für diesen Zweck bietet es sich an, die Software als sogenannte Single Page Application zu implementieren. Das bedeutet, dass die gesamte Anwendung nur eine einzige Webseite lädt. Navigation und dynamische Inhalte werden bei Bedarf asynchron nachgeladen, es wird jedoch keine neue Seite geladen.
+
+Als Framework für die Implementierung der Single Page Application wird das React-Framework ausgewählt. Das Open-Source-Projekt wird von Facebook finanziert und gehört zu den populärsten Frameworks zum Erstellen von Web-Applikationen.
+
+Das React-Ökosystem ist sehr groß und so bietet sich die Erweiterung der App um einige beliebte Muster und Bibliotheken aus der React-Welt an. Das State Management der Anwendung wird im Flux-Pattern in Form der Redux-Bibliothek implementiert.
+
+
 %
-\section{Peer 2 Peer}
+\section{Peer-2-Peer-Architektur}
 \label{chap:simulator}
-\input{chapter/entwurf/p2p.tex}
+Die Anforderung, ein Classroom-Response-System im Peer-2-Peer-Verfahren ausführen zu können bedeutet hohe Anforderungen für die Netzwerk-Komponenten. Peer-2-Peer-Verbindungen sind aufwändiger zu implementieren, da Aspekte wie NAT und der Austausch der IP-Adressen (das Signalling) berücksichtigt werden müssen.
+
+Der Zugriff auf Netzwerk-Schnittstellen des Betriebssystems durch Browser-Inhalte ist aus Sicherheitsgründen stark eingeschränkt. Die einzige bekannte Möglichkeit, eine P2P-Verbindung zwischen Browsern zu realisieren ist der relativ neue WebRTC-Standard.
+
+WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt. Viele Video/Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf WebRTC.
+
+Das Protokoll beinhaltet leider keine Anweisungen für den Austausch der IP-Adressen der beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist enorm hoch, deswegen wurde für diesen Prototyp die PeerJS-Bibliothek verwendet, die WebRTC in eine sehr einfache API kapselt und das Signalling-Verfahren beisteuert.
 %
 \section{Formatierung}
 \label{chap:metriken}
