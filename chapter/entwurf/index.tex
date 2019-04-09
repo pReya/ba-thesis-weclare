@@ -10,15 +10,19 @@ Das React-Ökosystem ist sehr groß und so bietet sich die Erweiterung der App u
 
 
 %
-\section{Peer-2-Peer-Architektur}
-\label{chap:simulator}
-Die Anforderung, ein Classroom-Response-System im Peer-2-Peer-Verfahren ausführen zu können bedeutet hohe Anforderungen für die Netzwerk-Komponenten. Peer-2-Peer-Verbindungen sind aufwändiger zu implementieren, da Aspekte wie NAT und der Austausch der IP-Adressen (das Signalling) berücksichtigt werden müssen.
+\section{Variable Server-Client-Architektur}
+\label{chap:p2p}
+Um Unabhängigkeit von einem dedizierten, zentralen Server zu erreichen kann jeder Weclare-Nutzer zum Start einer Sitzung, also zur Laufzeit entscheiden, welche Rolle er in der Topologie einnehmen will (Server oder Client). Unabhängig von der Wahl wird stets der gleiche Code vom Server geladen. Das Programm ist in dieser Hinsicht also vielgestaltig. Im laufenden Fragebetrieb gibt es dann eine fixe Rollenzuteilung unter den Teilnehmern: Der Rechner des Dozent agiert als Server, die Rechner der Studenten sind Clients und somit ergibt sich eine klassische Stern-Topologie.
 
-Der Zugriff auf Netzwerk-Schnittstellen des Betriebssystems durch Browser-Inhalte ist aus Sicherheitsgründen stark eingeschränkt. Die einzige bekannte Möglichkeit, eine P2P-Verbindung zwischen Browsern zu realisieren ist der relativ neue WebRTC-Standard.
+Es werden also einige Merkmale einer Peer-to-Peer-Architektur erfüllt (die Teilnehmer führen die gleiche Software aus und sind heterogen zusammengesetzt), im strengen Sinne handelt es sich jedoch nicht um eine Peer-to-Peer-Topologie, sondern lediglich um eine variable Form einer Server-Client-Struktur.
 
-WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt. Viele Video/Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf WebRTC.
+Die Entscheidung, dass jeder Teilnehmer variabel entscheiden kann, ob er die Rolle als Server oder Client einnehmen will bedeutet, dass Aspekte wie NAT und der Austausch der IP-Adressen (das Signalling) berücksichtigt werden müssen.
 
-Das Protokoll beinhaltet leider keine Anweisungen für den Austausch der IP-Adressen der beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist enorm hoch, deswegen wurde für diesen Prototyp die PeerJS-Bibliothek verwendet, die WebRTC in eine sehr einfache API kapselt und das Signalling-Verfahren beisteuert.
+Der Zugriff auf Schnittstellen des Betriebssystems (wie etwa das Netzwerk) durch Browser-Inhalte ist aus Sicherheitsgründen in JavaScript stark eingeschränkt. Die einzige bekannte Möglichkeit, eine omnidirektionale Verbindung zwischen Browsern zu realisieren ist der relativ neue WebRTC-Standard (Abgekürzt für „Web Realtime Communication“).
+
+WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt. Viele Video- und Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf dem WebRTC-Protokoll. Neben Audio- und Videoinhalten können aber auch beliebige andere Daten übertragen werden. WebRTC beinhaltet keine Anweisungen für den Austausch der IP-Adressen zwischen beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist relativ hoch, wenn alle gängigen Netzwerk-Situationen berücksichtigt werden sollen. Deswegen wird beim Weclare-Prototyp eine OpenSource-Bibliothek namens PeerJS verwendet, die WebRTC in eine sehr einfache API kapselt und das Signalling-Verfahren beisteuert.
+
+Die mehrfach formulierte Anforderung, keinen dedizierten Server zu benötigen, kann aufgrund des notwendigen Signallings also nicht vollständig erfüllt werden und muss präzisiert werden: Ein dedizierter Server wird lediglich zum Austausch der IP-Adressen der Teilnehmer benötigt. Anwendungsdaten werden nie über einen zentralen Server, sondern immer nur zwischen den Teilnehmern verschickt.
 %
 \section{Formatierung}
 \label{chap:metriken}
