@@ -7,11 +7,14 @@
               ]{scrbook}
 \usepackage[ngerman,english]{babel}
 %% see http://www.tex.ac.uk/cgi-bin/texfaq2html?label=uselmfonts
+%% Fotns
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{libertine}
 \usepackage{pifont}
 \usepackage{microtype}
+\usepackage{inconsolata}
+%%
 \usepackage{textcomp}
 \usepackage[german,refpage]{nomencl}
 \usepackage[ngerman,colorlinks=true]{hyperref}
@@ -55,22 +58,38 @@
   \colorlet{Color1}{gray!40}
   \colorlet{Color2}{white}
 }{}
-\lstset{
-  language=Java,
-  numbers=left,
-  numberstyle=\tiny,
-  stepnumber=1,
-  numbersep=5pt,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{KeywordColor}\bfseries,
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+  keywords={do, if, in, for, let, new, try, var, case, else, enum, eval, null, this, true, void, with, await, break, catch, class, const, false, super, throw, while, yield, delete, export, import, public, return, static, switch, typeof, default, extends, finally, package, private, continue, debugger, function, arguments, interface, protected, implements, instanceof},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
   identifierstyle=\color{black},
-  commentstyle=\color{CommentColor},
-  backgroundcolor=\color{BackgroundColor},
-  captionpos=b,
-  fontadjust=true
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
 }
-\lstset{escapeinside={(*@}{@*)}, % used to enter latex code inside listings
-        morekeywords={uint32_t, int32_t}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{BackgroundColor},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
 }
 \ifpdfoutput{
   \hypersetup{bookmarksopen=false,bookmarksnumbered,linktocpage}
@@ -157,7 +176,7 @@ Additionally, Java source code which is embedded in the content of a question wi
 \label{chap:bewertung}
 \input{chapter/bewertung/index.tex}
 %
-\chapter{Kern-Anforderungen an eine moderne CRS-Lösung für die Informatik-Lehre}
+\chapter{Kern-Anforderungen an eine moderne CRS-Lösung für die Programmierlehre}
 \label{chap:anforderungen}
 \input{chapter/anforderungen/index.tex}
 %

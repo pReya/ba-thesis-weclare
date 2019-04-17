@@ -1,21 +1,21 @@
-Nach der Analyse zwei bestehender Lösungen sollen nun Kern-Anforderungen formuliert werden, die ein modernes Audience-Response-System für den Einsatz in der Informatiklehre ausmachen:
+Nach der Analyse zwei bestehender Lösungen sollen nun Kern-Anforderungen formuliert werden, die ein modernes Classroom-Response-System für den Einsatz in der Programmierlehre mitbringen sollte:
 
 \section{Webbasiert}
 \label{chap:webbasiert}
-Eine modernes Audience-Response-System sollte vollständig webbasiert daherkommen. Die Zugänglichkeit einer Web-Applikation, die vollständig im Browser und ohne Downloads verwendet werden kann ist gerade für den Einsatz in der Universität wichtig. Der Download oder die Installation von zusätzlicher Software hebt die Hürde zum Einsatz der Software unnötigerweise an.
+Eine modernes Classroom-Response-System im akademischen Einsatz sollte vollständig webbasiert daherkommen. Die Zugänglichkeit einer Web-Applikation, die vollständig im Browser und ohne Downloads verwendet werden kann ist gerade für den Einsatz in der Universität wichtig. Der Download oder die Installation von zusätzlicher Software stellt eine unnötige Hürde für den Einsatz der Software dar.
 
-Außerdem stellt ein Classroom-Response-System im Einsatz mit üblichen Gruppengrößen für heutige Computersysteme keine große Lastsituation mehr dar. Eventuelle Performance-Probleme sollten in diesem Fall keine Rolle spielen.
+Ein CRS beim Einsatz in üblichen Vorlesungsgrößen maximal einige hundert Teilnehmer) stellt für heutige Computersysteme keine große Lastsituation mehr dar. Die Performance oder technische Realisierbarkeit sollten also nicht gegen eine webbasierte Software sprechen.
 
-\section{Variable Client-Server-Architektur}
-\label{chap:p2p}
-Um die Langlebigkeit eines CRS-Systems zu erhöhen sollte der Wartungsaufwand einer solchen Software möglichst gering ausfallen. Außerdem sollte die Hürde gegenüber Dozenten zum Einsatz der Software möglichst weit gesenkt werden. Der Betrieb eines eigenen, dedizierten Servers widerspricht dieser Philosophie. Daher sollte ein modernes CRS größtenteils ohne dedizierten Server funktionieren, und stattdessen auf Direktverbindungen unter den Teilnehmern setzen.
+\section{Ohne Anwendungs-Server einsetzbar}
+\label{chap:anforderung_p2p}
+Um die Langlebigkeit eines CRS-Systems zu erhöhen sollte der Wartungsaufwand einer solchen Software so gering wie möglich ausfallen. Außerdem sollte die Hürde zum Einsatz der Software gerade gegenüber Dozenten möglichst weit gesenkt werden. Der Betrieb eines eigenen, dedizierten Servers mit individuellen Anforderungen (z.B. vorhandene Interpreter oder Datenbanken) widerspricht dieser Philosophie. Daher sollte ein modernes CRS größtenteils ohne dedizierten Anwendungs-Server funktionieren, und stattdessen auf Direktverbindungen unter den Teilnehmern setzen.
 
-\section{Code-Formatierung}
+\section{Formatierungsmöglichkeiten für Quelltext}
 \label{chap:codeformatierung}
-Um die Darstellung von Programm-Ausschnitten zu verbessern sollte ein CRS für den Informatik-Bereich gut mit Code-Beispielen umgehen können. Dazu gehört, dass Code möglichst übersichtlich dargestellt wird. Das spricht für die Unterstützung von Syntax-Highlighting für längere Ausdrücke und Abschnitte sowie die Ermöglichung von Monospace-Formatierung um technische Begriffe im Fließtext ordentlich kennzeichnen zu können.
+Um die Darstellung von Programm-Ausschnitten zu verbessern sollte ein CRS für den Informatik-Bereich gut mit Code-Beispielen umgehen können. Dazu gehört, dass Code möglichst übersichtlich dargestellt werden kann. Das beinhaltet die Unterstützung von simplen Formatierungsmöglichkeiten (zum Beispiel Absätze und Fettschreibung) sowie von Syntax-Highlighting für längere Abschnitte sowie die Unterstützung von Monospace-Formatierung um technische Begriffe im Fließtext ordentlich abheben zu können.
 
 \section{Interaktive Code-Ausführung}
 \label{chap:codeausfuehrung}
-Um die Benutzung eines CRS zu erleichtern, sollte der Dozent nicht parallel eine Entwicklungsumgebung geöffnet haben müssen, um das Ergebnis von Code-Ausführungen zu demonstrieren. Die Ausführung direkt im Browser sollte ermöglicht werden.
+Um ein CRS noch spezifischer auf das Einsatzgebiet der Programmierlehre zuzuschneiden, soll außerdem evaluiert werden, ob sich die Abhängigkeit von weiteren Programmen wie Entwicklungsumgebunngen reduzieren lässt, indem die Ausführung von Quelltexten direkt im CRS ermöglicht wird.
 
-Gleichzeitig soll das neue System kompatibel zu StuReSy sein. Aus diesem Grund wird ein Kommandozeilen-Werkzeug entwickelt, welches Fragensätze vom XML-basierten StuReSy-Formt in das JSON-basierte Weclare-Format konvertiert. https://github.com/pReya/weclare-sturesy-converter
+Um die Benutzung eines CRS zu erleichtern, sollte der Dozent keine weiteren Anwendungen neben dem CRS benötigen. Ein Parallelbetrieb von CRS und Entwicklungsumgebung, um zwischen Code-Ausführung und Fragen hin- und herzuschalten ist unübersichtlich und nicht wünschenswert. Die Ausführung von Quelltext direkt im Browser sollte ermöglicht werden.
