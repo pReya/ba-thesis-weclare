@@ -31,7 +31,7 @@ class Greeting extends React.Component {
 }
 \end{lstlisting}
 
-Da der Aufruf React.createElement() nicht so schön zu lesen ist, wie die Notation eines XML-Tags (<div>...</div>) wird im React-Umfeld häufig eine Syntax-Erweiterung namens JSX (JavaScript Syntax Extension) verwendet um React-Komponenten zu beschreiben. JSX wird mit einem Transpiler während des Build-Prozesses in herkömmliches JavaScript umgewandelt. Äquivalent zum letzten Beispiel wäre daher die folgende Variante unter Einbeziehung von JSX-Syntax:
+Da der Aufruf \texttt{React.createElement()} nicht so schön zu lesen ist, wie die Notation eines XML-Tags (\texttt{<div>...</div>}) wird im React-Umfeld häufig eine Syntax-Erweiterung namens JSX (JavaScript Syntax Extension) verwendet um React-Komponenten zu beschreiben. JSX wird mit einem Transpiler während des Build-Prozesses in herkömmliches JavaScript umgewandelt. Äquivalent zum letzten Beispiel wäre daher die folgende Variante unter Einbeziehung von JSX-Syntax:
 
 \begin{lstlisting}
 import React from 'react';
@@ -72,9 +72,9 @@ class GreetAllFriends extends React.Component {
 }
 \end{lstlisting}
 
-\texttt{Properties} werden also verwendet um Daten in Komponenten hinein zu reichen. Außerdem kümmert sich React automatisch um das Aktualisieren der aktuellen Ansicht, sobald sich eine Property ändert. Dabei verwendet React schnelle und intelligente Verfahren, um immer nur die nötigen Elemente zu aktualisieren, und nicht die gesamte Seite zu erneuern.
+\texttt{Properties} werden also verwendet um Daten in Komponenten hinein zu reichen. React kümmert sich automatisch um das Aktualisieren der aktuellen Ansicht, sobald sich eine Property ändert. Dabei verwendet React sehr schnelle und intelligente Algorithmen, um immer nur diejenigen Elemente zu aktualisieren, die sich auch tatsächlich geändert haben und nicht die gesamte Seite zu erneuern.
 
-Properties können nicht modifiziert werden – wie die meisten Objekte innerhalb von React sind sie immutable. Wenn Daten innerhalb einer Komponente modifiziert werden sollen gehören sie in den internen, modifizierbaren \texttt{state} dieser Komponente:
+Properties können nicht modifiziert werden – sie sind wie auch die meisten anderen Objekte innerhalb von React „immutable“. Wenn Daten innerhalb einer Komponente modifiziert werden sollen, gehören sie in das interne, modifizierbare \texttt{state}-Objekt dieser Komponente:
 
 \begin{lstlisting}
 import React from "react";
@@ -102,35 +102,58 @@ class BusyOrNot extends React.Component {
   }
 }
 \end{lstlisting}
-Bedingt durch die statische Natur der Properties, forciert React einen unidirektionalen Datenfluss. Daten können nur von „oben nach unten“ (in Bezug auf die Baumstruktur im Document Object Model einer Seite) durch eine Anwendung fließen. Möchten zwei Komponenten an unterschiedlichen Stellen auf die gleichen Daten zugreifen, dann sollte der entsprechende \texttt{state} in einer gemeinsamen Eltern-Komponente gehalten werden. \newline
+Bedingt durch die statische Natur der Properties, forciert React einen unidirektionalen Datenfluss. Daten können nur von „oben nach unten“ (in Bezug auf die Baumstruktur im Document Object Model einer Seite) durch eine Anwendung fließen. Möchten zwei Komponenten an unterschiedlichen Stellen auf die gleichen Daten zugreifen, dann sollten diese in einer gemeinsamen Eltern-Komponente gehalten werden. \newline
 
-
-Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Durchstecken“ von Properties (Prop Drilling) durch mehrere Komponenten-Ebenen führt, gibt es eine populäre Erweiterung für React zur Verwaltung eines globalen States in der gesamten Anwendung: das sogenannte Flux-Muster.
+Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Durchstecken“ von Properties (Prop Drilling) durch mehrere Komponenten-Ebenen führt, gibt es eine populäre Erweiterung für React zur Verwaltung eines globalen States in der gesamten Anwendung: das Flux-Muster.
 
 
 \subsubsection{State Management mit Redux}
-Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux.
+Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux \cite{web:redux}.
 
-Im Flux-Muster geht es darum, eine zentrale Zustands-Verwaltung für eine Anwendung einzurichten, eine „Single Source of Truth“. Dieser zentrale Ort wird als „Store“ bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen State verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist (zum Beispiel der Status von UI-Elementen).
+Im Flux-Muster geht es darum, eine zentrale Zustands-Verwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als „Store“ bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen State verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist (zum Beispiel der Status von einzelnen UI-Elementen).
 
-Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. Die Daten aus dem Store stehen der Komponente dann als Property zur Verfügung. Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Properties ggf. neu gerendert.
+Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. Die gewünschten Daten aus dem Store stehen der Komponente dann als Property zur Verfügung. Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Properties auch neu gerendert.
 
-Ähnlich wie die Properties in React, sind auch die Daten in einem Store unveränderlich. Änderungen in einem Store müssen mithilfe von \texttt{Actions} realisiert werden. Bei einer Action handelt es sich lediglich um ein Objekt, welches die Art der Änderung in einem Store beschreibt. Die konkrete Umsetzung einer Änderungsoperation erfolgt im zugehörigen \texttt{reducer}. Ein einfacher Reducer zum Hinzufügen einer Frage zu einem Fragekatalog könnte so aussehen:
+Ähnlich wie die Properties in React, sind auch die Daten in einem Store unveränderlich. Änderungen in einem Store müssen mithilfe von \texttt{Actions} realisiert werden. Bei einer Action handelt es sich lediglich um ein Objekt, welches die Art der Änderung in einem Store beschreibt. Um das Schreiben aufwändiger Objekt-Literale zu erleichtern werden die Actions üblicherweise von einer \texttt{ActionCreator}-Funktion erzeugt:
+
+\begin{lstlisting}
+export function addQuestion(newQuestion) {
+  return {
+    type: "ADD_QUESTION",
+    payload: {
+      newQuestion
+    }
+  };
+}
+\end{lstlisting}
+
+Die Implementierung einer Änderungsoperation erfolgt in dem zugehörigen \texttt{reducer}. Die Operationen in einem reducer sind stets pure Funktionen, das heißt sie liefern immer das gleiche Ergebnis bei gleichen Eingabe-Parametern und sie haben keine Seiteneffekte. Die Parameter des reducers ist immer der aktuelle State und die eingehende Action. Ein einfacher Reducer zum Hinzufügen einer Frage zu einem Fragekatalog könnte so aussehen:
 
 \begin{lstlisting}
 const questionEditor = (state = [], action) => {
   switch (action.type) {
-    case ADD_QUESTION: {
+    case "ADD_QUESTION": {
       return [... state, createNewQuestion()];
     }
   }
 };
-
 \end{lstlisting}
 
-\subsection{Beispiele für die Umsetzung mittels React}
+\subsection{Konkrete Umsetzung mittels React}
+Um das neue CRS zu implementieren, muss zuerst eine sinnvolle Aufteilung in Komponenten erfolgen. Exemplarisch soll an dieser Stelle einer der Hauptbestandteile der Anwendung besprochen werden: der Fragen-Editor.
 
+Das zweiteilige Design, bestehend aus einer Fragenliste in der Seitenspalte und einem Fragen-Inhaltsbereich, das sowohl bei StuReSy als auch bei Pingo zum Einsatz kommt, sollte beibehalten werden.
 
+Eine mögliche Komponenten-Hierarchie für den Fragen-Editor wird in \ref{Abbildung 4.1} veranschaulicht. Die äußerste Komponente, der \texttt{QuestionEditorContainer} ist nicht sichtbar, es handelt sich dabei um eine Container-Komponente, welche die notwendigen Daten aus dem Store holt und dann an seine Kinder-Komponenten mittels Properties weitergibt.
+
+\begin{figure}[H]
+    \includegraphics[width=12cm]{chapter/entwurf/Component_Hierarchy.png}
+    \centering
+    \caption{Mögliche Komponenten-Hierarchie für den Fragen-Editor.}
+    \label{Abbildung 4.1}
+\end{figure}
+
+Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (einzig die Komponente \texttt{QuestionEditorListItem} findet sich nicht.
 
 %
 \section{Variable Server-Client-Architektur}
