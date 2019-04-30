@@ -1,1 +1,11 @@
-In diesem Kapitel wird eine Strategie formuliert, mit der die Vereinigung des JADE Framework und des CoDy Algorithmus validiert werden kann.
+Um Fragestellungen mit Text-Formatierungen zu versehen ist eine simple Editor-Komponente notwendig, die mit einer grafischen Benutzeroberfläche ausgestattet ist. Eine solche Komponente selber zu implementieren ist sehr aufwendig, außerdem gibt es in diesem Segment bereits viele existierende Lösungen in der JavaScript-Landschaft. So wurden verschiedene Bibliotheken getestet und in Erwägung gezogen: Draft.js, CodeMirror, Slate, Prosemirror, Quill.
+
+Letztendlich muss eine Editor-Komponente in diesem Projekt folgende Anforderungen erfüllen:
+
+\begin{itemize}
+    \item Integrierbarkeit mit React
+    \item Möglichkeit um Syntax-Highlighting zu realisieren
+    \item Simple Text-Formatierungen (Fett, Kursiv, etc)
+\end{itemize}
+
+Der Quill-Editor erfüllt alle diese Kriterien und wurde deswegen

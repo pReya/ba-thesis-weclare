@@ -1,0 +1,52 @@
+Um Unabhängigkeit von einem dedizierten, zentralen Server zu erreichen kann jeder Weclare-Nutzer zum Start einer Sitzung, also zur Laufzeit entscheiden, welche Rolle er in der Topologie einnehmen will (Server oder Client). Unabhängig von der Wahl wird stets der gleiche Code vom Server geladen. Das Programm ist in dieser Hinsicht also vielgestaltig. Im laufenden Fragebetrieb gibt es dann eine fixe Rollenzuteilung unter den Teilnehmern: Der Rechner des Dozent agiert als Server, die Rechner der Studenten sind Clients und somit ergibt sich eine klassische Stern-Topologie.
+
+Auch wenn einige Merkmale einer Peer-to-Peer-Architektur erfüllt (die Teilnehmer führen die gleiche Software aus und sind heterogen zusammengesetzt) werden, handelt es sich zur Laufzeit einer Fragerunde um eine klassische Client-Server-Struktur.
+
+Die Entscheidung, dass jeder Teilnehmer variabel entscheiden kann, ob er die Rolle als Server oder Client einnehmen will bedeutet, dass Aspekte wie NAT und der Austausch der IP-Adressen (das Signalling) berücksichtigt werden müssen.
+
+Der Zugriff auf Schnittstellen des Betriebssystems (wie etwa das Netzwerk) durch Browser-Inhalte ist aus Sicherheitsgründen in JavaScript stark eingeschränkt. Die einzige bekannte Möglichkeit, eine omnidirektionale Verbindung zwischen Browsern zu realisieren ist der relativ neue WebRTC-Standard (Abgekürzt für „Web Realtime Communication“).
+
+WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt. Viele Video- und Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf dem WebRTC-Protokoll. Neben Audio- und Videoinhalten können aber auch beliebige andere Daten übertragen werden. WebRTC beinhaltet keine Anweisungen für den Austausch der IP-Adressen zwischen beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist relativ hoch, wenn alle gängigen Netzwerk-Situationen berücksichtigt werden sollen. Deswegen wird beim Weclare-Prototyp eine OpenSource-Bibliothek namens PeerJS verwendet, die WebRTC in eine sehr einfache API kapselt und das Signalling-Verfahren beisteuert.
+
+Die mehrfach formulierte Anforderung, keinen dedizierten Server zu benötigen, kann aufgrund des notwendigen Signallings also nicht vollständig erfüllt werden und muss präzisiert werden: Ein dedizierter Server wird lediglich zum Austausch der IP-Adressen der Teilnehmer benötigt. Anwendungsdaten werden nie über einen zentralen Server, sondern immer nur zwischen den Teilnehmern verschickt.
+
+Die PeerJS-Library ermöglicht den Aufbau einer Datenverbindung zwischen zwei Browsern in sehr simplen Aufrufen:
+
+Zunächst müssen Client und Server ein Peer-Objekt erzeugen. Als Parameter kann an dieser Stelle eine ID mitgegeben werden, unter welcher der zugehörige Peer beim Signalling-Server bekannt gemacht wird. Optional kann außerdem ein eigener Signalling-Server eingefügt werden. Die Standard-Einstellung verwendet den kostenlosen und öffentlichen Signalling-Server, der von den PeerJS-Autoren betrieben wird.
+
+\begin{lstlisting}
+import Peer from "peerjs";
+
+const peer = createPeer();
+\end{lstlisting}
+
+Anschließend können an dem neuen Peer-Objekt diverse Callback-Methoden registriert werden, die den weiteren Gebrauch bestimmen. So kann zum Beispiel der Server seine neu erstellte ID kundtun und auf eingehende Verbindungen und Daten reagieren:
+
+\begin{lstlisting}
+peer.on("open", id => {
+  console.log(`Successfully created peer: ${id}`);
+});
+
+peer.on("connection", conn => {
+  console.log(`New client connected: ${conn.peer}`);
+  conn.on("data", data => {
+    switch (data.type) {
+      case "answer":
+        // Do something
+        break;
+      case "heartbeat":
+        // Do something else
+        break;
+      default:
+      // Noop
+    }
+  });
+});
+\end{lstlisting}
+
+Auf der Gegenseite, beim Client kann die Verbindung einfach über die connect() Methode aufgebaut werden. Anschließend kann über das daraus zurückgelieferte Connection-Objekt eine Nachricht verschickt werden:
+
+\begin{lstlisting}
+const connection = peer.connect("server-id");
+connection.send("Hello world!");
+\end{lstlisting}

@@ -1,27 +1,28 @@
-Im Rahmen dieser Arbeit wird ein CRS entworfen und prototypisch implementiert, welches die besagten Kern-Anforderungen erfüllt. Die entstehende Software hört auf den Namen Weclare (ein Akronym für „\textbf{We}b \textbf{Cla}ssroom \textbf{Re}sponse (System)“. Der gesamte Quelltext zu dem Projekt findet sich in einem öffentlichen Github-Repository und eine öffentlich zugängliche Version der Software kann unter \texttt{www.weclare.de} aufgerufen werden. Insgesamt hat die Implementierung einen Umfang von rund 6000 Zeilen Code (vergleichbar mit dem Vorbild StuReSy).
+Im Rahmen dieser Arbeit wird ein CRS entworfen und prototypisch implementiert, welches die besagten Kern-Anforderungen erfüllt. Die entstehende Software hört auf den Namen Weclare (ein Akronym für „\textbf{We}b \textbf{Cla}ssroom \textbf{Re}sponse (System)“. Der gesamte Quelltext zu dem Projekt findet sich in einem öffentlichen GitHub-Repository\cite{web:github_weclare} und eine öffentlich zugängliche Version der Software kann unter \texttt{www.weclare.de} aufgerufen werden. Insgesamt hat die entstandene Implementierung einen Umfang von rund 6000 Zeilen Code (vergleichbar mit dem Vorbild StuReSy).
 
-Gleichzeitig soll das neue System mit bestehenden Daten aus StuReSy funktionieren. Aus diesem Grund wird außerdem ein Kommandozeilen-Werkzeug entwickelt, welches Fragensätze vom XML-basierten StuReSy-Format in das JSON-basierte Weclare-Format konvertiert. Auch dieses Hilfsprogramm kann in einem öffentlichen Github-Repository gefunden werden. https://github.com/pReya/weclare-sturesy-converter
+Eine weitere Anforderung an das neue System: Zur Evaluierung soll Weclare auch mit bestehenden Datensätzen aus StuReSy funktionieren. Aus diesem Grund wird außerdem ein Kommandozeilen-Werkzeug entwickelt, welches Fragensätze vom XML-basierten StuReSy-Format in das JSON-basierte Weclare-Format konvertiert. Dieser Konverter wurde ebenfalls in JavaScript geschrieben und benötigt die Node.js-Laufzeitumgebung. Auch dieses Hilfsprogramm kann in einem öffentlichen GitHub-Repository\cite{web:github_converter} gefunden werden. 
 
-\section{Umsetzung als Single Page Application}
+\newpage
+\section{Implementierung als Single Page Application mit dem React-Framework}
 \label{chap:react_einfuehrung}
-Um eine webbasierte Anwendung zu erstellen, die ohne einen zentralen Server auskommt, muss die Software komplett clientseitig in einem Browser ausgeführt werden. Ein klassisches Backend, also eine Datenschicht (üblicherweise handelt es sich bei den meisten Web-Applikationen mindestens um eine Zwei-Schichten-Architektur) existiert nicht, beziehungsweise ist in die Präsentationsschicht integriert. Das bedingt die Kategorisierung einer solchen Anwendung als „Fat Client“.
+Um eine webbasierte Anwendung zu erstellen, die ohne einen zentralen Server auskommt, muss die Software komplett clientseitig in einem Browser ausgeführt werden, das heißt auch vollständig in JavaScript implementiert werden. Ein klassisches Backend, also eine Datenschicht (üblicherweise handelt es sich bei den meisten Web-Applikationen mindestens um eine Zwei-Schichten-Architektur) existiert nicht, beziehungsweise ist in die Präsentationsschicht integriert. Das bedingt die Kategorisierung einer solchen Anwendung als „Fat Client“.
 
-Für diesen Zweck bietet es sich an, die Software als sogenannte „Single Page Application“ zu implementieren. Das bedeutet, dass die gesamte Anwendung nur eine einzige Webseite lädt und diese dann dynamisch verändert wird. Weitere Inhalte werden bei Bedarf asynchron (ohne Blockieren der Seite) nachgeladen, es wird jedoch keine neue Seite geladen. Damit wird auch eine hohe Autarkie vom Webserver erreicht, da dieser nur mit wenigen Requests (ein Request pro Nutzer – ausgenommen der Features in Kapitel X.X) umgehen muss. Die Anforderungen an den Webserver auf dem die Anwendung bereitgestellt wird sind sehr gering, er muss lediglich eine einzige JavaScript-Datei ausliefern (ausgenommen Bilder, Icons, Schriftarten, Stylesheets und ähnliches).
+Für diesen Zweck bietet es sich an, die Software als sogenannte „Single Page Application“ zu implementieren. Herkömmliche Webseiten, sogenannte Multi-Page-Applications werden während ihrer Lebenszeit mehrfach aktualisiert. Zum Beispiel jedes Mal, wenn der Server neues HTML liefert, das dargestellt werden soll. Eine Single Page Appliaction lädt nur eine einzige Webseite und das zugehörige JavaScript-Programm und verändert diese eine Seite dann im weiteren Verlauf dynamisch. Weitere Inhalte werden bei Bedarf asynchron (ohne Blockieren der Seite) nachgeladen, es wird jedoch keine neue Seite geladen. Damit wird auch eine hohe Autarkie gegenüber dem Webserver erreicht, da dieser nur mit wenigen Requests (im einfachsten Fall ein Request pro Nutzer) umgehen muss. Die Anforderungen an den Webserver auf dem die Anwendung bereitgestellt wird sind sehr gering, er muss lediglich statische Dateien (HTML, JavaScript, Bilder, Schriften, etc.) bereitstellen.
 
-\subsection{Einführung in das React-Framework}
 Als Framework für die Implementierung einer solchen Single Page Application wird das React-Framework\cite{web:react} ausgewählt. Das Open-Source-Projekt existiert seit 2013 und wird von Facebook finanziert. Es gehört zu den populärsten Frameworks zum Erstellen von Benutzeroberflächen und Web-Applikationen und ist dem Autor der Arbeit bereits vertraut.
 
 Um einige Implementationsdetails nachzuvollziehen, erfolgt an dieser Stelle eine kleine Einführung in Grundkonzepte von React.
 
-\subsubsection{Komponenten}
+\subsection{Komponenten und State}
 Die elementaren Bausteine einer React-Anwendung sind \texttt{Komponenten}. Die React-Dokumentation beschreibt die Aufgabe von Komponenten wie folgt\cite{web:react}:
 \begin{quotation}
 „Build encapsulated components that manage their own state, then compose them to make complex UIs.“
 \end{quotation}
 
-Ein Komponente ist eine autarke und wiederverwendbare Einheit und kapselt meistens sowohl Struktur, Aussehen als auch Logik. Komponenten werden häufig als Klasse implementiert (können aber in einfachen Fällen auch als Funktion implementiert werden) und erben von der Klasse \texttt{React.Component}. Komponenten müssen nur über eine \texttt{render()}-Funktion verfügen, die HTML oder andere React-Komponenten zurückliefert. Eine sehr simple, statische Komponente könnte so aussehen:
+Ein Komponente ist eine autarke und wiederverwendbare Einheit und kapselt meistens sowohl Struktur, Aussehen als auch Logik. Komponenten werden häufig als Klasse implementiert (können aber in einfachen Fällen auch als Funktion implementiert werden) und erben von der Klasse \texttt{React.Component}. Valide Komponenten müssen über eine \texttt{render()}-Funktion verfügen, die HTML oder andere React-Komponenten zurückliefert. Eine sehr simple, statische Komponente könnte so aussehen:
 
-\begin{lstlisting}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Einfache React-Komponente ohne JSX-Syntax.}]
 import React from "react";
 
 class Greeting extends React.Component {
@@ -30,10 +31,12 @@ class Greeting extends React.Component {
   }
 }
 \end{lstlisting}
+\end{minipage}
 
-Da der Aufruf \texttt{React.createElement()} nicht so schön zu lesen ist, wie die Notation eines XML-Tags (\texttt{<div>...</div>}) wird im React-Umfeld häufig eine Syntax-Erweiterung namens JSX (JavaScript Syntax Extension) verwendet um React-Komponenten zu beschreiben. JSX wird mit einem Transpiler während des Build-Prozesses in herkömmliches JavaScript umgewandelt. Äquivalent zum letzten Beispiel wäre daher die folgende Variante unter Einbeziehung von JSX-Syntax:
+Da der Aufruf \texttt{React.createElement()} nicht so schön zu lesen ist, wie die Notation eines XML-Tags (\texttt{<div>...</div>}) wird im React-Umfeld häufig eine Syntax-Erweiterung namens JSX (JavaScript Syntax Extension) verwendet um React-Komponenten zu beschreiben. JSX wird mit einem Compiler während des Build-Prozesses in herkömmliches JavaScript umgewandelt. Äquivalent zum letzten Beispiel wäre daher die folgende Variante unter Einbeziehung von JSX-Syntax:
 
-\begin{lstlisting}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Einfache React-Komponente mit JSX-Syntax.}]
 import React from 'react';
 
 class Greeting extends React.Component {
@@ -42,10 +45,12 @@ class Greeting extends React.Component {
     }
 }
 \end{lstlisting}
+\end{minipage}
 
 Um Komponenten dynamisch zu machen, können über sogenannte \texttt{Properties} Daten an Komponenten übergeben werden:
 
-\begin{lstlisting}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Komponenten erhalten Daten über ihre Properties.}]
 import React from "react";
 
 class Greeting extends React.Component {
@@ -54,10 +59,12 @@ class Greeting extends React.Component {
   }
 }
 \end{lstlisting}
+\end{minipage}
 
 Properties werden wie andere HTML-Attribute auch einfach hinter den Namen der Komponente innerhalb des zugehörigen Tags in die Instanziierung einer Komponente integriert:
 
-\begin{lstlisting}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Properties werden wie normale HTML-Attribute verwendet.}]
 import React from "react";
 
 class GreetAllFriends extends React.Component {
@@ -71,12 +78,14 @@ class GreetAllFriends extends React.Component {
   }
 }
 \end{lstlisting}
+\end{minipage}
 
-\texttt{Properties} werden also verwendet um Daten in Komponenten hinein zu reichen. React kümmert sich automatisch um das Aktualisieren der aktuellen Ansicht, sobald sich eine Property ändert. Dabei verwendet React sehr schnelle und intelligente Algorithmen, um immer nur diejenigen Elemente zu aktualisieren, die sich auch tatsächlich geändert haben und nicht die gesamte Seite zu erneuern.
+\texttt{Properties} werden also verwendet um Daten in Komponenten hinein zu reichen. React kümmert sich automatisch um das Aktualisieren der aktuellen Ansicht, sobald sich eine Property ändert (dieses „reaktive“ Prinzip ist auch der Namensgeber für das Framework). Dabei verwendet React sehr schnelle und intelligente Algorithmen, um immer nur diejenigen Elemente einer Seite zu aktualisieren, die sich auch tatsächlich geändert haben.
 
 Properties können nicht modifiziert werden – sie sind wie auch die meisten anderen Objekte innerhalb von React „immutable“. Wenn Daten innerhalb einer Komponente modifiziert werden sollen, gehören sie in das interne, modifizierbare \texttt{state}-Objekt dieser Komponente:
 
-\begin{lstlisting}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Jede Komponente kann über einen modifizierbaren state verfügen.}]
 import React from "react";
 
 class BusyOrNot extends React.Component {
@@ -102,21 +111,74 @@ class BusyOrNot extends React.Component {
   }
 }
 \end{lstlisting}
+\end{minipage}
+
 Bedingt durch die statische Natur der Properties, forciert React einen unidirektionalen Datenfluss. Daten können nur von „oben nach unten“ (in Bezug auf die Baumstruktur im Document Object Model einer Seite) durch eine Anwendung fließen. Möchten zwei Komponenten an unterschiedlichen Stellen auf die gleichen Daten zugreifen, dann sollten diese in einer gemeinsamen Eltern-Komponente gehalten werden. \newline
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={„Lifting state up“: Mehrere Komponenten greifen auf die gleichen Daten zu.}]
+import React from "react";
+
+function Son(props) {
+  return <p>I am the son of {props.parent}</p>
+}
+
+function Daughter(props) {
+  return <p>I am the daughter of {props.parent}</p>
+}
+
+class Parent extends React.Component {
+  state = {
+    parentName: "Peter Parent"
+  };
+
+  render() {
+    return (
+      <div>
+        <Son parent={this.state.parentName} />
+        <Daughter parent={this.state.parentName} />
+      </div>
+    );
+  }
+}
+\end{lstlisting}
+\end{minipage}
 
 Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Durchstecken“ von Properties (Prop Drilling) durch mehrere Komponenten-Ebenen führt, gibt es eine populäre Erweiterung für React zur Verwaltung eines globalen States in der gesamten Anwendung: das Flux-Muster.
 
 
-\subsubsection{State Management mit Redux}
+\subsection{State Management mit Redux}
 Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux \cite{web:redux}.
 
-Im Flux-Muster geht es darum, eine zentrale Zustands-Verwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als „Store“ bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen State verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist (zum Beispiel der Status von einzelnen UI-Elementen).
+Im Flux-Muster geht es darum, eine zentrale Zustandsverwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als „Store“ bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen State verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist (zum Beispiel der Status von einzelnen UI-Elementen).
 
-Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. Die gewünschten Daten aus dem Store stehen der Komponente dann als Property zur Verfügung. Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Properties auch neu gerendert.
+\begin{figure}[H]
+    \includegraphics[width=12cm]{chapter/entwurf/BA_redux.png}
+    \centering
+    \caption{Der Redux-Store verwaltet den globalen Zustand einer React-Anwendung und ist die „Single Source of Truth“. Quelle: https://css-tricks.com/learning-react-redux/ (aufgerufen am 24.4.19)}
+    \label{Abbildung 4.1.3}
+\end{figure}
 
-Ähnlich wie die Properties in React, sind auch die Daten in einem Store unveränderlich. Änderungen in einem Store müssen mithilfe von \texttt{Actions} realisiert werden. Bei einer Action handelt es sich lediglich um ein Objekt, welches die Art der Änderung in einem Store beschreibt. Um das Schreiben aufwändiger Objekt-Literale zu erleichtern werden die Actions üblicherweise von einer \texttt{ActionCreator}-Funktion erzeugt:
 
-\begin{lstlisting}
+Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. Die gewünschten Daten aus dem Store stehen der Komponente dann als Properties zur Verfügung. Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Properties auch neu gerendert (reaktives Prinzip). Um eine möglichst lose Kopplung zwischen den Komponenten zu realisieren, wird empfohlen die Verbindung zu einem Store in einer (nicht sichtbaren) Container-Komponente zu realisieren. In diesem Beispiel wird die eigentliche, sichtbare \texttt{Header}-Komponente mit einem unsichtbaren Container versehen, der die notwendigen Daten aus dem Store innerhalb der Komponente unter der \texttt{status}-Property verfügbar macht.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Über den connect-Aufruf beim Exportieren der Komponente wird sie mit dem Store verbunden.}]
+import { connect } from "react-redux";
+import Header from "./Header";
+
+const mapStateToProps = state => ({
+  status: state.connection.status
+});
+
+export default connect(mapStateToProps)(Header);
+\end{lstlisting}
+\end{minipage}
+
+Ähnlich wie die Properties in React, sind auch die Daten in einem Store unveränderlich. Änderungen in einem Store müssen mithilfe von \texttt{Actions} realisiert werden. Bei einer Action handelt es sich lediglich um ein Objekt, welches die Art der Änderung in einem Store beschreibt. Um das wiederholte Schreiben aufwändiger Objekt-Literale zu erleichtern werden die Actions üblicherweise von einer \texttt{ActionCreator}-Funktion erzeugt:
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Ein Action-Objekt ist lediglich die Beschreibung einer Änderungsoperation und wird in einem ActionCreator erzeugt.}]
 export function addQuestion(newQuestion) {
   return {
     type: "ADD_QUESTION",
@@ -126,10 +188,12 @@ export function addQuestion(newQuestion) {
   };
 }
 \end{lstlisting}
+\end{minipage}
 
-Die Implementierung einer Änderungsoperation erfolgt in dem zugehörigen \texttt{reducer}. Die Operationen in einem reducer sind stets pure Funktionen, das heißt sie liefern immer das gleiche Ergebnis bei gleichen Eingabe-Parametern und sie haben keine Seiteneffekte. Die Parameter des reducers ist immer der aktuelle State und die eingehende Action. Ein einfacher Reducer zum Hinzufügen einer Frage zu einem Fragekatalog könnte so aussehen:
+Die Implementierung einer Änderungsoperation erfolgt in dem zugehörigen \texttt{reducer}. Die Operationen in einem reducer sind stets pure Funktionen, das heißt sie liefern immer das gleiche Ergebnis bei gleichen Eingabe-Parametern und sie haben keine Seiteneffekte. Die Parameter des reducers sind immer der aktuelle State und die eingehende Action. Ein einfacher Reducer zum Hinzufügen einer Frage zu einem Fragekatalog könnte so aussehen:
 
-\begin{lstlisting}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={In einem Reducer werden die Änderungsoperationen eines Stores als pure Funktion implementiert.}]
 const questionEditor = (state = [], action) => {
   switch (action.type) {
     case "ADD_QUESTION": {
@@ -138,11 +202,12 @@ const questionEditor = (state = [], action) => {
   }
 };
 \end{lstlisting}
+\end{minipage}
 
-\subsection{Konkrete Umsetzung mittels React}
+\subsection{Konkrete Umsetzung am Beispiel des Fragen-Editors}
 Um das neue CRS zu implementieren, muss zuerst eine sinnvolle Aufteilung in Komponenten erfolgen. Exemplarisch soll an dieser Stelle einer der Hauptbestandteile der Anwendung besprochen werden: der Fragen-Editor.
 
-Das zweiteilige Design, bestehend aus einer Fragenliste in der Seitenspalte und einem Fragen-Inhaltsbereich, das sowohl bei StuReSy als auch bei Pingo zum Einsatz kommt, sollte beibehalten werden.
+Das zweiteilige Design, bestehend aus einer Fragenliste in der Seitenspalte und einem Fragen-Inhaltsbereich, das sowohl bei StuReSy als auch bei Pingo zum Einsatz kommt, soll beibehalten werden.
 
 Eine mögliche Komponenten-Hierarchie für den Fragen-Editor wird in \ref{Abbildung 4.1} veranschaulicht. Die äußerste Komponente, der \texttt{QuestionEditorContainer} ist nicht sichtbar, es handelt sich dabei um eine Container-Komponente, welche die notwendigen Daten aus dem Store holt und dann an seine Kinder-Komponenten mittels Properties weitergibt.
 
@@ -153,70 +218,57 @@ Eine mögliche Komponenten-Hierarchie für den Fragen-Editor wird in \ref{Abbild
     \label{Abbildung 4.1}
 \end{figure}
 
-Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (einzig die Komponente \texttt{QuestionEditorListItem} findet sich nicht.
+Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (einzig die Komponente \texttt{QuestionEditorListItem} findet sich nicht im fertigen Ergebnis.
 
-%
-\section{Variable Server-Client-Architektur}
-\label{chap:p2p}
-Um Unabhängigkeit von einem dedizierten, zentralen Server zu erreichen kann jeder Weclare-Nutzer zum Start einer Sitzung, also zur Laufzeit entscheiden, welche Rolle er in der Topologie einnehmen will (Server oder Client). Unabhängig von der Wahl wird stets der gleiche Code vom Server geladen. Das Programm ist in dieser Hinsicht also vielgestaltig. Im laufenden Fragebetrieb gibt es dann eine fixe Rollenzuteilung unter den Teilnehmern: Der Rechner des Dozent agiert als Server, die Rechner der Studenten sind Clients und somit ergibt sich eine klassische Stern-Topologie.
+\begin{figure}[H]
+    \includegraphics[width=16cm]{chapter/entwurf/weclare_editor.png}
+    \centering
+    \caption{Fertige Implementierung des Fragen-Editors im React-Framework.}
+    \label{Abbildung 4.2}
+\end{figure}
 
-Auch wenn einige Merkmale einer Peer-to-Peer-Architektur erfüllt (die Teilnehmer führen die gleiche Software aus und sind heterogen zusammengesetzt) werden, handelt es sich zur Laufzeit einer Fragerunde um eine klassische Client-Server-Struktur.
+Alle Daten des Fragen-Editors werden in einem einzigen Redux-Store gehalten. Alle möglichen Änderungen finden sich in einem zugehörigen Reducer wieder, der auszugsweise wie folgt aussieht:
 
-Die Entscheidung, dass jeder Teilnehmer variabel entscheiden kann, ob er die Rolle als Server oder Client einnehmen will bedeutet, dass Aspekte wie NAT und der Austausch der IP-Adressen (das Signalling) berücksichtigt werden müssen.
 
-Der Zugriff auf Schnittstellen des Betriebssystems (wie etwa das Netzwerk) durch Browser-Inhalte ist aus Sicherheitsgründen in JavaScript stark eingeschränkt. Die einzige bekannte Möglichkeit, eine omnidirektionale Verbindung zwischen Browsern zu realisieren ist der relativ neue WebRTC-Standard (Abgekürzt für „Web Realtime Communication“).
-
-WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt. Viele Video- und Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf dem WebRTC-Protokoll. Neben Audio- und Videoinhalten können aber auch beliebige andere Daten übertragen werden. WebRTC beinhaltet keine Anweisungen für den Austausch der IP-Adressen zwischen beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist relativ hoch, wenn alle gängigen Netzwerk-Situationen berücksichtigt werden sollen. Deswegen wird beim Weclare-Prototyp eine OpenSource-Bibliothek namens PeerJS verwendet, die WebRTC in eine sehr einfache API kapselt und das Signalling-Verfahren beisteuert.
-
-Die mehrfach formulierte Anforderung, keinen dedizierten Server zu benötigen, kann aufgrund des notwendigen Signallings also nicht vollständig erfüllt werden und muss präzisiert werden: Ein dedizierter Server wird lediglich zum Austausch der IP-Adressen der Teilnehmer benötigt. Anwendungsdaten werden nie über einen zentralen Server, sondern immer nur zwischen den Teilnehmern verschickt.
-
-Die PeerJS-Library ermöglicht den Aufbau einer Datenverbindung zwischen zwei Browsern in sehr simplen Aufrufen:
-
-Zunächst müssen Client und Server ein Peer-Objekt erzeugen. Als Parameter kann an dieser Stelle eine ID mitgegeben werden, unter welcher der zugehörige Peer beim Signalling-Server bekannt gemacht wird. Optional kann außerdem ein eigener Signalling-Server eingefügt werden. Die Standard-Einstellung verwendet den kostenlosen und öffentlichen Signalling-Server, der von den PeerJS-Autoren betrieben wird.
-
-\begin{lstlisting}
-import Peer from "peerjs";
-
-const peer = createPeer();
-\end{lstlisting}
-
-Anschließend können an dem neuen Peer-Objekt diverse Callback-Methoden registriert werden, die den weiteren Gebrauch bestimmen. So kann zum Beispiel der Server seine neu erstellte ID kundtun und auf eingehende Verbindungen und Daten reagieren:
-
-\begin{lstlisting}
-peer.on("open", id => {
-  console.log(`Successfully created peer: ${id}`);
-});
-
-peer.on("connection", conn => {
-  console.log(`New client connected: ${conn.peer}`);
-  conn.on("data", data => {
-    switch (data.type) {
-      case "answer":
-        // Do something
-        break;
-      case "heartbeat":
-        // Do something else
-        break;
-      default:
-      // Noop
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Auszug aus dem Reducer für den Fragen-Editor.}]
+export const questionEditor = (state = [], action) => {
+  switch (action.type) {
+    case ADD_QUESTION: {...}
+    case EDIT_QUESTION_TEXT: {...}
+    case EDIT_QUESTION_CODE: {...}
+    case EDIT_QUESTION_MODE: {...}
+    case EDIT_QUESTION_TYPE: {...}
+    case DELETE_QUESTION: {...}
+    case DELETE_ANSWER: {...}
+    case ADD_ANSWER: {...}
+    case EDIT_ANSWER_TEXT: {...}
+    case SET_CORRECT_SINGLE_ANSWER: {...}
+    case SET_CORRECT_MULTI_ANSWER: {...}
+    case LOAD_QUESTIONS: {...}
+    case SORT_QUESTION: {...}
+    case SORT_ANSWER: {...}
+    default: {
+      return state;
     }
-  });
-});
+  }
+};
 \end{lstlisting}
-
-Auf der Gegenseite, beim Client kann die Verbindung einfach über die connect() Methode aufgebaut werden. Anschließend kann über das daraus zurückgelieferte Connection-Objekt eine Nachricht verschickt werden:
-
-\begin{lstlisting}
-const connection = peer.connect("server-id");
-connection.send("Hello world!");
-\end{lstlisting}
+\end{minipage}
 
 
-%
-\section{Formatierung}
-\label{chap:metriken}
+\newpage
+\section{P2P-WebRTC-Verbindungen mit PeerJS}
+\label{chap:p2p}
+\input{chapter/entwurf/p2p.tex}
+
+
+\newpage
+\section{Text- und Code-Formatierung mit Quill und CodeMirror}
+\label{chap:formatierung}
 \input{chapter/entwurf/format.tex}
-%
-\section{Ausführung}
+
+\newpage
+\section{Code-Ausführung im Browser via DoppioJVM}
 \label{chap:ausfuehrung}
 \input{chapter/entwurf/ausfuehrung.tex}
