@@ -5,35 +5,48 @@ Quelltexte können in zwei verschiedenen Kontexten in Fragestellungen auftauchen
 public String m(int i, int s, boolean b) \{ ... \}“
 \end{center}
 
-Dabei handelt es sich nicht um ein syntaktisch nicht vollständiges und nicht-ausführbares Fragment. Um die Lesbarkeit dieses Fragments zu erhöhen, sollte es trotzdem optisch deutlich vom Fließtext unterscheidbar sein. Es bietet sich an, den Code in einer Monospace-Schriftart zu formatieren und ggf. Syntax-Highlighting anzuwenden.
+Dabei handelt es sich nicht um ein syntaktisch nicht vollständiges und nicht-ausführbares Java-Fragment. Um die Lesbarkeit dieses Fragments zu erhöhen, sollte es trotzdem optisch deutlich vom Fließtext unterscheidbar sein. Es bietet sich an, den Code in einer Monospace-Schriftart zu formatieren und (wenn möglich) eine syntaktische Einfärbung (Syntax Highlighting) anzuwenden.
+
+Da die Entwicklung einer eigenen Editor-Komponente extrem komplex ist, und es in diesem Bereich bereits eine große Auswahl an Bibliotheken gibt, soll auch hier auf eine bestehende Implementierung zurückgegriffen werden. Dabei müssen folgende Anforderungen von der Komponente erfüllt werden:
+
+\begin{itemize}
+    \item \textbf{Integration in React:}  Muss sich leicht in das deklarative React-Framework einbinden lassen.
+    \item \textbf{WYSIWYG (What You See Is What You Get):} Der Editor sollte stets eine Vorschau aller Formatierungen darstellen, und man sollte nicht zwischen einem Markup- und einem Vorschau-Modus wechseln müssen. Formatierungen sollen über Buttons eingefügt werden können.
+    \item \textbf{Text-Formatierungen:} Der Editor muss über simple Text-Formatierungen verfügen (zum Beispiel Fettschrift, Kursivierung).
+    \item \textbf{Monospace-Schriftarten:} Eine Möglichkeit zum Verwenden einer Monospace-Schriftart muss vorhanden sein.
+    \item \textbf{Syntax Highlighting:} Syntax-Highlighting von Code-Fragmenten muss unterstützt werden (üblicherweise durch ein Plugin/Erweiterung mit einer zusätzlichen Bibliothek wie Highlight.js).
+\end{itemize}
+
+Nach dem erwägen und ausprobieren diverser Bibliotheken (Draft.js, Slate, Prosemirror, Quill) fiel die Wahl letztendlich auf den Quill-Editor, der alle genannten Anforderungen erfüllt. Quill ist nicht primär für den Einsatz mit React vorgesehen, deswegen wurde diese Bibliothek in Form einer Wrapper-Bibliothek, die Quill in React-Komponenten übersetzt, verwendet. Leider ist diese \texttt{react-quill}-Bibliothek nicht sehr gut gepflegt und nicht auf dem neusten Stand in Bezug auf die eingesetzte Editor-Version, so dass sich einige Bugs ergeben.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth,frame]{chapter/entwurf/bilder/sturesy_fragment.png}
-    \caption{Darstellung eines Code-Fragments in StuReSy (ohne manuelle Formatierungen)}
+    \setlength{\fboxsep}{0pt}
+    \setlength{\fboxrule}{0.5pt}
+    \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/sturesy_fragment.png}}
+    \caption{Darstellung eines Code-Fragments in StuReSy (ohne manuell vorgenommene  Formatierungen)}
     \label{abb:sturesy_code_fragment}
 \end{figure}
 
 
 \begin{figure}[H]
     \centering
-    \fbox{
-    \includegraphics[width=\textwidth]{chapter/entwurf/bilder/weclare_fragment.png}
-    }
-    \caption{Darstellung eines Code-Fragments in Weclare (automatische Formatierung)}
+    \setlength{\fboxsep}{0pt}
+    \setlength{\fboxrule}{0.5pt}
+    \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_fragment.png}}%
+    \caption{Darstellung eines Code-Fragments in Weclare (Quelltext als Code-Block ausgezeichnet)}
     \label{abb:weclare_code_fragment}
 \end{figure}
 
-Der zweite Kontext von Quelltext in Fragestellungen ist vollständiger, ausführbarer Code
+Der zweite Kontext von Quelltexten in Fragestellungen ist das Einfügen von vollständigem, ausführbarem Code, zum Beispiel in Form vollständiger Klassen. Solcher Code kann in Weclare direkt im Browser ausgeführt werden. Ein solches, interaktives Code-Beispiel kann allerdings nur einmal pro Frage vorhanden sein und ist nicht Teil des Fließtexts. Eine entsprechende Editor-Komponente zum Einfügen solchen Codes sollte also auch funktional darauf zugeschnitten sein: Text-Formatierungen sind nicht mehr notwendig.
 
-Um Fragestellungen mit Text-Formatierungen zu versehen ist eine simple Editor-Komponente notwendig, die mit einer grafischen Benutzeroberfläche ausgestattet ist. Eine solche Komponente selber zu implementieren ist sehr aufwendig, außerdem gibt es in diesem Segment bereits viele existierende Lösungen in der JavaScript-Landschaft. So wurden verschiedene Bibliotheken getestet und in Erwägung gezogen: Draft.js, CodeMirror, Slate, Prosemirror, Quill.
+Der Quill-Editor kann leider nicht in einem „Code only“-Modus betrieben werden, so dass eine zweite, unabhängige Editor-Komponente für interaktive Code-Abschnitte integriert wurde. Mit CodeMirror gibt es eine sehr beliebte Bibliothek für diesen Zweck, die allerdings auch nicht explizit für den Einsatz mit React bestimmt ist, so dass auch sie in Form einer Wrapper-Bibliothek namens \texttt{react-codemirror2} zum Einsatz kommt.
 
-Letztendlich muss eine Editor-Komponente in diesem Projekt folgende Anforderungen erfüllen:
-
-\begin{itemize}
-    \item Integrierbarkeit mit React
-    \item Möglichkeit um Syntax-Highlighting zu realisieren
-    \item Simple Text-Formatierungen (Fett, Kursiv, etc)
-\end{itemize}
-
-Der Quill-Editor erfüllt alle diese Kriterien und wurde deswegen
+\begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{0pt}
+    \setlength{\fboxrule}{0.5pt}
+    \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_codemirror.png}}
+    \caption{Darstellung eines ausführbaren Java-Quelltexts in Weclare mittels der CodeMirror-Bibliothek.}
+    \label{abb:weclare_codemirror}
+\end{figure}
