@@ -12,7 +12,7 @@ Die Tatsache, dass jeder Teilnehmer entscheiden kann, ob er als Server oder Clie
 
 Der Zugriff auf Schnittstellen des Betriebssystems (wie etwa das Netzwerk) durch Browser-Scripte ist aus Sicherheitsgründen stark eingeschränkt. Die einzige Möglichkeit, eine omnidirektionale Verbindung zwischen Browsern zu realisieren ist der relativ neue und offene WebRTC-Standard (Web Real-Time Communication)\cite{web:webrtc}.
 
-WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt und inzwischen von allen großen Browsern (Google Chrome, Mozilla Firefox, Apple Safari und Microsoft Edge) unterstützt. Viele Video- und Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf dem WebRTC-Protokoll. Neben Audio- und Videoinhalten können aber auch beliebige andere Daten über das Protokoll übertragen werden. WebRTC beinhaltet aber keine Anweisungen für den Austausch der IP-Adressen zwischen beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist relativ hoch, weil viele verschiedene Netzwerk-Situationen berücksichtigt werden müssen. Deswegen wird beim Weclare-Prototyp eine OpenSource-Bibliothek namens PeerJS\cite{web:peerjs} verwendet, die WebRTC in eine sehr einfache API kapselt und ein etabliertes Signalling-Verfahren beisteuert.
+WebRTC wird hauptsächlich für Echtzeit-Video- und Audio-Anwendungen eingesetzt und seit 2017 von allen großen Browsern (Google Chrome, Mozilla Firefox, Opera, Apple Safari und Microsoft Edge) unterstützt. Viele Video- und Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf dem WebRTC-Protokoll. Neben Audio- und Videoinhalten können aber auch beliebige andere Daten über das Protokoll übertragen werden. WebRTC beinhaltet aber keine Anweisungen für den Austausch der IP-Adressen zwischen beteiligten Parteien. Dieser Teil, das sogenannte Signalling, ist nicht Teil des Standards und muss selbst implementiert werden. Der Aufwand dafür ist relativ hoch, weil viele verschiedene Netzwerk-Situationen berücksichtigt werden müssen. Deswegen wird beim Weclare-Prototyp eine OpenSource-Bibliothek namens PeerJS\cite{web:peerjs} verwendet, die WebRTC in eine sehr einfache API kapselt und ein etabliertes Signalling-Verfahren beisteuert.
 
 Die mehrfach formulierte Anforderung, keinen dedizierten Server zu benötigen, kann aufgrund des notwendigen Signallings also nicht vollständig erfüllt werden und muss an dieser Stelle präzisiert werden: Ein dedizierter Server wird lediglich zum Austausch der IP-Adressen der Teilnehmer benötigt. Nach dem Austausch ist kein Server mehr notwendig. Anwendungsdaten werden nie über einen zentralen Server, sondern immer nur zwischen den einzelnen Teilnehmern verschickt (Die TURN-Funktionalität von WebRTC wird nicht verwendet).
 
@@ -24,7 +24,7 @@ Anschließend können an dem neuen Peer-Objekt diverse Callback-Methoden registr
 \begin{lstlisting}[caption={Verbindungsaufbau mit der PeerJS-Bibliothek auf der Server-Seite. (aus: src/server/actions/server.js)}]
 import Peer from "peerjs";
 
-const peer = createPeer("server-id");
+const peer = new Peer("server-id");
 
 peer.on("open", id => {
   console.log(`Successfully created peer: ${id}`);
@@ -54,7 +54,7 @@ Auf der Gegenseite, beim Client kann die Verbindung einfach über die connect() 
 \begin{lstlisting}[caption={Verbindungsaufbau mit der PeerJS-Bibliothek auf der Client-Seite. (aus: src/client/actions/client.js)}]
 import Peer from "peerjs";
 
-const peer = createPeer();
+const peer = new Peer();
 const connection = peer.connect("server-id");
 connection.send("Hello world!");
 \end{lstlisting}
