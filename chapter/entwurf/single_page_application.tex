@@ -141,6 +141,7 @@ Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Dur
 
 
 \subsection{State Management mit Redux}
+\label{chap:redux_state_management}
 Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux \cite{web:redux}.
 
 Im Flux-Muster geht es darum, eine zentrale Zustandsverwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als \texttt{Store} bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen State verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist.
@@ -211,11 +212,15 @@ Eine mögliche Komponenten-Hierarchie für den Fragen-Editor wird in Abbildung \
     \label{abb:komponenten_hierarchie}
 \end{figure}
 
-Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (einzig die Komponente \texttt{QuestionEditorListItem} wurde aus technischen Gründen so nicht implementiert.
+Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (einzig die Komponente \texttt{QuestionEditorListItem} wurde aus Gründen der Drag-and-Drop-Funktionalität in der Seiteleiste nicht genau so implementiert).
+
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{chapter/entwurf/bilder/weclare_editor.png}
     \centering
+    \setlength{\fboxsep}{0pt}
+    \setlength{\fboxrule}{0.5pt}
+    \fbox{
+    \includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_editor.png}}
     \caption{Fertige Implementierung des Fragen-Editors im React-Framework.}
     \label{abb:weclare_editor}
 \end{figure}

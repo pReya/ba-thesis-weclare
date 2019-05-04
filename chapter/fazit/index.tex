@@ -1,20 +1,31 @@
-Wie im Rest der Arbeit soll sich auch das Fazit an den drei Kern-Anforderungen entlanghangeln, die zu Beginn festgelegt wurden. Für jeden Aspekt soll einzeln erörtert werden, ob die Zielsetzung erreicht werden konnte, und welche Erfahrungen bei der Implementation gemacht werden konnten.
+Für jede der ermittelten Anforderungen soll einzeln erörtert werden, ob die Zielsetzung erreicht werden konnte, und welche Erfahrungen bei der Implementation gemacht werden konnten.
 
-Webbasiert:
-Trotz einiger Nachteile, die der Browser als Laufzeitumgebung mit sich bringt, erscheint es nur logisch, ein CRS webbasiert zu implementieren. Die technischen Anforderungen an das ausführende System sind relativ gering. Die Anforderungen an die User Experience und eine gut gestaltete Benutzeroberfläche im Gegensatz dazu eher hoch. Es erscheint nicht mehr zeitgemäß für eine solch simple (in Bezug auf die technischen Anforderungen) Aufgabe Software extra herunterladen und installieren zu müssen. Bei StuReSy war diese Entwurfs-Entscheidung nachvollziehbar, da dort auch Hardware-Abstimmungsgeräte und ein Plugin-System unterstützt werden sollten, die in einer Web-Anwendung deutlich schwerer zu integrieren gewesen wären.
+\subsubsection*{Web-Applikation}
+Trotz einiger Nachteile, die der Browser als Laufzeitumgebung mit sich bringt, erscheint es logisch, ein CRS vollständig webbasiert zu implementieren. Die technischen Anforderungen an das ausführende System sind relativ gering. Die Anforderungen an die User Experience und eine gut gestaltete Benutzeroberfläche im Gegensatz dazu eher hoch. Es erscheint daher nicht mehr zeitgemäß für die technisch relativ simple Aufgabe, die ein CRS bewältigt, Software extra herunterladen und installieren zu müssen.
 
-Das React-Framework hat sich als gute Wahl für diese Aufgabe herausgestellet. Die bereitgestellten Konzepte und Bibliotheken waren relativ einfach zu verstehen und haben eine schnelle Entwicklung ermöglicht. Sicherlich hätte die Implementierung aber auch mit alternativen Frameworks erfolgreich funktioniert. Die Unterschiede der großen JavaScript-Frameworks (React, Vue) scheinen nur marginal zu sein.
+Bei StuReSy war diese Entwurfsentscheidung nachvollziehbar, da dort auch Hardware-Abstimmungsgeräte und ein Plugin-System unterstützt werden sollten, die in einer Web-Anwendung deutlich schwerer zu integrieren gewesen wären.
 
-Peer-2-Peer-Topologie: Die Implementierung einer P2P-Topologie auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist noch nicht fertiggestellt, und die Abweichungen zwischen den Browser-Herstellern sind relativ groß. WebRTC im Produktiveinsatz mit breiter Kompatibilität zu verwenden ist sehr aufwändig. Die Verwendung von WebRTC-Wrappern, die die Schnittstelle vereinfachen und das Signalling regeln erscheint gerade in kleinen Projekten notwendig zu sein. Leider gibt es in diesem Bereich nicht sehr viele, und nicht sehr aktuelle Open-Source-Bibliotheken.
+Das React-Framework hat sich als gute Wahl für diese Aufgabe herausgestellt. Die bereitgestellten Konzepte und Bibliotheken waren relativ einfach zu verstehen und haben eine schnelle Entwicklung ermöglicht.
 
-Das fertige System funktioniert meistens einwandfrei. Allerdings kann es schnell zu Komplikationen kommen, zum Beispiel wenn die Verbindung der Teilnehmer unterbrochen wird, wenn Browser nicht unterstützt werden. Für den Produktiveinsatz sollte die Software an dieser Stelle noch robuster werden.
+\subsubsection*{Peer-To-Peer-Verbindungen}
+Die Implementierung einer P2P-Topologie auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist leider noch nicht fertiggestellt, und die Abweichungen zwischen den Implementierungen der verschiedenen Browser-Hersteller sind relativ groß. WebRTC im Produktiveinsatz mit breiter Kompatibilität zu verwenden ist aufwändig. Das erkennen selbst große Firmen an: Erst kürzlich startete Microsoft einen „Skype for Web“-Dienst auf WebRTC-Basis, der momentan nur mit Google Chrome unterstützt wird. Ein Grund dafür dürfte die uneinheitliche WebRTC-Schnittstelle sein.
 
-Code-Ausführung im Browser: Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser grundsätzlich funktioniert.
+Die Verwendung von WebRTC-Wrappern wie PeerJS, die die Schnittstelle vereinfachen und das Signalling regeln, erscheint gerade in kleinen Projekten daher unausweichlich zu sein. Leider gibt es bisher nicht sehr viele, und nicht sehr aktuelle Open-Source-Bibliotheken für diese Aufgabe. Es bleibt zu hoffen dass die Stabilität der Schnittstelle und damit auch die Qualität der Wrapper-Bibliotheken nach dem Ende der Standardisierung ein besseres Niveau erreicht.
+
+Das fertige System funktioniert zwar einwandfrei, allerdings kann es schnell zu Komplikationen kommen, zum Beispiel wenn die Verbindung der Teilnehmer während einer Sitzung unterbrochen wird oder wenn Browser-Versionen nicht unterstützt werden.
+
+Anstelle der WebRTC-Direktverbindungen wäre sicherlich auch der Einsatz eines zentralen Anwendungsservers und die Kommunikation via WebSockets möglich.
+
+\subsubsection*{Code-Ausführung im Browser}
+Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser grundsätzlich funktioniert.
 
 Probleme:
-* JVM Instanziierung in eigenen Thread (WebWorker), damit nicht blockiert
-* Keine Unterstützung von Freitext-Fragen
-* Keine Visualisierung oder Export von Fragerunde-Ergebnissen
+\begin{itemize}
+    \item Unit- und Integrationstest für die Anwendung sind dringend notwendig
+    \item Die Instantiierung der DoppioJVM sollte in einem eigenen Thread erfolgen und deswegen in einen WebWorker ausgelagert werden
+    \item Freitext-Fragen, wie sie von StuReSy und Doppio unterstützt werden, sind nicht implementiert
+    \item Die Visualisierung der erhaltenen Antworten in Form von Diagrammen und der Export als Grafik oder CSV wird nicht unterstützt
+\end{itemize}
 
 
 
