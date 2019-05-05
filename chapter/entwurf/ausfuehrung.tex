@@ -77,7 +77,6 @@ public class Loader {
     if (result == 0) {
       try {
         System.out.println("Compilation successful. Executing...");
-        System.out.println("---");
 
         URLClassLoader classLoader = new URLClassLoader(
             new URL[] {new File(classFile).toURI().toURL()}, ClassLoader.getSystemClassLoader());

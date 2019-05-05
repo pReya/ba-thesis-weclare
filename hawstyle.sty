@@ -322,6 +322,7 @@
   {\setlength{\parindent}{0em}\bfseries Kurzzusammenfassung}\\
   #2
   \@ifundefined{otherlanguage}{}{\end{otherlanguage}}
+  \newpage
 
   %% english version
   \thispagestyle{empty}
@@ -335,7 +336,7 @@
     \begin{otherlanguage}{ngerman}
   }
   %% set the author name in German language (allows umlauts with "a)
-  {\setlength{\parindent}{0em}\bfseries\theHAWThesisAuthor}\\
+  \setlength{\parindent}{0em}\bfseries\theHAWThesisAuthor\\
   \medskip
   \@ifundefined{otherlanguage}{}{\end{otherlanguage}}
 
