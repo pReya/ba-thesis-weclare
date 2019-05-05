@@ -2,15 +2,15 @@ Um eine webbasierte Anwendung zu erstellen, die ohne einen zentralen Server ausk
 
 Durch die vollständig clientseitige Ausrichtung bietet es sich an, die Software als sogenannte Single-Page-Application (SPA) zu implementieren. Herkömmliche Webseiten, sogenannte Multi-Page-Applications (MPA) laden während ihrer Lebenszeit mehrfach neue Seiten vom Server, zum Beispiel jedes Mal, wenn innerhalb der Anwendung eine neue Ansicht dargestellt werden soll. Eine SPA dagegen lädt nur eine einzige Webseite sowie das zugehörige JavaScript-Programm und verändert diese eine Seite dann im weiteren Verlauf dynamisch. Neue Daten werden bei Bedarf asynchron (ohne Blockieren der Seite) nachgeladen, es wird jedoch keine komplette Seite geladen. Damit wird auch eine maximale Autarkie gegenüber dem Webserver erreicht, da dieser nur mit wenigen Requests (im einfachsten Fall ein Request pro Nutzer) umgehen muss. Die Anforderungen an den Webserver, auf dem die Anwendung bereitgestellt wird, sind sehr gering – er muss lediglich statische Dateien (HTML, JavaScript, Bilder, Schriften, etc.) bereitstellen.
 
-Als Framework für die Implementierung einer solchen SPA wird das React-Framework\cite{web:react} ausgewählt. Das Open-Source-Projekt existiert seit 2013 und wird von Facebook finanziert und gefördert. Es gehört zu den populärsten Frameworks zum Erstellen von Benutzeroberflächen und Web-Applikationen\cite{web:stackoverflow_umfrage} und ist dem Autor der Arbeit bereits vertraut.
+Als Framework für die Implementierung einer solchen SPA wird das React-Framework\footnote{Offizielle Webseite: \url{https://reactjs.org/}} ausgewählt. Das Open-Source-Projekt existiert seit 2013 und wird von Facebook finanziert und gefördert. Es gehört zu den populärsten Frameworks zum Erstellen von Benutzeroberflächen und Web-Applikationen\cite{web:stackoverflow_umfrage} und ist dem Autor der Arbeit bereits vertraut.
 
-Um einige Implementationsdetails nachzuvollziehen, erfolgt an dieser Stelle eine  Einführung in einige Grundkonzepte von React.
+Um Implementationsdetails nachzuvollziehen, erfolgt an dieser Stelle eine Einführung in einige Grundkonzepte von React.
 
 \subsection{Komponenten und State}
 Die elementaren Bausteine einer React-Anwendung sind \texttt{Komponenten}. Die React-Dokumentation beschreibt die Aufgabe von Komponenten wie folgt\cite{web:react}:
-\begin{quotation}
+\begin{quote}
 „Build encapsulated components that manage their own state, then compose them to make complex UIs.“
-\end{quotation}
+\end{quote}
 
 Ein Komponente ist eine autarke und wiederverwendbare Einheit und kapselt meistens sowohl Struktur, Aussehen als auch Logik. Komponenten werden häufig als Klasse implementiert (können aber in einfachen Fällen auch als Funktion implementiert werden) und erben von der Klasse \texttt{React.Component}. Valide Komponenten müssen über eine \texttt{render()}-Funktion verfügen, die HTML oder andere React-Komponenten zurückliefert. Eine sehr simple, statische Komponente könnte so aussehen:
 
@@ -137,21 +137,24 @@ class Parent extends React.Component {
 \end{lstlisting}
 \end{minipage}
 
-Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Durchstecken“ von Properties (sogenanntes „Prop Drilling“) durch mehrere Komponenten-Ebenen führt, gibt es eine populäre Erweiterung für React zur Verwaltung eines einzigen, globalen States in der gesamten Anwendung: das Flux-Muster\cite{web:flux_doku}.
+Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Durchstecken“ von Properties (sogenanntes „Prop Drilling“) durch mehrere Komponenten-Ebenen führt, gibt es eine populäre Erweiterung für React zur Verwaltung eines einzigen, globalen States in der gesamten Anwendung: das Flux-Muster\footnote{Offizielle Webseite:  \url{https://facebook.github.io/flux/docs/in-depth-overview.html}}.
 
 
 \subsection{State Management mit Redux}
 \label{chap:redux_state_management}
-Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux\cite{web:redux}.
+Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux\footnote{Offizielle Webseite: \url{https://redux.js.org/}}.
 
 Im Flux-Muster geht es darum, eine zentrale Zustandsverwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als \texttt{Store} bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen State verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist.
 
 \begin{figure}[H]
     \includegraphics[width=12cm]{chapter/entwurf/bilder/BA_redux.png}
     \centering
-    \caption{Der Redux-Store verwaltet den globalen Zustand einer React-Anwendung und ist die „Single Source of Truth“. Quelle: https://css-tricks.com/learning-react-redux/ (aufgerufen am 24.4.19)}
+    \caption[Redux Dataflow]{Der Redux-Store verwaltet den globalen Zustand einer React-Anwendung und ist die „Single Source of Truth“.\protect\footnotemark}
+
     \label{abb:redux_flow}
 \end{figure}
+
+\footnotetext{Bildquelle: \url{https://css-tricks.com/learning-react-redux/} (aufgerufen am 24.4.19)}
 
 
 Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. In Redux wird diese Verbindung durch die \texttt{connect}-Funktion zur Verfügung gestellt. Die gewünschten Daten aus dem Store können in einer \texttt{mapStateToProps}-Funktion angegeben werden und stehen der Komponente dann als Properties zur Verfügung. Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Properties auch neu gerendert (reaktives Prinzip). Um eine möglichst lose Kopplung zwischen den Komponenten zu realisieren, wird deswegen empfohlen, die Verbindung zu einem Store in einer (nicht sichtbaren) Container-Komponente zu realisieren. Im folgenden Beispiel wird die eigentliche, sichtbare \texttt{Header}-Komponente mit einem unsichtbaren Container versehen, der die notwendigen Daten aus dem Store innerhalb der Komponente unter der \texttt{status}-Property verfügbar macht.
@@ -208,7 +211,7 @@ Eine mögliche Komponenten-Hierarchie für den Fragen-Editor wird in Abbildung \
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{chapter/entwurf/bilder/Component_Hierarchy.png}
     \centering
-    \caption{Mögliche Komponenten-Hierarchie für den Fragen-Editor.}
+    \caption[Komponenten-Hierarchie des Fragen-Editors]{Mögliche Komponenten-Hierarchie für den Fragen-Editor.}
     \label{abb:komponenten_hierarchie}
 \end{figure}
 
@@ -221,7 +224,7 @@ Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (ei
     \setlength{\fboxrule}{0.5pt}
     \fbox{
     \includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_editor.png}}
-    \caption{Fertige Implementierung des Fragen-Editors im React-Framework.}
+    \caption[Fertiger Fragen-Editor in Weclare]{Fertige Implementierung des Fragen-Editors im React-Framework.}
     \label{abb:weclare_editor}
 \end{figure}
 

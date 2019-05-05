@@ -1,13 +1,15 @@
-Die grundlegende Programmierausbildung im Department Informatik an der HAW Hamburg erfolgt in der Programmiersprache Java, weswegen auch die Funktionen von Weclare auf Java ausgerichtet sind. Normalerweise wird Java in einem zweistufigen Prozess ausgeführt. Zunächst wird eine plattformabhängige Java Virtual Machine (JVM) geladen. Innerhalb dieser JVM wird der Java-Compiler (javac) aufgerufen. Dieser compiliert Java-Quelltext zu Java-Bytecode. Der Java-Bytecode kann dann von der JVM ausgeführt werden. Dieser Ablauf ist in der Abbildung \ref{abb:java_execution} unter a) dargestellt.
+Die grundlegende Programmierausbildung im Department Informatik an der HAW Hamburg erfolgt in der Programmiersprache Java, weswegen auch die Funktionen von Weclare auf Java zugeschnitten sind. Normalerweise wird Java in einem zweistufigen Prozess ausgeführt. Zunächst wird eine plattformabhängige JVM geladen. Innerhalb dieser JVM wird der Java-Compiler (javac) aufgerufen. Dieser compiliert Java-Quelltext zu Java-Bytecode. Der Java-Bytecode kann dann von der JVM ausgeführt werden. Dieser Ablauf ist in der Abbildung \ref{abb:java_execution} unter a) dargestellt.
 
 Um Java in einem Browser auszuführen ergeben sich konzeptionell mindestens drei verschiedene Möglichkeiten, die in Abbildung \ref{abb:java_execution} mit den Buchstaben b - d gekennzeichnet sind.
 
 \begin{figure}[H]
     \includegraphics[width=14cm]{chapter/entwurf/bilder/Java_JavaScript_Execution.png}
     \centering
-    \caption{Blubb}
+    \caption{Verschiedene Konzepte um Java-Quelltext im Browser ausführen zu können.}
     \label{abb:java_execution}
 \end{figure}
+
+\newpage
 
 \begin{itemize}
     \item \textbf{b:} Java-Quelltext wird mit einem Compiler direkt in JavaScript umgewandelt: Diese Variante ist konzeptionell sehr einfach. Zwar gibt es einige Programme, welche Java-Quelltext in JavaScript übersetzen können (zum Beispiel JSweet oder GWT), jedoch sind alle diese Programme entweder in Java selbst oder in dritten Programmiersprachen verfasst. Einen solchen Compiler, der selbst in JavaScript geschrieben wurde und damit auch im Browser ausgeführt werden kann gibt es wohl nicht. Es wäre möglich eines der besagten Programme auf einem separaten Server einzusetzen. Dies würde aber eine weitere Abhängigkeit von einem Server bedeuten, und damit den formulierten Kern-Anforderungen widersprechen.
@@ -17,7 +19,7 @@ Um Java in einem Browser auszuführen ergeben sich konzeptionell mindestens drei
 
 In Anbetracht der Tatsache, dass die Ausführung der Code-Beispiele im Browser exakt die gleichen Ergebnisse liefern soll, wie die Ausführung in einer lokalen JVM (zum Beispiel auch in Bezug auf Fehler beim Kompilieren), so ist die Variante d die bevorzugte Lösung und wird im Rahmen dieser Arbeit in das entstandene CRS integriert.
 
-Die benötigte JVM-Implementierung in JavaScript existiert bereits in Form eines Universitätsprojekts der PLASMA-Forschungsgruppe der University of Massachusetts in Amherst, USA. Unter dem Namen DoppioJVM wurde dort im Jahr 2014 im Rahmen einer wissenschaftlichen Arbeit eine solche JVM erschaffen:
+Die benötigte JVM-Implementierung in JavaScript existiert bereits in Form eines Universitätsprojekts der PLASMA-Forschungsgruppe der University of Massachusetts in Amherst, USA. Unter dem Namen DoppioJVM wurde dort im Jahr 2014 im Rahmen einer wissenschaftlichen Arbeit eine solche JVM erschaffen\cite{paper:doppio}[S. 8]:
 
 \begin{quotation}
 „DoppioJVM is a robust prototype Java Virtual Machine (JVM) interpreter

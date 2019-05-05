@@ -1,23 +1,24 @@
-Für jede der ermittelten Anforderungen soll einzeln erörtert werden, ob die Zielsetzung erreicht werden konnte, und welche Erfahrungen bei der Implementation gemacht werden konnten.
+Für jede der ermittelten Anforderungen soll einzeln erörtert werden, ob die Umsetzung gelungen ist, und welche Erfahrungen bei der Implementierung gemacht werden konnten.
 
 \subsubsection*{Web-Applikation}
-Trotz einiger Nachteile, die der Browser als Laufzeitumgebung mit sich bringt, erscheint es logisch, ein CRS vollständig webbasiert zu implementieren. Die technischen Anforderungen an das ausführende System sind relativ gering. Die Anforderungen an die User Experience und eine gut gestaltete Benutzeroberfläche im Gegensatz dazu eher hoch. Es erscheint daher nicht mehr zeitgemäß für die technisch relativ simple Aufgabe, die ein CRS bewältigt, Software extra herunterladen und installieren zu müssen.
+Trotz einiger Nachteile, die der Browser als Laufzeitumgebung mit sich bringt, erscheint es sinnvoll und zeitgemäß, ein CRS vollständig webbasiert zu implementieren. Die technischen Anforderungen an das ausführende System sind relativ gering. Die Anforderungen an die User Experience und eine gut gestaltete Benutzeroberfläche im Gegensatz dazu eher hoch. Es erscheint daher nicht mehr zeitgemäß für die technisch relativ simple Aufgabe, die ein CRS bewältigt, Software extra herunterladen und installieren zu müssen (es sei denn es gibt Gründe wie etwa geforderte Hardware-Kompatibilität).
 
-Bei StuReSy war diese Entwurfsentscheidung nachvollziehbar, da dort auch Hardware-Abstimmungsgeräte und ein Plugin-System unterstützt werden sollten, die in einer Web-Anwendung deutlich schwerer zu integrieren gewesen wären.
+Das React-Framework hat sich als gute Wahl für diese Aufgabe herausgestellt. Die bereitgestellten Konzepte und Bibliotheken waren relativ einfach zu verstehen und haben eine sehr schnelle Entwicklung ermöglicht. Langfristige Wartbarkeit scheint durch die Größe der React-Gemeinde ebenfalls gegeben zu sein.
 
-Das React-Framework hat sich als gute Wahl für diese Aufgabe herausgestellt. Die bereitgestellten Konzepte und Bibliotheken waren relativ einfach zu verstehen und haben eine schnelle Entwicklung ermöglicht.
+Eine wichtige Erfahrung dieser Arbeit war der Umgang mit dem enorm großen JavaScript-Ökosystem. Zwar ist die Masse an verfügbaren und kostenlosen, OpenSource-JavaScript-Bibliotheken überwältigend, allerdings zeigt sich, dass es oft schwer ist, stabile und zuverlässige Projekte zu finden. Die Anzahl und Aktivität der Entwickler sowie die Häufigkeit von Updates waren oftmals bessere Kriterien für die Auswahl einer Bibliothek als ihr anfänglicher Funktionsumfang.
 
 \subsubsection*{Peer-To-Peer-Verbindungen}
-Die Implementierung einer P2P-Topologie auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist leider noch nicht fertiggestellt, und die Abweichungen zwischen den Implementierungen der verschiedenen Browser-Hersteller sind relativ groß. WebRTC im Produktiveinsatz mit breiter Kompatibilität zu verwenden ist aufwändig. Das erkennen selbst große Firmen an: Erst kürzlich startete Microsoft einen „Skype for Web“-Dienst auf WebRTC-Basis, der momentan nur mit Google Chrome unterstützt wird. Ein Grund dafür dürfte die uneinheitliche WebRTC-Schnittstelle sein.
+Die Implementierung von Peer-to-Peer-Verbindungen auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist leider noch nicht fertiggestellt, und die Abweichungen zwischen den Implementierungen der verschiedenen Browser-Hersteller sind relativ groß. WebRTC im Produktiveinsatz mit breiter Kompatibilität zu verwenden ist aufwändig, das scheinen auch große Firmen zu sehen: Erst kürzlich aktualisierte Microsoft seinen „Skype for Web“-Dienst mit WebRTC-Technologie. Zunächst wurden dabei alle anderen Browser außer Google Chrome ausgesperrt – vermutlich ist die schwierige WebRTC-Kompatibilität einer der Gründe dafür\footnote{Quelle: \url{https://arstechnica.com/gadgets/2019/03/microsofts-new-skype-for-web-client-an-early-taste-of-the-browser-monoculture/}}.
 
-Die Verwendung von WebRTC-Wrappern wie PeerJS, die die Schnittstelle vereinfachen und das Signalling regeln, erscheint gerade in kleinen Projekten daher unausweichlich zu sein. Leider gibt es bisher nicht sehr viele, und nicht sehr aktuelle Open-Source-Bibliotheken für diese Aufgabe. Es bleibt zu hoffen dass die Stabilität der Schnittstelle und damit auch die Qualität der Wrapper-Bibliotheken nach dem Ende der Standardisierung ein besseres Niveau erreicht.
+Die Verwendung von WebRTC-Wrappern wie PeerJS, die die Schnittstelle vereinfachen und das Signalling regeln, erscheint gerade in kleinen Projekten daher unausweichlich zu sein. Leider gibt es bisher nicht sehr viele, und nicht sehr aktuelle Open-Source-Bibliotheken für diese Aufgabe. Es bleibt zu hoffen dass die Stabilität der Schnittstelle und damit auch die Qualität der Wrapper-Bibliotheken nach dem Ende der WebRTC-Standardisierung ein besseres Niveau erreicht.
 
 Das fertige System funktioniert zwar einwandfrei, allerdings kann es schnell zu Komplikationen kommen, zum Beispiel wenn die Verbindung der Teilnehmer während einer Sitzung unterbrochen wird oder wenn Browser-Versionen nicht unterstützt werden.
 
-Anstelle der WebRTC-Direktverbindungen wäre sicherlich auch der Einsatz eines zentralen Anwendungsservers und die Kommunikation via WebSockets möglich.
+\subsubsection*{Code-Formatierung}
+Die Einbindung von bestehenden, Editor-Bibliotheken war eine sehr gute Entscheidung. Es gibt eine große Anzahl von sehr aktiven JavaScript-Editor-Bibliotheken, allerdings bieten nur wenige davon auch eine überzeugende React-Integration an.
 
 \subsubsection*{Code-Ausführung im Browser}
-Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser grundsätzlich funktioniert.
+Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser grundsätzlich möglich ist. Wie praktikabel dieses Experiment im Alltag der Dozenten ist bleibt fraglich. Vor allem das notwendige Laden der Java-Runtime sorgt dafür dass die Ausführungsdauer von Code-Beispielen oft unangenehm lange ist. Bei geladener Runtime können Code-Beispiele meistens innerhalb von 15 bis 30 Sekunden kompiliert und ausgeführt werden. Je nach Geschwindigkeit der Internetverbindung kann sich dieser Wert beim ersten Laden der Runtime auf mehrere Minuten vergrößern.
 
 Probleme:
 \begin{itemize}

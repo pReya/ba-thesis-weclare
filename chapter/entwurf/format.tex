@@ -1,9 +1,9 @@
 Quelltexte können in zwei verschiedenen Kontexten in Fragestellungen auftauchen: Einerseits gibt es unvollständige, kurze Quelltext-Fragmente, die in einen Fließtext eingebunden werden sollen, wie in diesem Beispiel:
 
-\begin{center}
+\begin{quote}
 „Wie viele String-Parameter hat die folgende Java-Methode?\newline
 public String m(int i, int s, boolean b) \{ ... \}“
-\end{center}
+\end{quote}
 
 Dabei handelt es sich nicht um ein syntaktisch nicht vollständiges und nicht-ausführbares Java-Fragment. Um die Lesbarkeit dieses Fragments zu erhöhen, sollte es dennoch optisch deutlich vom Fließtext unterscheidbar sein. Es bietet sich an, den Code in einer Monospace-Schriftart zu formatieren und (wenn möglich) eine syntaktische Einfärbung (Syntax Highlighting) anzuwenden.
 
@@ -14,17 +14,26 @@ Da die Entwicklung einer eigenen Editor-Komponente sehr komplex ist, und es in d
     \item \textbf{WYSIWYG (What You See Is What You Get):} Der Editor sollte stets eine Vorschau aller Formatierungen darstellen, und man sollte nicht zwischen einem Markup- und einem Vorschau-Modus wechseln müssen. Formatierungen sollen über Buttons eingefügt werden können.
     \item \textbf{Text-Formatierungen:} Der Editor muss über simple Text-Formatierungen verfügen (zum Beispiel Fettschrift und Kursivierung).
     \item \textbf{Monospace-Schriftart:} Eine Möglichkeit zum Verwenden einer Monospace-Schriftart muss vorhanden sein.
-    \item \textbf{Syntax-Highlighting:} Syntaktische, farbliche Hervorhebungen von Code-Fragmenten muss unterstützt werden (üblicherweise durch ein Plugin/Erweiterung mit einer zusätzlichen Bibliothek wie Highlight.js).
+    \item \textbf{Syntax-Highlighting:} Syntaktische, farbliche Hervorhebungen von Code-Fragmenten müssen unterstützt werden (üblicherweise durch ein Plugin/Erweiterung mit einer zusätzlichen Bibliothek wie Highlight.js).
 \end{itemize}
 
-Nach dem Erwägen und Ausprobieren diverser Bibliotheken (zum Beispiel Draft.js, Slate, Prosemirror, Quill) fiel die Wahl letztendlich auf den Quill-Editor\cite{web:quill}, der alle genannten Anforderungen erfüllt. Quill ist nicht primär für den Einsatz mit React vorgesehen, deswegen wurde diese Bibliothek in Form einer Wrapper-Bibliothek, die Quill in React-Komponenten bündelt, verwendet. Leider ist diese \texttt{react-quill}-Bibliothek\cite{web:react_quill} nicht sehr gut gepflegt und nicht auf dem neusten Stand in Bezug auf die eingesetzte Editor-Version, so dass sie einige Fehler mitbringt.
+Nach dem Erwägen und Ausprobieren diverser Bibliotheken (zum Beispiel Draft.js, Slate, Prosemirror, Quill) fiel die Wahl letztendlich auf den Quill-Editor\footnote{Offizielle Webseite: \url{https://quilljs.com/}}, der alle genannten Anforderungen erfüllt. Quill ist nicht primär für den Einsatz mit React vorgesehen, deswegen wurde diese Bibliothek in Form einer Wrapper-Bibliothek, die Quill in React-Komponenten bündelt, verwendet. Leider ist diese \texttt{react-quill}-Bibliothek\footnote{Offizielle Webseite: \url{https://github.com/zenoamaro/react-quill}} nicht sehr gut gepflegt und nicht auf dem neusten Stand in Bezug auf die eingesetzte Editor-Version, so dass sie einige Fehler mitbringt.
+
+\begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{0pt}
+    \setlength{\fboxrule}{0.5pt}
+    \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/sturesy_editor.png}}
+    \caption[StuReSy-Fragen-Editor]{Bearbeiten einer Fragestellung im StuReSy-Fragen-Editor.}
+    \label{abb:sturesy_editor}
+\end{figure}
 
 \begin{figure}[H]
     \centering
     \setlength{\fboxsep}{0pt}
     \setlength{\fboxrule}{0.5pt}
     \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/sturesy_fragment.png}}
-    \caption{Darstellung eines Code-Fragments in StuReSy (ohne manuell vorgenommene  Formatierungen)}
+    \caption[Darstellung eines Code-Fragments in StuReSy]{Darstellung eines Code-Fragments in StuReSy (ohne manuell vorgenommene Formatierungen)}
     \label{abb:sturesy_code_fragment}
 \end{figure}
 
@@ -33,20 +42,31 @@ Nach dem Erwägen und Ausprobieren diverser Bibliotheken (zum Beispiel Draft.js,
     \centering
     \setlength{\fboxsep}{0pt}
     \setlength{\fboxrule}{0.5pt}
+    \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_quill.png}}
+    \caption[Quill-Editor von Weclare]{Bearbeiten einer Fragestellung im Quill-Editor von Weclare.}
+    \label{abb:weclare_quill}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{0pt}
+    \setlength{\fboxrule}{0.5pt}
     \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_fragment.png}}%
-    \caption{Darstellung eines Code-Fragments in Weclare (Quelltext als Code-Block ausgezeichnet)}
+    \caption[Darstellung eines Code-Fragments in Weclare]{Darstellung eines Code-Fragments in Weclare (Quelltext als Code-Block ausgezeichnet)}
     \label{abb:weclare_code_fragment}
 \end{figure}
 
 Der zweite Kontext von Quelltexten in Fragestellungen ist das Einfügen von vollständigem, ausführbarem Code, zum Beispiel in Form ganzer Klassen. Solcher Code kann in Weclare direkt im Browser ausgeführt werden. Ein solches, interaktives Code-Beispiel kann allerdings nur einmal pro Frage vorhanden sein und ist auch nicht Teil des Fließtexts. Eine entsprechende Editor-Komponente zum Einfügen solchen Codes sollte also auch funktional darauf zugeschnitten sein: Text-Formatierungen sind nicht mehr notwendig, stattdessen rücken Funktionen wie die korrekte Einrückung von Code-Zeilen und Zeilen-Nummerierungen in den Vordergrund.
 
-Der Quill-Editor kann leider nicht in einem „Code only“-Modus betrieben werden, so dass eine zweite, unabhängige Editor-Komponente für interaktive Code-Abschnitte integriert wird. Mit CodeMirror\cite{web:codemirror} gibt es eine sehr beliebte Bibliothek für diesen Zweck, die allerdings auch nicht explizit für den Einsatz mit React bestimmt ist, so dass auch sie in Form einer Wrapper-Bibliothek namens \texttt{react-codemirror2}\cite{web:react_codemirror2} zum Einsatz kommt.
+Der Quill-Editor kann leider nicht in einem „Code only“-Modus betrieben werden, so dass eine zweite, unabhängige Editor-Komponente für interaktive Code-Abschnitte integriert wird. Mit CodeMirror\footnote{Offizielle Webseite: \url{https://codemirror.net/}} gibt es eine sehr beliebte Bibliothek für diesen Zweck, die allerdings auch nicht explizit für den Einsatz mit React bestimmt ist, so dass auch sie in Form einer Wrapper-Bibliothek namens \texttt{react-codemirror2}\footnote{Offizielle Webseite: \url{https://github.com/scniro/react-codemirror2}} zum Einsatz kommt.
+
+
 
 \begin{figure}[H]
     \centering
     \setlength{\fboxsep}{0pt}
     \setlength{\fboxrule}{0.5pt}
     \fbox{\includegraphics[width=\textwidth-1pt]{chapter/entwurf/bilder/weclare_codemirror.png}}
-    \caption{Darstellung eines ausführbaren Java-Quelltexts in Weclare mittels der CodeMirror-Bibliothek.}
+    \caption[Darstellung eines ausführbaren Java-Quelltexts in Weclare]{Darstellung eines ausführbaren Java-Quelltexts in Weclare mittels der CodeMirror-Bibliothek.}
     \label{abb:weclare_codemirror}
 \end{figure}
