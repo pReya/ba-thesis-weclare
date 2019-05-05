@@ -5,16 +5,16 @@ Quelltexte können in zwei verschiedenen Kontexten in Fragestellungen auftauchen
 public String m(int i, int s, boolean b) \{ ... \}“
 \end{center}
 
-Dabei handelt es sich nicht um ein syntaktisch nicht vollständiges und nicht-ausführbares Java-Fragment. Um die Lesbarkeit dieses Fragments zu erhöhen, sollte es trotzdem optisch deutlich vom Fließtext unterscheidbar sein. Es bietet sich an, den Code in einer Monospace-Schriftart zu formatieren und (wenn möglich) eine syntaktische Einfärbung (Syntax Highlighting) anzuwenden.
+Dabei handelt es sich nicht um ein syntaktisch nicht vollständiges und nicht-ausführbares Java-Fragment. Um die Lesbarkeit dieses Fragments zu erhöhen, sollte es dennoch optisch deutlich vom Fließtext unterscheidbar sein. Es bietet sich an, den Code in einer Monospace-Schriftart zu formatieren und (wenn möglich) eine syntaktische Einfärbung (Syntax Highlighting) anzuwenden.
 
-Da die Entwicklung einer eigenen Editor-Komponente extrem komplex ist, und es in diesem Bereich bereits eine große Auswahl an Bibliotheken gibt, wird auch hier auf eine bestehende Implementierung zurückgegriffen. Dabei müssen folgende Anforderungen von einer solchen Bibliothek erfüllt werden:
+Da die Entwicklung einer eigenen Editor-Komponente sehr komplex ist, und es in diesem Bereich bereits eine große Auswahl an Bibliotheken gibt, wird auch hier auf eine bestehende Implementierung zurückgegriffen. Dabei müssen folgende Anforderungen von einer solchen Bibliothek erfüllt werden:
 
 \begin{itemize}
     \item \textbf{Integration in React:}  Muss sich leicht in das deklarative React-Framework einbinden lassen.
     \item \textbf{WYSIWYG (What You See Is What You Get):} Der Editor sollte stets eine Vorschau aller Formatierungen darstellen, und man sollte nicht zwischen einem Markup- und einem Vorschau-Modus wechseln müssen. Formatierungen sollen über Buttons eingefügt werden können.
     \item \textbf{Text-Formatierungen:} Der Editor muss über simple Text-Formatierungen verfügen (zum Beispiel Fettschrift und Kursivierung).
     \item \textbf{Monospace-Schriftart:} Eine Möglichkeit zum Verwenden einer Monospace-Schriftart muss vorhanden sein.
-    \item \textbf{Syntax Highlighting:} Syntax-Highlighting von Code-Fragmenten muss unterstützt werden (üblicherweise durch ein Plugin/Erweiterung mit einer zusätzlichen Bibliothek wie Highlight.js).
+    \item \textbf{Syntax-Highlighting:} Syntaktische, farbliche Hervorhebungen von Code-Fragmenten muss unterstützt werden (üblicherweise durch ein Plugin/Erweiterung mit einer zusätzlichen Bibliothek wie Highlight.js).
 \end{itemize}
 
 Nach dem Erwägen und Ausprobieren diverser Bibliotheken (zum Beispiel Draft.js, Slate, Prosemirror, Quill) fiel die Wahl letztendlich auf den Quill-Editor\cite{web:quill}, der alle genannten Anforderungen erfüllt. Quill ist nicht primär für den Einsatz mit React vorgesehen, deswegen wurde diese Bibliothek in Form einer Wrapper-Bibliothek, die Quill in React-Komponenten bündelt, verwendet. Leider ist diese \texttt{react-quill}-Bibliothek\cite{web:react_quill} nicht sehr gut gepflegt und nicht auf dem neusten Stand in Bezug auf die eingesetzte Editor-Version, so dass sie einige Fehler mitbringt.
