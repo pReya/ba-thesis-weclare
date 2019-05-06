@@ -9,7 +9,7 @@ Um Unabhängigkeit von einem dedizierten, zentralen Anwendungsserver zu erlangen
     \label{abb:weclare_start}
 \end{figure}
 
-Mit diesem Verhalten erfüllt die Software die Definition einer Peer-to-Peer Architektur, zum Beispiel gemäß Tanenbaum\cite[S.62]{book:tanenbaum}:
+Mit diesem Verhalten erfüllt die Software die Definition einer Peer-to-Peer Architektur, zum Beispiel gemäß Tanenbaum\cite[S. 62]{book:tanenbaum}:
 
 \begin{quotation}
 „Aus einem übergeordneten Blickwinkel heraus sind die Prozesse, die ein Peer-to-Peer-System bilden, alle gleich. Die Funktionen, die ausgeführt werden müssen, werden also von jedem Prozess des verteilten Systems dargestellt. Folglich ist die meiste Interaktion zwischen Prozessen symmetrisch: Jeder Prozess agiert gleichzeitig als Client und als Server [...].“
@@ -19,7 +19,7 @@ Jedoch trifft dies eigentlich nur auf den Zeitraum vor dem Start einer Sitzung z
 
 Die Tatsache, dass jeder Teilnehmer entscheiden kann, ob er als Server oder Client teilnehmen will, bedeutet auch, dass Aspekte wie Network Address Translation (NAT) und Firewalls beim Austausch der IP-Adressen (Signaling) berücksichtigt werden müssen.
 
-Der Zugriff auf die Schnittstellen des Betriebssystems (wie etwa das Netzwerk) durch Browser-Skripte ist aus Sicherheitsgründen stark eingeschränkt. Viele bestehende CRS verwenden das WebSocket-Protokoll zur Kommunikation zwischen Client und Server. Ein Browser kann jedoch nur ausgehende Verbindungen über WebSockets initiieren und nicht empfangen. Eine Peer-to-Peer-Architektur mit WebSockets ist deswegen nicht realisierbar.
+Der Zugriff auf die Schnittstellen des Betriebssystems (wie etwa das Netzwerk) durch Browser-Skripte ist aus Sicherheitsgründen stark eingeschränkt. Viele bestehende webbasierte CRS (zum Beispiel Pingo) verwenden das WebSocket-Protokoll zur Kommunikation zwischen Client und Server. Ein Browser kann jedoch nur ausgehende Verbindungen über WebSockets initiieren und nicht empfangen. Eine Peer-to-Peer-Architektur mit WebSockets ist deswegen nicht realisierbar.
 
 Die einzige Möglichkeit, eine omnidirektionale Verbindung zwischen zwei Browsern zu realisieren, ist der relativ neue und offene WebRTC-Standard (Web Real-Time Communication)\footnote{Offizielle Webseite: \url{https://webrtc.org/}}. WebRTC wird hauptsächlich für Multimedia-Echtzeit-Anwendungen eingesetzt und seit 2017 von allen großen Browsern (Google Chrome, Mozilla Firefox, Opera, Apple Safari und Microsoft Edge) unterstützt. Viele Video- und Audiotelefonie-Lösungen (zum Beispiel Skype oder Discord) basieren inzwischen auf dem WebRTC-Protokoll. Neben Audio- und Videoinhalten können aber auch beliebige andere Daten über sogenannte \texttt{RTCDataChannel} übertragen werden. WebRTC beinhaltet aber keine Anweisungen für den Austausch der IP-Adressen zwischen beteiligten Parteien. Dieser Teil, das sogenannte Signaling, ist nicht Teil des Standards und muss selbst implementiert werden.
 

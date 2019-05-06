@@ -23,7 +23,6 @@
 \usepackage{listings}
 \usepackage{csquotes}
 \usepackage{acronym}
-\usepackage{subcaption}
 \usepackage{amsfonts}
 \usepackage{tikz}
 \usepackage[
@@ -39,6 +38,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{parskip}
+\usepackage[font=small,labelfont=bf]{caption}
 
 %% Rename Listings
 \renewcommand\lstlistingname{Quelltext}
@@ -142,7 +142,7 @@
 %% add abstract pages
 \HAWAbstractPage
 {Audience-Response-Systeme, Classroom-Response-Systeme, StuReSy, Webentwicklung, React, Redux, WebRTC, JavaScript}
-{Sogenannte Classroom-Response-Systeme (CRS) werden inzwischen an vielen Universitäten eingesetzt. Studierende können damit während einer Veranstaltung mit ihrem Smartphone oder anderen internetfähigen Geräten Fragen zum Inhalt der Veranstaltung beantworten. Im Kontext der Programmierlehre sind bisherige CRS-Lösungen allerdings häufig nicht ideal. Im Rahmen dieser Arbeit sollen bestehende CRS auf ihre Eignung für den Einsatz in der Programmierlehre bewertet werden. Anschließend wird eine Software konzipiert und als Prototyp implementiert, die sich von bestehenden CRS in vier Kern-Aspekten unterscheidet:\newline
+{Sogenannte Classroom-Response-Systeme (CRS) werden inzwischen an vielen Universitäten eingesetzt. Studierende können damit während einer Veranstaltung mit ihrem Smartphone oder anderen internetfähigen Geräten Fragen zum Inhalt der Veranstaltung beantworten. Im Kontext der Programmierlehre sind bisherige CRS-Lösungen allerdings häufig nicht gut geeignet. Im Rahmen dieser Arbeit sollen bestehende CRS auf ihre Eignung für den Einsatz in der Programmierlehre bewertet werden. Anschließend wird eine Software konzipiert und als Prototyp implementiert, die sich von bestehenden CRS in vier Kern-Aspekten unterscheidet:\newline
 Sie ist vollständig \textbf{webbasiert} und läuft als JavaScript-Anwendung im Browser. Der Download von Software oder die Installation von Plugins ist nicht erforderlich.\newline
 Die Verbindung zwischen Studenten und Dozent wird \textbf{direkt zwischen den beteiligten Browsern} hergestellt. Ein dediziertes Server-System ist nicht notwendig.\newline
 Die Anwendung ist optimiert auf die \textbf{Darstellung und Einbettung von Java-Quelltexten} (zum Beispiel durch Monospace-Formatierung und Syntax-Highlighting).\newline
@@ -191,7 +191,7 @@ Finally there will be an evaluation of how well the requirements were implemente
 \label{chap:entwurf}
 \input{chapter/entwurf/index.tex}
 %
-\chapter{Ausblick: WebAssembly als Zukunftsvision für portable Software}
+\chapter{Ausblick: WebAssembly als Vision für portable Software im Browser}
 \label{chap:ausblick}
 \input{chapter/ausblick/index.tex}
 %
