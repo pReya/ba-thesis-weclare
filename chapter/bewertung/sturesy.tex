@@ -2,9 +2,10 @@
 
 StuReSy besteht aus zwei Komponenten:
 \begin{itemize}
-    \item \textbf{Server}: In PHP geschrieben, stellt die Client-Benutzeroberfläche für die Abstimmungs-Teilnehmer als auch eine Administrations-Oberfläche bereit. Benötigt eine relationale SQL-Datenbank.
-    \item \textbf{Editor}: In Java geschrieben, verbindet sich mit dem Server. Um Fragen zu erstellen, zu bearbeiten und Umfragen zu starten.
+    \item \textbf{Server}: In PHP geschrieben, stellt die Client-Benutzeroberfläche für die Abstimmungs-Teilnehmer als auch eine Administrations-Oberfläche bereit. Benötigt eine relationale SQL-Datenbank. (vgl. \cite{web:sturesy_server_github})
+    \item \textbf{Editor}: In Java geschrieben, verbindet sich mit dem Server. Um Fragen zu erstellen, zu bearbeiten und Umfragen zu starten (vgl. \cite{web:sturesy_client_github}).
 \end{itemize}
+
 
 Der StuReSy-Editor verfügt über folgende Hauptfunktionen bzw. Programmteile:
 \begin{itemize}
@@ -23,29 +24,25 @@ Der StuReSy-Editor verfügt über folgende Hauptfunktionen bzw. Programmteile:
 
 Auch wenn StuReSy erfolgreich im Hochschulbetrieb verwendet wurde, so gibt es dennoch einige konzeptionelle Nachteile:
 \begin{itemize}
-    \item \textbf{Software-Download und Java notwendig}: Um StuReSy administrativ einsetzen zu können, muss zwangsläufig Software heruntergeladen werden und eine Java-Installation muss auf dem jeweiligen System vorhanden sein. Administrativer Zugang vom Tablet oder Smartphone aus ist damit fast nicht möglich.
-    \item \textbf{Server notwendig}: Um StuReSy betreiben zu können, wird zwingend eine Instanz des StuReSy-Servers benötigt. Diese muss von der jeweiligen Institution oder einem Dozenten aufgesetzt und gewartet werden.
-    \item \textbf{Kompliziertes System von Tokens und Lecture-IDs}: Um eine Abstimmung in StuReSy durchzuführen, muss zunächst eine Lecture-ID in der Server-Admin-Oberfläche eingerichtet werden. Anschließend muss ein generierter Token in den Java-Client übertragen werden. Diese Vorgehensweise erscheint unnötig kompliziert und sorgt dafür, dass nur der Administrator der Server-Komponente neue Lecture-IDs einrichten kann. Ein niedrigschwelliger Einsatz (zum Beispiel für Studenten untereinander, oder für Dozenten zum Ausprobieren) wird damit ausgeschlossen.
+    \item \textbf{Software-Download und Java notwendig}: Um StuReSy administrativ einsetzen zu können, muss zwangsläufig Software heruntergeladen werden und eine Java-Installation muss auf dem jeweiligen System vorhanden sein. Administrativer Zugang vom Tablet oder Smartphone aus ist damit kaum möglich, da die Ausführung von Java-Anwendungen auf mobilen Betriebssystemen wie Google Android und Apple iOS nicht ohne Weiteres möglich ist.
+    \item \textbf{Anwendungs-Server notwendig}: Um StuReSy betreiben zu können, wird zwingend eine Instanz des StuReSy-Servers benötigt. Diese muss von der jeweiligen Institution oder einem Dozenten aufgesetzt und gewartet werden.
+    \item \textbf{Kompliziertes System von Tokens und Lecture-IDs}: Um eine Abstimmung in StuReSy durchzuführen, muss zunächst eine Lecture-ID in der Server-Admin-Oberfläche eingerichtet werden. Anschließend muss ein generierter Token in den Java-Client übertragen werden. Diese Vorgehensweise erscheint unnötig kompliziert und sorgt dafür, dass nur der Administrator der Server-Komponente neue Lecture-IDs einrichten kann. Ein niedrigschwelliger Einsatz (zum Beispiel für Studenten untereinander, oder für Dozenten zum Ausprobieren) wird damit erschwert.
 \end{itemize}
 
 Neben den konzeptionellen Problemen gibt es auch Probleme mit der Implementierung von StuReSy, die sich gerade im Bereich der Programmierlehre bemerkbar machen, denn dort beinhalten die Fragetexte oft Quelltext-Ausschnitte:
-\begin{itemize}
-\item \textbf{Mangelnde Formatierungsmöglichkeiten}: Die Darstellung von Quelltexten in StuReSy ist schwierig. Obwohl die Formatierung von Fragen mittels HTML unterstützt wird, ist es nicht leicht, hier ordentliche Ergebnisse zu erzielen, ohne manuell HTML-Code zu editieren. Beispiele dieser Probleme sind in den Abbildungen \ref{abb:sturesy_problem_1}, \ref{abb:sturesy_problem_2} und \ref{abb:sturesy_problem_3} dargestellt.
-\end{itemize}
+
+Die Darstellung von Quelltexten in StuReSy ist schwierig. Obwohl die Formatierung von Fragen mittels HTML unterstützt wird, ist es nicht leicht, hier optisch ansprechende und einheitliche Ergebnisse zu erzielen. Nach dem Einfügen von Quelltexten müssen sowohl Whitespace-Formatierungen (Zeilenumbrüche, Einrückungen) als auch die optische Abhebung des Quelltexts (zum Beispiel durch eine andere Schriftart, Größe oder Farbe) manuell vorgenommen werden. Einen Button oder eine Voreinstellung für Code-Formatierung gibt es nicht. Die Ausrichtung der Quelltext-Blöcke ist kompliziert, denn der Quelltext selbst muss natürlich linksbündig ausgerichtet sein – gleichzeitig soll ein ganzer Quelltext-Block zentriert unter der Fragestellung auftauchen.
+
+Um solche Formatierungen zu erzielen kann es auch notwendig sein, den HTML-Code der Fragestellung manuell bearbeiten zu müssen. Beispiele dieser Probleme sind in den Abbildungen \ref{abb:sturesy_problem_1} und \ref{abb:sturesy_problem_3} dargestellt.
+
 
 \begin{figure}[H]
-    \includegraphics[width=12cm]{chapter/bewertung/bilder/StuReSy_Problem_2.png}
+    \includegraphics[width=11cm]{chapter/bewertung/bilder/StuReSy_Problem_2.png}
     \centering
-    \caption[Probleme bei der Darstellung von Quelltexten in StuReSy (1)]{Probleme bei der Darstellung von Quelltexten: Im Gegensatz zur Fragestellung wirkt der linksbündige Quelltext deplatziert. Eine Antwort-Möglichkeit wird vom zu kleinen Fenster verdeckt. Syntax-Highlighting ist nicht vorhanden.}
+    \caption[Probleme bei der Darstellung von Quelltexten in StuReSy (2)]{Probleme bei der Darstellung von Quelltexten: Im Gegensatz zur Fragestellung wirkt der linksbündige Quelltext deplatziert. Eine Antwort-Möglichkeit wird vom zu kleinen Fenster verdeckt. Syntax-Highlighting ist nicht vorhanden.}
     \label{abb:sturesy_problem_1}
 \end{figure}
 
-\begin{figure}[H]
-    \includegraphics[width=11cm]{chapter/bewertung/bilder/StuReSy_Problem_1.png}
-    \centering
-    \caption[Probleme bei der Darstellung von Quelltexten in StuReSy (2)]{Die horizontale und vertikale Ausrichtung der Antwort-Möglichkeiten ist unregelmäßig und erschwert die optische Zuordnung der einzelnen Zeilen.}
-    \label{abb:sturesy_problem_2}
-\end{figure}
 
 \begin{figure}[H]
     \includegraphics[width=11cm]{chapter/bewertung/bilder/StuReSy_Problem_3.png}
@@ -53,3 +50,6 @@ Neben den konzeptionellen Problemen gibt es auch Probleme mit der Implementierun
     \caption[Probleme bei der Darstellung von Quelltexten in StuReSy (3)]{Beim Einfügen von Quelltexten aus der Zwischenablage gehen sämtliche Whitespace-Formatierungen verloren und müssen manuell wieder eingefügt werden.}
     \label{abb:sturesy_problem_3}
 \end{figure}
+
+
+

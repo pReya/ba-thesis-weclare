@@ -1,24 +1,18 @@
-Nach der Analyse zweier bestehender Lösungen sollen nun Kern-Anforderungen abgeleitet werden, die ein modernes CRS für den Einsatz in der Programmierlehre mitbringen sollte, und welche Funktionen ein CRS in diesem Kontext noch nützlicher machen könnten:
+Im Gespräch mit Herrn Prof. Schmolitzky konnten unter Berücksichtigung bisheriger Erfahrungen beim Einsatz von StuReSy sowohl auf Seiten der Studenten als auch auf Seiten der Dozenten, vier Anforderungen für den Einsatz von CRS in der Programmierlehre aufgestellt werden:
 
 \section{Vollständige Umsetzung als Web-Applikation}
 \label{chap:webbasiert}
-Eine modernes CRS im akademischen Einsatz sollte vollständig webbasiert daherkommen. Die Zugänglichkeit einer Web-Applikation, die vollständig im Browser und ohne Downloads verwendet werden kann, ist gerade für den Einsatz in der Universität wichtig. Der Download oder die Installation zusätzlicher Software stellt eine unnötige Hürde für den Einsatz der Software dar. Während andere CRS durch spezielle Anforderungen (zum Beispiel die Unterstützung von Hardware-Clickern) dazu gezwungen sind, als native Anwendung zu laufen, gibt es im vorliegenden Fall keine solchen Gründe (Unterstützung von dedizierten Hardware-Geräten erscheint wegen der Allgegenwärtigkeit von vernetzten Computern nicht mehr zeitgemäß). Die Umsetzung als Web-Applikation ermöglicht außerdem die Nutzung auf verschiedenen Geräten, unabhängig von der technischen Plattform.
+Die Zugänglichkeit einer Web-Applikation, die vollständig im Browser und ohne (vom Nutzer betätigte) Downloads verwendet werden kann, ist gerade für den Einsatz in der Universität wichtig. Der Download oder die Installation zusätzlicher Software stellt eine unnötige Hürde für den Einsatz der Software dar. Während andere CRS durch spezielle Anforderungen (zum Beispiel die Unterstützung von Hardware-Clickern) dazu gezwungen sind, als native Anwendung zu laufen, gibt es im vorliegenden Fall keine solchen Gründe (Unterstützung von dedizierten Hardware-Geräten erscheint wegen der Allgegenwärtigkeit von vernetzten Computern nicht mehr zeitgemäß). Die Umsetzung als Web-Applikation ermöglicht außerdem die plattformübergreifende Nutzung auf verschiedenen Geräten. Eine modernes CRS im akademischen Einsatz sollte daher vollständig webbasiert daherkommen.
 
 \section{Peer-to-Peer-Verbindungen zwischen den Nutzern}
 \label{chap:anforderung_p2p}
-Um die Langlebigkeit eines CRS zu erhöhen sollte der Wartungsaufwand einer solchen Software so gering wie möglich ausfallen. Außerdem sollte die Hürde zum Einsatz gerade gegenüber den Dozenten möglichst weit gesenkt werden. Der Betrieb eines eigenen, dedizierten Servers mit individuellen Anforderungen (z.B. vorhandene Interpreter oder Datenbanksysteme) widerspricht dieser Philosophie. Daher sollte ein modernes CRS ohne dedizierten Anwendungs-Server funktionieren, und stattdessen auf Direktverbindungen unter den Teilnehmern setzen.
+Um die Langlebigkeit eines CRS zu erhöhen soll der Wartungsaufwand einer solchen Software so gering wie möglich ausfallen. Außerdem soll die Hürde zum Einsatz gerade gegenüber den Dozenten möglichst weit gesenkt werden. Der Betrieb eines eigenen, dedizierten Servers mit individuellen Anforderungen (z.B. vorhandene Interpreter oder Datenbanksysteme) widerspricht diesem Prinzip. Daher sollte ein modernes CRS ohne dedizierten Anwendungs-Server funktionieren, und stattdessen auf Direktverbindungen unter den Teilnehmern setzen.
 
 \section{Formatierungsmöglichkeiten für Quelltext}
 \label{chap:codeformatierung}
-Um die Darstellung von Quelltext-Ausschnitten zu verbessern, sollte ein CRS für die Programmierlehre gut mit Code-Beispielen umgehen können. Dazu gehört, dass Code möglichst übersichtlich dargestellt werden kann. Das beinhaltet die Unterstützung von simplen Formatierungsmöglichkeiten (zum Beispiel Absätze und Fettschreibung), von Syntax-Highlighting für längere Abschnitte sowie die Unterstützung von Monospace-Formatierung, um technische Begriffe in Fließtext ordentlich abheben zu können.
+Im Kontext der Programmierlehre ist die Darstellung von Quelltexten in Fragestellungen unerlässlich. Um die Lesbarkeit von kurzen und langen Quelltext-Aussschnitten zu gewährleisten, ist eine optische Hervorhebung solcher Ausschnitte notwendig. 
+Das beinhaltet sowohl die Unterstützung von simplen Formatierungsmöglichkeiten (zum Beispiel das Einfügen von Absätzen oder den Einsatz von Monospace-Schriftarten) um Code von Fließtext abzuheben, als auch die Verwendung von Syntax-Highlighting um längere Abschnitte übersichtlich darzustellen. 
 
-\section{Code-Ausführung im Browser}
+\section{Quelltext-Ausführung im Browser}
 \label{chap:codeausfuehrung}
-Um ein CRS noch spezifischer auf das Einsatzgebiet der Programmierlehre zuschneiden zu können, soll außerdem evaluiert werden, ob sich die Abhängigkeit von weiteren Programmen wie etwa Entwicklungsumgebungen reduzieren lässt, indem die Ausführung von Java-Quelltexten direkt im CRS ermöglicht wird.
-
-Um die Benutzung eines CRS zu erleichtern, sollte der Dozent keine weiteren Anwendungen neben dem CRS benötigen. Ein Parallelbetrieb von CRS und Entwicklungsumgebung, um zwischen Code-Ausführung und Fragestellung hin- und herzuschalten, ist unübersichtlich und verhindert den administrativen Einsatz eines CRS auf einem fremden Computer. Die Ausführung von Quelltext im Browser könnte diesen Nachteil beheben.
-
-\newpage
-\section{Tabellarische Gegenüberstellung}
-\label{chap:tabelle}
-\input{chapter/anforderungen/tabelle.tex}
+Um ein CRS noch spezifischer auf das Einsatzgebiet der Programmierlehre zuzuschneiden, soll außerdem evaluiert werden, ob sich die Abhängigkeit von weiteren Programmen wie etwa Entwicklungsumgebungen reduzieren lässt, indem die Ausführung von Java-Quelltexten direkt im CRS ermöglicht wird. Der Dozent soll keine weiteren Anwendungen neben dem CRS benötigen. Ein Parallelbetrieb von CRS und Entwicklungsumgebung, um zwischen Code-Ausführung und Fragestellung hin- und herzuschalten, ist unübersichtlich und verhindert den administrativen Einsatz eines CRS auf einem fremden Computer. Die Ausführung von Quelltext im Browser könnte diesen Nachteil beheben.
