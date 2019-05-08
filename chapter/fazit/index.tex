@@ -1,38 +1,7 @@
-Für jede der ermittelten Anforderungen soll einzeln erörtert werden, ob die Umsetzung gelungen ist, und welche Erfahrungen bei der Implementierung gemacht werden konnten.
+\section{Diskussion der Ergebnisse}
+\label{section:fazit}
+\input{chapter/fazit/fazit.tex}
 
-\subsubsection*{Web-Applikation}
-Trotz einiger Nachteile, die der Browser als Laufzeitumgebung mit sich bringt, erscheint es sinnvoll und angenehm, ein CRS vollständig webbasiert zu implementieren. Die technischen Anforderungen eines CRS sind eher gering (im Vergleich zu sehr rechen- oder grafikintensiven Anwendungen). Die Anforderungen an die User Experience und eine gut gestaltete Benutzeroberfläche im Gegensatz dazu eher hoch (ein CRS als Kommandozeilenwerkzeug wäre vermutlich nicht sehr populär). Es erscheint daher nicht mehr zeitgemäß CRS-Software extra herunterladen und installieren zu müssen (es sei denn es gibt Gründe wie etwa geforderte Hardware-Kompatibilität).
-
-Das React-Framework hat sich als gute Wahl für die Umsetzung als Web-App herausgestellt. Die bereitgestellten Konzepte und Bibliotheken waren relativ einfach zu verstehen und haben eine sehr schnelle Entwicklung ermöglicht. Langfristige Wartbarkeit scheint durch die Größe der React-Gemeinde ebenfalls gegeben zu sein.
-
-Eine wichtige Erfahrung dieser Arbeit war der Umgang mit dem enorm großen JavaScript-Ökosystem. Zwar ist die Masse an verfügbaren und kostenlosen, OpenSource-JavaScript-Bibliotheken überwältigend, allerdings zeigt sich, dass es oft schwer ist, stabile und zuverlässige Projekte zu finden, die konstant gepflegt werden. Die Anzahl und Aktivität der Entwickler sowie die Häufigkeit von Updates waren oftmals bessere Kriterien für die Auswahl einer Bibliothek als ihr anfänglicher Funktionsumfang.
-
-\subsubsection*{Peer-To-Peer-Verbindungen}
-Die Implementierung von Peer-to-Peer-Verbindungen auf Basis von WebRTC erwies sich als durchaus schwierig. Der WebRTC-Standard ist leider noch nicht fertiggestellt, und  Abweichungen zwischen den Implementierungen der verschiedenen Browser-Hersteller sind noch vorhanden\footnote{Siehe: \url{https://github.com/webrtchacks/adapter}}. WebRTC im Produktiveinsatz mit breiter Kompatibilität zu verwenden ist aufwändig.
-
-Die Verwendung von WebRTC-Wrappern wie PeerJS, die die Schnittstelle vereinfachen und das Signalling regeln, erscheint gerade in kleinen Projekten unausweichlich zu sein. Leider gibt es bisher nicht sehr viele, und nicht sehr aktuelle Open-Source-Bibliotheken für diese wichtige Aufgabe. Es bleibt zu hoffen dass die Stabilität der Schnittstelle und damit auch die Qualität der Wrapper-Bibliotheken nach dem Ende der WebRTC-Standardisierung ein höheres Niveau erreicht, damit die Technologie einfacher verwendet werden kann.
-
-Das fertige System funktioniert zwar im Regelfall (Lucky Path) einwandfrei, allerdings ist die Zuverlässigkeit von PeerJS in Fehlerfällen oft nicht gegeben. Verbindungsabbruch der Teilnehmer während einer Sitzung oder die Verwendung zu alter oder zu neuer Browser-Versionen kann zu Fehlerzuständen führen. Ob WebRTC eine gute Wahl für den Praxisbetrieb in Lehrveranstaltungen ist, sollte daher mit entsprechenden Tests in der Live-Umgebung getestet werden.
-
-\subsubsection*{Code-Formatierung}
-Die Einbindung von bestehenden, Editor-Bibliotheken war eine sehr gute Entscheidung. Es gibt eine große Anzahl von sehr aktiven JavaScript-Editor-Bibliotheken, allerdings bieten nur wenige davon auch eine überzeugende React-Integration an. Es bleibt zu hoffen, dass der React-Wrapper für den Quill-Editor bald ein Update erhält, damit einige Bugs ausgemerzt werden. CodeMirror als reiner Code-Editor ist im Gegensatz dazu eine sehr stabile und weit verbreitete Bibliothek, die im Praxiseinsatz einen guten Eindruck hinterlässt.
-
-\subsubsection*{Code-Ausführung im Browser}
-Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser grundsätzlich möglich ist. Wie praktikabel dieses Experiment im Alltag der Dozenten ist bleibt fraglich. Vor allem das notwendige Laden der Java-Runtime sorgt dafür dass die Ausführungsdauer von Code-Beispielen oft unangenehm hoch ist. Bei geladener Runtime können Code-Beispiele meistens innerhalb von 15 bis 30 Sekunden kompiliert und ausgeführt werden. Je nach Geschwindigkeit der Internetverbindung kann sich dieser Wert beim ersten Laden der Runtime aber auf mehrere Minuten vergrößern. Die Funktion der Code-Ausführung ist aber  optional und kann zum Beispiel bei einer schlechten Internetverbindung einfach nicht verwendet werden.
-
-Während der Implementierung lag der Fokus auf der Umsetzung der erwähnten Kern-Anforderungen, so dass einige Funktionen, die bisher in StuReSy vorhanden sind, nicht in Weclare umgesetzt werden konnten:
-\begin{itemize}
-    \item Freitext-Fragen, wie sie von StuReSy und Pingo unterstützt werden, sind nicht implementiert.
-    \item Die Visualisierung der erhaltenen Antworten in Form von Diagrammen und der Export als Grafik oder CSV wird nicht unterstützt
-\end{itemize}
-
-Außerdem gibt es Schwachstellen in der Implementierung von Weclare, die definitiv adressiert werden müssen, falls ein Praxiseinsatz in Erwägung gezogen werden soll:
-\begin{itemize}
-    \item Unit- und Integrationstest für die Anwendung sind dringend notwendig.
-    \item Die Instantiierung der DoppioJVM sollte in einem eigenen Thread erfolgen und deswegen in einen WebWorker ausgelagert werden.
-    \item Die Robustheit und das Error-Handling der WebRTC-Verbindung muss erhöht und mit verschiedenen Browsern und Netzwerk-Konstellationen getestet werden.
-\end{itemize}
-
-
-
-
+\section{Ausblick}
+\label{section:ausblick}
+\input{chapter/fazit/ausblick.tex}

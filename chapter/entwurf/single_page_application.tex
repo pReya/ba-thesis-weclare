@@ -1,18 +1,20 @@
-Um eine webbasierte Anwendung zu erstellen, die ohne einen zentralen Anwendungs-Server auskommt, muss die Software komplett clientseitig in einem Browser ausgeführt werden. Da JavaScript die einzige Sprache (neben dem neuen WebAssembly-Bytecode – siehe Kapitel \ref{chap:ausblick}) ist, die von allen Browsern ausgeführt werden kann, wird folglich auch die gesamte Anwendung in JavaScript entworfen. Ein klassisches Backend, also eine Datenschicht (üblicherweise handelt es sich bei den meisten Web-Applikationen mindestens um eine Zwei-Schichten-Architektur) existiert nicht, beziehungsweise ist in die Präsentationsschicht integriert. Das bedingt die Kategorisierung der entstehenden Anwendung als „Fat Client“.
+Um eine webbasierte Anwendung zu erstellen, die ohne einen zentralen Anwendungs-Server auskommt, muss die Software komplett clientseitig in einem Browser ausgeführt werden. Da JavaScript die einzige Sprache (neben dem neuen WebAssembly-Bytecode – siehe Kapitel \ref{section:ausblick}) ist, die von allen Browsern ausgeführt werden kann, wird folglich auch die gesamte Anwendung in JavaScript entworfen. Ein klassisches Backend, also eine Datenschicht (üblicherweise handelt es sich bei den meisten Web-Applikationen mindestens um eine Zwei-Schichten-Architektur) existiert nicht, beziehungsweise ist in die Präsentationsschicht integriert. Das bedingt die Kategorisierung der Anwendung als „Fat Client“.
 
-Durch die vollständig clientseitige Ausrichtung bietet es sich an, die Software als sogenannte Single-Page-Application (SPA) zu implementieren. Herkömmliche Webseiten, sogenannte Multi-Page-Applications (MPA) laden während ihrer Lebenszeit mehrfach neue Seiten vom Server, zum Beispiel jedes Mal, wenn innerhalb der Anwendung eine neue Ansicht dargestellt werden soll. Eine SPA dagegen lädt nur eine einzige Webseite sowie das zugehörige JavaScript-Programm und verändert diese eine Seite dann im weiteren Verlauf dynamisch. Neue Daten werden bei Bedarf asynchron (ohne Blockieren der Seite) nachgeladen, es wird jedoch keine komplette Seite geladen (vgl. \cite[S. 1]{art:single_page_multi_page}). Damit wird auch eine maximale Autarkie gegenüber dem Webserver erreicht, da dieser nur mit wenigen Requests (im einfachsten Fall ein Request pro Nutzer) umgehen muss. Die Anforderungen an den Webserver, auf dem die Anwendung bereitgestellt wird, sind sehr gering – er muss lediglich statische Dateien (HTML, JavaScript, Bilder, Schriften, etc.) bereitstellen. Durch diese geringen Anforderungen kann die Anwendung zum Beispiel auf dem kostenlosen Hosting-Angebot von GitHub\footnote{Offizielle Webseite: \url{https://pages.github.com/}} betrieben werden, so wie es auch bei der öffentlich zugänglichen Weclare-Instanz unter \url{https://weclare.de/} der Fall ist.
+Durch die vollständig clientseitige Ausrichtung bietet es sich an, die Software als sogenannte Single-Page-Application (SPA) zu implementieren. Herkömmliche Webseiten, sogenannte Multi-Page-Applications (MPA) laden während ihrer Lebenszeit mehrfach neue Seiten vom Server, zum Beispiel jedes Mal, wenn innerhalb der Anwendung eine neue Ansicht dargestellt werden soll. Eine SPA dagegen lädt nur eine einzige Webseite sowie das zugehörige JavaScript-Programm und verändert diese eine Seite dann im weiteren Verlauf dynamisch. Neue Daten werden bei Bedarf asynchron (ohne Blockieren der Seite) nachgeladen, es wird jedoch keine komplette Seite geladen. (vgl. \cite[S. 1]{art:single_page_multi_page})
+
+Damit wird auch eine maximale Autarkie gegenüber dem Webserver erreicht, da dieser nur mit wenigen Requests (im einfachsten Fall ein Request pro Nutzer) umgehen muss. Die Anforderungen an den Webserver, auf dem die Anwendung bereitgestellt wird, sind sehr gering – er muss lediglich statische Dateien (HTML, JavaScript, Bilder, Schriften, etc.) bereitstellen. Durch diese geringen Anforderungen kann die Anwendung zum Beispiel auf dem kostenlosen Hosting-Angebot von GitHub\footnote{Offizielle Webseite: \url{https://pages.github.com/}} betrieben werden, so wie es auch bei der öffentlich zugänglichen Weclare-Instanz unter \url{https://weclare.de/} der Fall ist.
 
 Als Framework für die Implementierung einer solchen SPA wird das React-Framework\footnote{Offizielle Webseite: \url{https://reactjs.org/}} ausgewählt. Das Open-Source-Projekt existiert seit 2013 und wird von Facebook finanziert und gefördert. Es gehört zu den populärsten Frameworks zum Erstellen von Benutzeroberflächen und Web-Applikationen (vgl. \cite{web:stackoverflow_umfrage}) und ist dem Autor der Arbeit bereits vertraut.
 
 Um Implementationsdetails nachzuvollziehen, erfolgt an dieser Stelle eine Einführung in einige Grundkonzepte von React.
 
 \subsection{Komponenten, Eigenschaften und Zustand}
-Die elementaren Bausteine einer React-Anwendung sind \texttt{Komponenten}. Die React-Dokumentation beschreibt die Aufgabe von Komponenten wie folgt\cite[Header-Sektion]{web:react}:
+Die elementaren Bausteine einer React-Anwendung sind \texttt{Komponenten}. Die React-Dokumentation beschreibt die Aufgabe von Komponenten wie folgt \cite[Header-Sektion]{web:react}:
 \begin{quote}
 „Build encapsulated components that manage their own state, then compose them to make complex UIs.“
 \end{quote}
 
-Ein Komponente ist eine autarke und wiederverwendbare Einheit und kapselt meistens sowohl Struktur, Aussehen als auch Logik. Komponenten werden häufig als Klasse implementiert (können aber in einfachen Fällen auch als Funktion implementiert werden, siehe Quelltext \ref{code:functionalcomponents}) und erben von der Klasse \texttt{React.Component}. Valide Komponenten müssen über eine \texttt{render()}-Funktion verfügen, die HTML oder andere React-Komponenten zurückliefert. Eine sehr simple, statische Komponente könnte so aussehen:
+Ein Komponente ist eine autarke und wiederverwendbare Einheit und kapselt meistens sowohl Struktur, Aussehen als auch Logik. Komponenten werden häufig als Klasse implementiert (können aber in einfachen Fällen auch als Funktion implementiert werden – siehe Quelltext \ref{code:functionalcomponents}) und erben von der Klasse \texttt{React.Component}. Valide Komponenten müssen über eine \texttt{render()}-Funktion verfügen, die HTML oder andere React-Komponenten zurückliefert. Eine sehr simple, statische Komponente sieht so aus:
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Einfache React-Komponente ohne JSX-Syntax.}]
@@ -26,7 +28,7 @@ class Greeting extends React.Component {
 \end{lstlisting}
 \end{minipage}
 
-Da die Syntax des Aufrufs \texttt{React.createElement()} nicht so kompakt, wie die Notation eines XML-Tags (\texttt{<div>...</div>}) wird im React-Umfeld üblicherweise eine Syntax-Erweiterung namens JSX (JavaScript Syntax Extension) verwendet, um React-Komponenten einfacher beschreiben zu können. JSX wird mit einem Compiler während des Build-Prozesses in herkömmliches JavaScript umgewandelt. Äquivalent zum letzten Beispiel wäre daher die folgende Variante unter Einbeziehung von JSX-Syntax:
+Da die Syntax des Aufrufs \texttt{React.createElement()} nicht so kompakt ist, wie die Notation eines XML-Tags (\texttt{<div>...</div>}), wird im React-Umfeld üblicherweise eine Syntax-Erweiterung namens JSX (JavaScript Syntax Extension) verwendet, um React-Komponenten einfacher beschreiben zu können. JSX wird mit einem Compiler während des Build-Prozesses in herkömmliches JavaScript umgewandelt. Äquivalent zum letzten Beispiel ist daher die folgende Variante unter Einbeziehung von JSX-Syntax:
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Einfache React-Komponente mit JSX-Syntax.}]
@@ -106,7 +108,7 @@ class BusyOrNot extends React.Component {
 \end{lstlisting}
 \end{minipage}
 
-Bedingt durch die statische Natur der Eigenschaft, forciert React einen unidirektionalen Datenfluss. Daten können nur von „oben nach unten“ (in Bezug auf die Baumstruktur im Document-Object-Model einer Seite) durch eine Anwendung fließen. Möchten zwei Komponenten an unterschiedlichen Stellen auf die gleichen Daten zugreifen, dann sollten diese oberhalb der beiden Komponenten in einer gemeinsamen Eltern-Komponente gehalten werden.\newline
+Bedingt durch die statische Natur der Eigenschaft, forciert React einen unidirektionalen Datenfluss. Daten können nur von „oben nach unten“ (in Bezug auf die Baumstruktur im Document-Object-Model einer Seite) durch eine Anwendung fließen. Möchten zwei Komponenten an unterschiedlichen Stellen auf die gleichen Daten zugreifen, dann sollten diese oberhalb der beiden Komponenten in einer gemeinsamen Eltern-Komponente gehalten werden (vgl. \cite{web:react_lift_state_up}).\newline
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[label={code:functionalcomponents},caption={„Lifting state up“: Mehrere Komponenten greifen auf die gleichen Daten zu.}]
@@ -144,7 +146,7 @@ Da dieses Muster bei großen Anwendungen aber schnell zu sehr aufwendigem „Dur
 \label{chap:redux_state_management}
 Das Flux-Entwurfsmuster ist ebenfalls eine Entwicklung von Facebook. Prinzipiell handelt es sich um ein abstraktes Entwurfsmuster, das in vielen Sprachen angewendet werden kann. Etabliert hat es sich jedoch gerade in Kombination mit React-Anwendungen. Die bekannteste Implementation, die auch in dieser Arbeit verwendet wird, hört auf den Namen Redux\footnote{Offizielle Webseite: \url{https://redux.js.org/}}.
 
-Im Redux-Konzept geht es darum, eine zentrale Zustandsverwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als \texttt{Store} bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen Zustand verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist (vgl. \cite{web:redux_motivation}).
+Im Redux-Konzept geht es darum, eine zentrale Zustandsverwaltung für eine Anwendung einzurichten, eine sogenannte „Single Source of Truth“. Dieser zentrale Ort wird als \texttt{Store} bezeichnet. Ein Store beinhaltet typischerweise solche Daten, die für die gesamte Anwendung relevant sind. Parallel dazu kann es aber weiterhin Komponenten geben, die einen eigenen, lokalen Zustand verwalten, wenn dieser nicht für die gesamte Anwendung relevant ist. (vgl. \cite{web:redux_motivation})
 
 \begin{figure}[H]
     \includegraphics[width=12cm]{chapter/entwurf/bilder/BA_redux.png}
@@ -157,7 +159,9 @@ Im Redux-Konzept geht es darum, eine zentrale Zustandsverwaltung für eine Anwen
 \footnotetext{Bildquelle: \url{https://css-tricks.com/learning-react-redux/} (aufgerufen am 24.4.19)}
 
 
-Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. In Redux wird diese Verbindung durch die \texttt{connect}-Funktion zur Verfügung gestellt. Die gewünschten Daten aus dem Store können in einer \texttt{mapStateToProps}-Funktion angegeben werden und stehen der Komponente dann als Eigenschaften zur Verfügung (vgl. \cite[Abschnitt „Implementing Container Components“]{web:redux_react}. Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Eigenschaften auch neu gerendert (reaktives Prinzip). Um eine möglichst lose Kopplung zwischen den Komponenten zu realisieren, wird deswegen empfohlen, die Verbindung zu einem Store in einer (nicht sichtbaren) Container-Komponente zu realisieren (vgl. \cite[Abschnitt „Presentational and Container Components“]{web:redux_react}). Im folgenden Beispiel wird die eigentliche, sichtbare \texttt{Header}-Komponente mit einem unsichtbaren Container versehen, der die notwendigen Daten aus dem Store innerhalb der Komponente unter der \texttt{status}-Eigenschaft verfügbar macht.
+Einzelne React-Komponenten können mit einem Store durch einen Publish/Subscribe-Mechanismus verbunden werden. In Redux wird diese Verbindung durch die \texttt{connect}-Funktion zur Verfügung gestellt. Die gewünschten Daten aus dem Store können in einer \texttt{mapStateToProps}-Funktion angegeben werden und stehen der Komponente dann als Eigenschaften zur Verfügung.(vgl. \cite[Abschnitt „Implementing Container Components“]{web:redux_react})
+
+Ändern sich die Daten im Store, dann wird die verbundene Komponente sofort benachrichtigt und bei einer Änderung der Eigenschaften auch neu gerendert (reaktives Prinzip). Um eine möglichst lose Kopplung zwischen den Komponenten zu realisieren, wird deswegen empfohlen, die Verbindung zu einem Store in einer (nicht sichtbaren) Container-Komponente zu realisieren (vgl. \cite[Abschnitt „Presentational and Container Components“]{web:redux_react}). Im folgenden Beispiel wird die eigentliche, sichtbare \texttt{Header}-Komponente mit einem unsichtbaren Container versehen, der die notwendigen Daten aus dem Store innerhalb der Komponente unter der \texttt{status}-Eigenschaft verfügbar macht.
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Über den connect-Aufruf beim Exportieren der Komponente wird sie mit dem Store verbunden. (aus:  src/client/components/ClientHeaderContainer.js)}]
@@ -172,10 +176,10 @@ export default connect(mapStateToProps)(Header);
 \end{lstlisting}
 \end{minipage}
 
-Änderungen in einem Store müssen mithilfe von \texttt{Actions} realisiert werden. Bei einer Action handelt es sich lediglich um ein Objekt, welches die Art der Änderung in einem Store beschreibt (vgl. \cite[Abschnitt „Actions“]{web:redux_actions}). Um das wiederholte Schreiben solcher aufwändigen Objekt-Literale zu erleichtern, werden die Actions üblicherweise von einer einfachen \texttt{ActionCreator}-Funktion erzeugt (vgl. \cite[Abschnitt „Action Creators“]{web:redux_actions}):
+Änderungen in einem Store müssen mithilfe von \texttt{Actions} realisiert werden. Bei einer Action handelt es sich lediglich um ein Objekt, welches die Art der Änderung in einem Store beschreibt (vgl. \cite[Abschnitt „Actions“]{web:redux_actions}). Um das wiederholte Schreiben langer Objekt-Literale zu erleichtern, werden die Actions üblicherweise von einer  \texttt{ActionCreator}-Funktion erzeugt (vgl. \cite[Abschnitt „Action Creators“]{web:redux_actions}):
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Ein Action-Objekt ist lediglich die Beschreibung einer Änderungsoperation und wird in einem ActionCreator erzeugt.}]
+\begin{lstlisting}[caption={Ein Action-Objekt ist die Beschreibung einer Änderungsoperation und wird in einem ActionCreator erzeugt.}]
 export function addQuestion(newQuestion) {
   return {
     type: "ADD_QUESTION",
@@ -187,7 +191,7 @@ export function addQuestion(newQuestion) {
 \end{lstlisting}
 \end{minipage}
 
-Die eigentliche Implementierung einer Änderungsoperation erfolgt in der zugehörigen \texttt{reducer}-Funktion. Die Operationen in einem reducer sind stets pure Funktionen, das heißt, sie liefern immer das gleiche Ergebnis bei gleichen Eingabe-Parametern und sie haben keine Seiteneffekte. Die Parameter des reducers sind immer der aktuelle Zustand des Stores und die eingehende Action, der Rückgabewert ist der neue Zustand des Stores. Die Signatur eines reducers lautet also immer  \texttt{(previousState, action) => newState} (vgl. \cite{web:redux_reducers}). Ein einfacher Reducer zum Hinzufügen einer Frage zu einem Fragenkatalog könnte so aussehen:
+Die eigentliche Implementierung einer Änderungsoperation erfolgt in der zugehörigen \texttt{reducer}-Funktion. Die Operationen in einem reducer sind stets pure Funktionen, das heißt, sie liefern immer das gleiche Ergebnis bei gleichen Eingabe-Parametern und sie haben keine Seiteneffekte. Die Parameter des reducers sind immer der aktuelle Zustand des Stores und die eingehende Action, der Rückgabewert ist der neue Zustand des Stores. Die Signatur eines reducers lautet also immer \texttt{(previousState, action) => newState} (vgl. \cite{web:redux_reducers}). Ein Beispiel für einen einfachen Reducer zum Hinzufügen einer Frage zu einem Fragenkatalog:
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={In einem Reducer werden die Änderungsoperationen eines Stores als pure Funktion implementiert.}]
@@ -201,7 +205,7 @@ const questionEditor = (state = [], action) => {
 \end{lstlisting}
 \end{minipage}
 
-Der gesamte Datenfluss innerhalb einer typischen Redux-Anwendung ist im folgenden Schaubild gut zusammengefasst:
+Der gesamte Datenfluss innerhalb einer typischen Redux-Anwendung ist im folgenden Schaubild zusammengefasst:
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{chapter/entwurf/bilder/redux_flow.png}
@@ -240,7 +244,7 @@ Die tatsächliche Implementierung entspricht nahezu vollständig diesem Bild (ei
     \label{abb:weclare_editor}
 \end{figure}
 
-Alle Daten, mit denen der Fragen-Editor arbeitet, werden in einem zugehörigen Redux-Store gehalten. Alle möglichen Änderungsoperationen finden sich dementsprechend in einem zugehörigen Reducer wieder, der auszugsweise wie folgt aussieht:
+Alle Daten, mit denen der Fragen-Editor arbeitet, werden in einem zugehörigen Redux-Store gehalten. Alle möglichen Änderungsoperationen finden sich dementsprechend in einem zugehörigen Reducer wieder, dessen Schnittstelle wie folgt aussieht:
 
 
 \begin{minipage}{\linewidth}
@@ -270,7 +274,7 @@ export const questionEditor = (state = [], action) => {
 \end{minipage}
 
 
-Ein Beispiel für die Datenstruktur, die dem Zustand des Fragen-Editors zugrunde liegt und die im Store abgelegt wird:
+Ein Beispiel für die Datenstruktur, die den Zustand des Fragen-Editors darstellt, und die im Store abgelegt wird:
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Zustand des Fragen-Editors innerhalb des Redux-Store mit einer einzigen Frage.}]
