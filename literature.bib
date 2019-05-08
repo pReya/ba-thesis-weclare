@@ -2,11 +2,11 @@
 
 % Books
 @book{book:tanenbaum,
-	AUTHOR = {Tanenbaum, Andrew S. and van Steen, Maarten},
-	YEAR = {2008},
-	TITLE = {Verteilte Systeme: Prinzipien und Paradgimen},
-	ISBN = {978-3-8273-7293-2},
-	PUBLISHER = {Pearson Studium}
+  author = {Tanenbaum, Andrew S. and van Steen, Maarten},
+  year = 2008,
+  title = {Verteilte Systeme: Prinzipien und Paradgimen},
+  isbn = {978-3-8273-7293-2},
+  publisher = {Pearson Studium}
 }
 
 % Articles
@@ -18,7 +18,7 @@
   pages   = {398-403},
   month   = 8,
   volume  = 4,
-  howpublished = {\url{https://ieeexplore.ieee.org/abstract/document/1668284}}
+  url    = {https://ieeexplore.ieee.org/abstract/document/1668284}
 }
 
 @article{art:web1to4,
@@ -26,7 +26,63 @@
   title   = {{World Wide Web and Its Journey from Web 1.0 to Web 4.0}},
   journal = {International Journal of Computer Science and Information Technologies},
   year    = 2014,
-  volume  = 5
+  volume  = 5,
+  number  = 6,
+  pages   = {8096--8100},
+  publisher= {Citeseer},
+  url      = {http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.666.6445&rep=rep1&type=pdf}}
+}
+
+@article{art:wasm_speed,
+ author = {Haas, Andreas and Rossberg, Andreas and Schuff, Derek L. and Titzer, Ben L. and Holman, Michael and Gohman, Dan and Wagner, Luke and Zakai, Alon and Bastien, JF},
+ title = {{Bringing the Web Up to Speed with WebAssembly}},
+ journal = {SIGPLAN Not.},
+ issue_date = {June 2017},
+ volume = {52},
+ number = {6},
+ month = jun,
+ year = {2017},
+ pages = {185--200},
+ numpages = {16},
+ url = {http://doi.acm.org/10.1145/3140587.3062363},
+ publisher = {ACM},
+ address = {New York, NY, USA}
+} 
+
+
+@article{art:crs_literature_review,
+  author  = {Carmen Fies and Jill Marshall}, 
+  title   = {{Classroom Response Systems: A Review of the Literature}},
+  journal = {Journal of Science Education and Technology},
+  year    = 2006,
+  volume  = 15,
+  number  = 1,
+  pages   = {101-109},
+  month   = 3,
+  url     = {https://link.springer.com/article/10.1007/s10956-006-0360-1}}
+}
+
+@article{paper:harvard_tenyears,
+    author={Crouch, Catherine H. and Mazur, Eric},
+    title={{Peer Instruction: Ten years of experience and results}},
+    journal={American journal of physics},
+    year={2001},
+    volume={69},
+    number={9},
+    pages={970--977},
+    month={04},
+    publisher={AAPT},
+    url = {http://wayback.archive-it.org/all/20121206172800/http://www4.uwm.edu/ltc/srs/faculty/docs/Mazur_Harvard_SRS2.pdf}
+}
+
+@article{art:single_page_multi_page,
+  author    = {Ali Mesbah and
+               Arie van Deursen},
+  title     = {Migrating Multi-page Web Applications to Single-page {AJAX} Interfaces},
+  journal   = {CoRR},
+  volume    = {abs/cs/0610094},
+  year      = {2006},
+  url       = {http://arxiv.org/abs/cs/0610094},
 }
 
 
@@ -57,13 +113,6 @@
     howpublished = {\url{https://www.educause.edu/ir/library/pdf/EDU06283.pdf}},
 }
 
-@misc{paper:harvard_tenyears,
-    author={Crouch, Catherine H. and Mazur, Eric},
-    title={{Peer Instruction: Ten years of experience and results}},
-    year={2000},
-    month={04},
-    howpublished = {\url{http://wayback.archive-it.org/all/20121206172800/http://www4.uwm.edu/ltc/srs/faculty/docs/Mazur_Harvard_SRS2.pdf}},
-}
 
 
 % Web articles
@@ -85,6 +134,37 @@
     note = {zuletzt besucht am 09.04.2019},
 }
 
+@misc{web:redux_motivation,
+    title={{Offizielle Redux-Dokumentation: Motivation}},
+    howpublished = {\url{https://redux.js.org/introduction/motivation}},
+    note = {zuletzt besucht am 09.04.2019},
+}
+
+@misc{web:redux_react,
+    title={{Offizielle Redux-Dokumentation: Usage with React}},
+    howpublished = {\url{https://redux.js.org/basics/usage-with-react}},
+    note = {zuletzt besucht am 09.04.2019},
+}
+
+@misc{web:redux_actions,
+    title={{Offizielle Redux-Dokumentation: Actions}},
+    howpublished = {\url{https://redux.js.org/basics/actions}},
+    note = {zuletzt besucht am 09.04.2019},
+}
+
+@misc{web:redux_reducers,
+    title={{Offizielle Redux-Dokumentation: Reducers}},
+    howpublished = {\url{https://redux.js.org/basics/reducers}},
+    note = {zuletzt besucht am 09.04.2019},
+}
+
+@misc{web:redux_async_actions,
+    title={{Offizielle Redux-Dokumentation: Async Actions}},
+    howpublished = {\url{https://redux.js.org/advanced/async-actions}},
+    note = {zuletzt besucht am 09.04.2019},
+}
+
+
 @misc{web:github_weclare,
     title={{GitHub-Repository für Weclare}},
     howpublished = {\url{https://github.com/pReya/weclare}},
@@ -104,10 +184,17 @@
 }
 
 @misc{web:stackoverflow_umfrage,
-    title={{Stack Overflow Entwickler-Umfrage 2019}},
+    title={{Stack Overflow Entwickler-Umfrage 2019: Web-Frameworks}},
     howpublished = {\url{https://insights.stackoverflow.com/survey/2019\#technology-_-most-loved-dreaded-and-wanted-web-frameworks}},
     note = {zuletzt besucht am 29.04.2019},
 }
+
+@misc{web:react_reconciliation,
+    title={{Offizielle React-Dokumentation: Reconciliation}},
+    howpublished = {\url{https://reactjs.org/docs/reconciliation.html}},
+    note = {zuletzt besucht am 29.04.2019},
+}
+
 
 @misc{web:flux_doku,
     title={{Offizielle Dokumentation des Flux-Entwurfsmusters}},
@@ -191,6 +278,26 @@
     title={{GitHub-Repository: StuReSy Server}},
     howpublished = {\url{https://github.com/sturesy/server}},
     note = {zuletzt besucht am 07.05.2019},
+}
+
+@misc{web:webrtc_signaling,
+    title={{Getting Started with WebRTC}},
+    howpublished = {\url{https://www.html5rocks.com/en/tutorials/webrtc/basics/\#toc-signaling}},
+    note = {zuletzt besucht am 07.05.2019},
+}
+
+
+@techreport{std:websockets,
+   AUTHOR = "I. Fette and A. Melnikov",
+   TITLE = "{The WebSocket Protocol}",
+   HOWPUBLISHED = {Internet Requests for Comments},
+   TYPE="{RFC}",
+   NUMBER=6455,
+   YEAR = {2011},
+   MONTH = {December},
+   PUBLISHER = "{RFC Editor}",
+   INSTITUTION = "{RFC Editor}",
+   URL={https://www.rfc-editor.org/rfc/rfc6455.txt}
 }
 
 
