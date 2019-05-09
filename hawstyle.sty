@@ -373,13 +373,10 @@
     \DeclareGraphicsExtensions{.png,.pdf,.jpg}
     \DeclareGraphicsRule{*}{mps}{*}{}
 
-    \if@haw@printer
+
     \colorlet{LinkColor}{black}
     \colorlet{CiteColor}{black}
-    \else
-    \colorlet{LinkColor}{blue}
-    \colorlet{CiteColor}{red}
-    \fi
+
     \hypersetup{pdfsubject={\haw@title}
       ,pdftitle={\haw@title}
       ,pdfauthor={\theHAWThesisAuthor}
