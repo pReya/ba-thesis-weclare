@@ -1,41 +1,41 @@
 Die grundlegende Programmierausbildung im Department Informatik an der HAW Hamburg erfolgt in der Programmiersprache Java, weswegen auch die Funktionen von Weclare auf Java zugeschnitten sind. Normalerweise wird Java in einem zweistufigen Prozess ausgeführt. Zunächst wird eine plattformabhängige JVM geladen. Innerhalb dieser JVM wird der Java-Compiler (javac) aufgerufen. Dieser compiliert Java-Quelltext zu Java-Bytecode. Der Java-Bytecode kann dann von der JVM ausgeführt werden. Dieser Ablauf ist in der Abbildung \ref{abb:java_execution} unter a) dargestellt.
 
-Um Java in einem Browser auszuführen ergeben sich konzeptionell mindestens drei verschiedene Möglichkeiten, die in Abbildung \ref{abb:java_execution} mit den Buchstaben b - d gekennzeichnet sind.
+Um Java in einem Browser auszuführen ergeben sich konzeptionell mindestens drei verschiedene Möglichkeiten, die in Abbildung \ref{abb:java_execution} mit den Buchstaben b) - d) gekennzeichnet sind.
 
 \begin{figure}[H]
     \includegraphics[width=14cm]{chapter/entwurf/bilder/Java_JavaScript_Execution.png}
     \centering
-    \caption{Verschiedene Konzepte um Java-Quelltext im Browser ausführen zu können.}
+    \caption{Ausführungsmöglichkeiten eines Java-Quelltexts im Browser.}
     \label{abb:java_execution}
 \end{figure}
 
 \newpage
 
 \begin{itemize}
-    \item \textbf{b:} Java-Quelltext wird mit einem Compiler direkt in JavaScript umgewandelt: Diese Variante ist konzeptionell sehr einfach. Zwar gibt es einige Programme, welche Java-Quelltext in JavaScript übersetzen können (zum Beispiel JSweet\footnote{Offizielle Webseite: \url{http://www.jsweet.org/}} oder GWT\footnote{Offizielle Webseite: \url{http://www.gwtproject.org/}}), jedoch sind alle diese Programme entweder in Java selbst oder in dritten Programmiersprachen verfasst. Ein solcher Compiler, der selbst in JavaScript geschrieben wurde und damit auch im Browser ausgeführt werden kann, ist nicht bekannt. Es wäre möglich eines der besagten Programme auf einem separaten Compile-Server einzusetzen. Dies würde aber eine weitere Abhängigkeit von einem Server bedeuten, und damit den formulierten Kern-Anforderungen widersprechen.
-    \item \textbf{c:} Java-Quelltext wird mithilfe eines ersten Compilers in Java-Bytecode übersetzt. Anschließend wird der Java-Bytecode mit einem zweiten Compiler in JavaScript übersetzt. Auch hier ergibt sich das gleiche Problem wie in b). Zwar gibt es Programme, die den jeweiligen Teilschritt übernehmen könnten, jedoch ist keins davon in JavaScript verfasst, so dass es keine browserkompatible Lösung dafür gibt.
-    \item \textbf{d:} Wie auf einem lokalen Rechner wird eine JVM zur Ausführung verwendet, die allerdings selbst in JavaScript implementiert wurde. Mithilfe dieser JVM können existierende Java-Programme wie zum Beispiel der javac-Compiler ausgeführt werden, um Java-Quelltext in Java-Bytecode zu übersetzen und das Ergebnis kann anschließend in der gleichen JVM ausgeführt werden.
+    \item \textbf{b):} Java-Quelltext wird mit einem Compiler direkt in JavaScript umgewandelt: Diese Variante ist konzeptionell sehr einfach. Zwar gibt es einige Programme, welche Java-Quelltext in JavaScript übersetzen können (z.B. JSweet\footnote{Offizielle Webseite: \url{http://www.jsweet.org/}} oder GWT\footnote{Offizielle Webseite: \url{http://www.gwtproject.org/}}), jedoch sind alle diese Programme entweder in Java selbst oder in dritten Programmiersprachen verfasst. Ein solcher Compiler, der selbst in JavaScript geschrieben wurde und damit auch im Browser ausgeführt werden kann, ist nicht bekannt. Es wäre möglich eines der besagten Programme auf einem separaten Compile-Server einzusetzen. Dies würde aber eine weitere Abhängigkeit von einem Server bedeuten und damit den formulierten Kern-Anforderungen widersprechen.
+    \item \textbf{c):} Java-Quelltext wird mithilfe eines ersten Compilers in Java-Bytecode übersetzt. Anschließend wird der Java-Bytecode mit einem zweiten Compiler in JavaScript übersetzt. Auch hier ergibt sich das gleiche Problem wie in b). Zwar gibt es Programme, die den jeweiligen Teilschritt übernehmen könnten, jedoch ist keins davon in JavaScript verfasst, so dass es keine browserkompatible Lösung dafür gibt.
+    \item \textbf{d):} Wie auf einem lokalen Rechner wird eine JVM zur Ausführung verwendet, die allerdings selbst in JavaScript implementiert wurde. Mithilfe dieser JVM können existierende Java-Programme wie zum Beispiel der javac-Compiler ausgeführt werden, um Java-Quelltext in Java-Bytecode zu übersetzen und das Ergebnis kann anschließend in der gleichen JVM ausgeführt werden.
 \end{itemize}
 
 In Anbetracht der Tatsache, dass die Ausführung der Code-Beispiele im Browser stets die gleichen Ergebnisse liefern muss, wie die Ausführung in einer lokalen JVM (zum Beispiel auch in Bezug auf Fehler beim Kompilieren), so ist die Variante d) zu bevorzugen und wird im Rahmen dieser Arbeit in das entstandene CRS integriert.
 
-Die benötigte JVM-Implementierung in JavaScript existiert bereits in Form eines Universitätsprojekts der PLASMA-Forschungsgruppe der University of Massachusetts in Amherst, USA. Unter dem Namen DoppioJVM wurde dort im Jahr 2014 im Rahmen einer wissenschaftlichen Arbeit eine solche JVM erschaffen\cite{paper:doppio}[S. 8]:
+Die benötigte JVM-Implementierung in JavaScript existiert bereits in Form eines Universitätsprojekts der PLASMA-Forschungsgruppe der University of Massachusetts in Amherst, USA. Unter dem Namen DoppioJVM wurde dort im Jahr 2014 im Rahmen einer wissenschaftlichen Arbeit eine solche JVM erschaffen \cite[S. 8]{paper:doppio}:
 
 \begin{quotation}
 „DoppioJVM is a robust prototype Java Virtual Machine (JVM) interpreter
 that operates entirely in JavaScript. DoppioJVM implements all 201 bytecode instructions specified in the second edition of the Java Virtual Machine Specification, supports multithreaded programs, runs multiple languages that run on top of the JVM, and implements many of the complex mechanisms and native functionality that JVM programs expect.“
 \end{quotation}
 
-Voraussetzung für die Nutzung von DoppioJVM ist ein weiteres Projekt der gleichen Forschungsgruppe namens BrowserFS\footnote{Offizielle Webseite: \url{https://github.com/jvilk/BrowserFS}}. Die JVM benötigt für ihre Funktion Zugriff auf ein Dateisystem, welches der Browser als Laufzeitumgebung normalerweise nicht anbietet. Wer JavaScript außerhalb des Browser auf dem Server bzw. in der Kommandozeile einsetzt, kann aber dank der Node.js-Laufzeitumgebung auf Dateisysteme zugreifen. Genau diese populäre Node.js-API emuliert BrowserFS und bringt sie in den Browser. Dabei werden verschiedene Datenquellen unterstützt: Die Dateien können zum Beispiel im LocalStorage des Browser oder aber komplett im Arbeitsspeicher abgelegt werden (vgl. \cite{web:browserfs_docs}).
+Voraussetzung für die Nutzung von DoppioJVM ist ein weiteres Projekt der gleichen Forschungsgruppe namens BrowserFS\footnote{Offizielle Webseite: \url{https://github.com/jvilk/BrowserFS}}. Die JVM benötigt für ihre Funktion Zugriff auf ein Dateisystem, welches der Browser als Laufzeitumgebung normalerweise nicht anbietet. Wer JavaScript außerhalb des Browser auf dem Server bzw. in der Kommandozeile einsetzt, kann aber dank der Node.js-Laufzeitumgebung auf Dateisysteme zugreifen. Genau diese populäre Node.js-API emuliert BrowserFS und bringt sie in den Browser. Dabei werden verschiedene Datenquellen unterstützt: Die Dateien können zum Beispiel im \texttt{LocalStorage} des Browser oder aber komplett im Arbeitsspeicher abgelegt werden (vgl. \cite{web:browserfs_docs}).
 
-Für den Betrieb der DoppioJVM werden zwei Verzeichnisse mit verschiedenen Datenquellen kofiguriert: Die Bestandteile der Java Runtime Environment (JRE) werden auf dem Webserver abgelegt und anschließend beim Zugriff über asynchrone HTTP-Requests nachgeladen (bekannt als „Asynchronous JavaScript and XML“, kurz: AJAX). Die Quelltext- und Bytecode-Dateien, die kompiliert und ausgeführt werden, liegen komplett im Arbeitsspeicher.
+Für den Betrieb der DoppioJVM werden zwei Verzeichnisse mit verschiedenen Datenquellen konfiguriert: Die Bestandteile der Java Runtime Environment (JRE) werden auf dem Webserver abgelegt und anschließend beim Zugriff über asynchrone HTTP-Requests nachgeladen (bekannt als „Asynchronous JavaScript and XML“ (AJAX)). Die Quelltext- und Bytecode-Dateien, die kompiliert und ausgeführt werden, liegen komplett im Arbeitsspeicher.
 
 Das asynchrone Nachladen der JRE ist der größte Schwachpunkt der Code-Ausführung via DoppioJVM. Die Dateigröße der JRE liegt bei rund 62 Megabyte, die der Server-Rechner herunterladen muss, um Java-Code ausführen zu können. Bei langsamer Internetverbindung kann das einige Minuten dauern.
 
 Nachdem das BrowserFS-Dateisystem konfiguriert ist, kann DoppioJVM mit einer relativ einfachen Schnittstelle verwendet werden:
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Instanziierung der DoppioJVM (aus: src/server/actions/doppio.js)}]
+\begin{lstlisting}[caption={Instanziierung der DoppioJVM (aus: src/server/actions/doppio.js).}]
 new Doppio.VM.JVM(
   {
     doppioHomePath: "/sys",
@@ -54,7 +54,7 @@ new Doppio.VM.JVM(
 \end{lstlisting}
 \end{minipage}
 
-Die DoppioJVM muss bei jeder Verwendung neu instanziiert werden. Deswegen ist es erforderlich, dass die Kompilierung und Ausführung des Java-Codes aus der Fragestellung in einem Aufruf erfolgt. Dazu bietet Java die passenden Klassen und Methoden um Quelltexte programmatisch zu kompilieren und auszuführen:
+Die DoppioJVM muss bei jeder Verwendung neu instanziiert werden. Somit ist es erforderlich, dass die Kompilierung und Ausführung des Java-Codes aus der Fragestellung in einem Aufruf erfolgt. Dazu bietet Java die passenden Klassen und Methoden um Quelltexte programmatisch zu kompilieren und auszuführen:
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Java-Loader, der programmatisch Quelltext kompiliert und ausführt. (aus: public/doppio/Loader.java)}]
@@ -101,7 +101,7 @@ public class Loader {
 \end{lstlisting}
 \end{minipage}
 
-Ebenso wie die Netzwerk-Kommunikation ist auch die Instanziierung der DoppioJVM komplett in Form von ActionCreator-Funktion in Weclare integriert um dem Flux-Muster zu entsprechen. In einem Store wird dabei auch der Inhalt des kleinen Terminal-Fensters gespeichert, welches die Ein-und-Ausgabe-Streams der DoppioJVM abfängt.
+Ebenso wie die Netzwerk-Kommunikation ist auch die Instanziierung der DoppioJVM komplett in Form von ActionCreator-Funktion in Weclare integriert, um dem Flux-Muster zu entsprechen. In einem Store wird dabei auch der Inhalt des kleinen Terminal-Fensters gespeichert, welches die Ein-und-Ausgabe-Streams der DoppioJVM abfängt.
 
 \begin{figure}[H]
     \centering

@@ -1,9 +1,9 @@
-\ac{sturesy} ist der Name einer freien Software, die im Rahmen der Bachelorarbeit von Wolf Posdorfer im Jahr 2012 an der Universität Hamburg entstanden ist\cite{sturesy}. Der Name StuReSy ist ein Akronym für „\textbf{Stu}dent \textbf{Re}sponse \textbf{Sy}stem“. StuReSy wurde erfolgreich und viele Jahre an der Universität Hamburg und der HAW Hamburg eingesetzt.
+\ac{sturesy} ist eine freie Software, die im Rahmen der Bachelorarbeit von Herrn Wolf Posdorfer im Jahr 2012 an der Universität Hamburg entstanden ist \cite{sturesy}. Der Name StuReSy ist ein Akronym für „\textbf{Stu}dent \textbf{Re}sponse \textbf{Sy}stem“. StuReSy wurde erfolgreich und viele Jahre an der Universität Hamburg und der HAW Hamburg eingesetzt.
 
 StuReSy besteht aus zwei Komponenten:
 \begin{itemize}
-    \item \textbf{Server}: In PHP geschrieben, stellt die Client-Benutzeroberfläche für die Abstimmungs-Teilnehmer als auch eine Administrations-Oberfläche bereit. Benötigt eine relationale SQL-Datenbank. (vgl. \cite{web:sturesy_server_github})
-    \item \textbf{Editor}: In Java geschrieben, verbindet sich mit dem Server. Um Fragen zu erstellen, zu bearbeiten und Umfragen zu starten (vgl. \cite{web:sturesy_client_github}).
+    \item \textbf{Server (in PHP geschrieben)}: Stellt die Client-Benutzeroberfläche für die Abstimmungs-Teilnehmer und eine Administrations-Oberfläche bereit. Benötigt eine relationale SQL-Datenbank (vgl. \cite{web:sturesy_server_github}).
+    \item \textbf{Editor (in Java geschrieben)}: Verbindet sich mit dem Server, um Fragen zu erstellen, zu bearbeiten und Umfragen zu starten (vgl. \cite{web:sturesy_client_github}).
 \end{itemize}
 
 
@@ -11,7 +11,7 @@ Der StuReSy-Editor verfügt über folgende Hauptfunktionen bzw. Programmteile:
 \begin{itemize}
     \item \textbf{Abstimmung}: Durchführung einer Umfrage
     \item \textbf{Fragen-Editor}: Erstellung und Bearbeitung von Fragesätzen.
-    \item \textbf{Abstimmungs-Analyse}: Auswerten von Abstimmungs-Ergebnissen im Nachhinein.
+    \item \textbf{Abstimmungs-Analyse}: Auswertung von Abstimmungs-Ergebnissen im Nachhinein.
 \end{itemize}
 
 \begin{figure}[H]
@@ -26,14 +26,12 @@ Auch wenn StuReSy erfolgreich im Hochschulbetrieb verwendet wurde, so gibt es de
 \begin{itemize}
     \item \textbf{Software-Download und Java notwendig}: Um StuReSy administrativ einsetzen zu können, muss zwangsläufig Software heruntergeladen werden und eine Java-Installation muss auf dem jeweiligen System vorhanden sein. Administrativer Zugang vom Tablet oder Smartphone aus ist damit kaum möglich, da die Ausführung von Java-Anwendungen auf mobilen Betriebssystemen wie Google Android und Apple iOS nicht ohne Weiteres möglich ist.
     \item \textbf{Anwendungs-Server notwendig}: Um StuReSy betreiben zu können, wird zwingend eine Instanz des StuReSy-Servers benötigt. Diese muss von der jeweiligen Institution oder einem Dozenten aufgesetzt und gewartet werden.
-    \item \textbf{Kompliziertes System von Tokens und Lecture-IDs}: Um eine Abstimmung in StuReSy durchzuführen, muss zunächst eine Lecture-ID in der Server-Admin-Oberfläche eingerichtet werden. Anschließend muss ein generierter Token in den Java-Client übertragen werden. Diese Vorgehensweise erscheint unnötig kompliziert und sorgt dafür, dass nur der Administrator der Server-Komponente neue Lecture-IDs einrichten kann. Ein niedrigschwelliger Einsatz (zum Beispiel für Studenten untereinander, oder für Dozenten zum Ausprobieren) wird damit erschwert.
+    \item \textbf{Kompliziertes System von Tokens und Lecture-IDs}: Um eine Abstimmung in StuReSy durchzuführen, muss zunächst eine Lecture-ID in der Server-Admin-Oberfläche eingerichtet werden. Anschließend muss ein generierter Token in den Java-Client übertragen werden. Diese Vorgehensweise erscheint unnötig kompliziert und sorgt dafür, dass nur der Administrator der Server-Komponente neue Lecture-IDs einrichten kann. Ein niedrigschwelliger Einsatz (zum Beispiel für Studenten untereinander oder für Dozenten zum Ausprobieren) wird damit erschwert.
 \end{itemize}
 
 Neben den konzeptionellen Problemen gibt es auch Probleme mit der Implementierung von StuReSy, die sich gerade im Bereich der Programmierlehre bemerkbar machen, denn dort beinhalten die Fragetexte oft Quelltext-Ausschnitte:
 
-Die Darstellung von Quelltexten in StuReSy ist schwierig. Obwohl die Formatierung von Fragen mittels HTML unterstützt wird, ist es nicht leicht, hier optisch ansprechende und einheitliche Ergebnisse zu erzielen. Nach dem Einfügen von Quelltexten müssen sowohl Whitespace-Formatierungen (Zeilenumbrüche, Einrückungen) als auch die optische Abhebung des Quelltexts (zum Beispiel durch eine andere Schriftart, Größe oder Farbe) manuell vorgenommen werden. Einen Button oder eine Voreinstellung für Code-Formatierung gibt es nicht. Die Ausrichtung der Quelltext-Blöcke ist kompliziert, denn der Quelltext selbst muss natürlich linksbündig ausgerichtet sein – gleichzeitig soll ein ganzer Quelltext-Block zentriert unter der Fragestellung auftauchen und nicht am linken Bildrand kleben.
-
-Um solche Formatierungen zu erzielen kann es auch notwendig sein, den HTML-Code der Fragestellung manuell bearbeiten zu müssen. Beispiele dieser Probleme sind in den Abbildungen \ref{abb:sturesy_problem_1} und \ref{abb:sturesy_problem_3} dargestellt.
+Die Darstellung von Quelltexten in StuReSy ist aufwendig. Obwohl die Formatierung von Fragen mittels HTML unterstützt wird, ist es komplex, optisch ansprechende und einheitliche Ergebnisse zu erzielen. Nach dem Einfügen von Quelltexten aus der Zwischenablage müssen sowohl Zeilenumbrüche und Einrückungen als auch die optische Abhebung des Quelltexts (z.B. durch eine andere Schriftart, Größe oder Farbe) manuell vorgenommen werden. Einen Button oder eine Voreinstellung für Code-Formatierung gibt es nicht. Die Ausrichtung der Quelltext-Blöcke ist anspruchsvoll, denn der Quelltext selbst muss aufgrund der Lesbarkeit linksbündig ausgerichtet sein – gleichzeitig soll ein ganzer Quelltext-Block zentriert unter der Fragestellung auftauchen und nicht am linken Bildrand festhängen. Um solche Formatierungen zu erzielen kann es auch notwendig sein, den HTML-Code der Fragestellung manuell bearbeiten zu müssen. Beispiele dieser Probleme sind in den Abbildungen \ref{abb:sturesy_problem_1} und \ref{abb:sturesy_problem_3} dargestellt.
 
 
 \begin{figure}[H]
@@ -47,7 +45,7 @@ Um solche Formatierungen zu erzielen kann es auch notwendig sein, den HTML-Code 
 \begin{figure}[H]
     \includegraphics[width=11cm]{chapter/bewertung/bilder/StuReSy_Problem_3.png}
     \centering
-    \caption[Probleme bei der Darstellung von Quelltexten in StuReSy (2)]{Beim Einfügen von Quelltexten aus der Zwischenablage gehen sämtliche Whitespace-Formatierungen verloren und müssen manuell wieder eingefügt werden.}
+    \caption[Probleme bei der Darstellung von Quelltexten in StuReSy (2)]{Beim Einfügen von Quelltexten aus der Zwischenablage gehen sämtliche Absätze und Einrückungen verloren und müssen manuell wieder eingefügt werden.}
     \label{abb:sturesy_problem_3}
 \end{figure}
 

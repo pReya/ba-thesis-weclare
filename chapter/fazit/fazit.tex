@@ -1,42 +1,40 @@
-Für jede Anforderung soll einzeln geprüft werden, ob die Umsetzung gelungen ist, und welche Erfahrungen bei der Implementierung gemacht wurden.
+Für jede Anforderung wird einzeln geprüft, ob die Umsetzung gelungen ist und welche Erfahrungen bei der Implementierung gemacht wurden.
 
 \subsubsection*{Web-Applikation}
 
-Die Umsetzung eines CRS als Web-Applikation hat keine Probleme bereitet. Das React-Framework hat sich als gute Wahl für dieses Projekt herausgestellt. Die bereitgestellten Konzepte und Bibliotheken waren einfach zu verstehen und haben eine sehr schnelle Entwicklung ermöglicht. Langfristige Wartbarkeit ist durch die Größe der React-Gemeinde ebenfalls gegeben.
+Die Umsetzung eines CRS als Web-Applikation bereitete keine Probleme. Das React-Framework stellte sich als gute Wahl für dieses Projekt heraus. Die bereitgestellten Konzepte und Bibliotheken waren einfach zu verstehen und ermöglichten eine sehr schnelle Entwicklung. Langfristige Wartbarkeit ist durch die Größe der React-Gemeinde ebenfalls gegeben.
 
-Eine wichtige Erfahrung während der Umsetzung war der Umgang mit dem enorm großen JavaScript-Ökosystem. Die Menge an verfügbaren und kostenlosen, OpenSource-JavaScript-Bibliotheken ist enorm groß, allerdings zeigte sich, dass es oft schwer ist, hochwertige Bibliotheken zu finden. Sowohl für die Code-Formatierung als auch für die Code-Ausführung als auch für viele andere Funktionen wurden etliche Bibliotheken ausprobiert und später wieder verworfen. Die Qualität und vor allem die Aktualität der Projekte stellt sich häufig erst zu einem späten Zeitpunkt als problematisch heraus. Die Anzahl und Aktivität der Entwickler sowie die Häufigkeit von Aktualisierungen waren oft bessere Kriterien für die Auswahl einer Bibliothek als ihr anfänglicher Funktionsumfang.
+Eine wichtige Erfahrung während der Umsetzung war der Umgang mit dem großen JavaScript-Ökosystem. Die Menge an verfügbaren und kostenlosen, OpenSource-JavaScript-Bibliotheken ist enorm groß, allerdings zeigte sich, dass es oft schwer ist, hochwertige Bibliotheken zu finden. Sowohl für die Code-Formatierung und die Code-Ausführung als auch für viele andere Funktionen wurden zahlreiche Bibliotheken ausprobiert und später wieder verworfen. Die Qualität und vor allem die Aktualität der Projekte stellte sich häufig erst zu einem späten Zeitpunkt als problematisch heraus. Die Anzahl und Aktivität der Entwickler sowie die Häufigkeit von Aktualisierungen waren oft bessere Kriterien für die Auswahl einer Bibliothek als ihr anfänglicher Funktionsumfang.
 
 \subsubsection*{Peer-To-Peer-Verbindungen}
-Die Implementierung von Peer-to-Peer-Verbindungen auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist leider noch nicht fertiggestellt, und  Abweichungen zwischen den Implementierungen der verschiedenen Browser-Hersteller sind noch vorhanden\footnote{Siehe: \url{https://github.com/webrtchacks/adapter}}. WebRTC produktiv mit breiter Browser-Kompatibilität einzusetzen ist aufwendig.
+Die Implementierung von Peer-to-Peer-Verbindungen auf Basis von WebRTC erwies sich als schwierig. Der WebRTC-Standard ist leider noch nicht fertiggestellt und  Abweichungen zwischen den Implementierungen der verschiedenen Browser-Hersteller sind noch vorhanden\footnote{Siehe: \url{https://github.com/webrtchacks/adapter}}. WebRTC produktiv mit breiter Browser-Kompatibilität einzusetzen, ist aufwendig.
 
-Die Verwendung von WebRTC-Wrappern wie PeerJS, die die Schnittstelle vereinfachen und das Signaling regeln, erscheint gerade in kleinen Projekten unausweichlich zu sein, da eine eigene Implementierung sehr aufwändig ist. Leider gibt es bisher nicht viele, und nicht sehr aktuelle Open-Source-Bibliotheken für diese wichtige Aufgabe. Es bleibt zu hoffen dass die Stabilität der Schnittstelle und damit auch die Qualität der Wrapper-Bibliotheken nach dem Ende der WebRTC-Standardisierung ein höheres Niveau erreicht, damit die Technologie zukünftig einfacher verwendet werden kann.
+Die Verwendung von WebRTC-Wrappern wie PeerJS, die die Schnittstelle vereinfachen und das Signaling regeln, erscheint gerade in kleinen Projekten unausweichlich zu sein, da eine eigene Implementierung sehr aufwändig ist. Bedauerlicherweise gibt es bisher nur wenige und nicht sehr aktuelle Open-Source-Bibliotheken für diese wichtige Aufgabe. Es bleibt zu hoffen, dass die Stabilität der Schnittstelle und damit auch die Qualität der Wrapper-Bibliotheken nach dem Ende der WebRTC-Standardisierung ein höheres Niveau erreicht, damit die Technologie zukünftig einfacher verwendet werden kann.
 
-Das fertige System funktioniert zwar im Regelfall (sogenannter „Lucky Path“) einwandfrei, allerdings ist die Zuverlässigkeit von PeerJS problematisch. Verbindungsverlust der Teilnehmer während einer Sitzung oder die Verwendung zu alter oder zu neuer Browser-Versionen können zu Fehlerzuständen führen. Ob WebRTC eine gute Wahl für den Praxisbetrieb in Lehrveranstaltungen ist, muss daher mit entsprechenden Tests in der tatsächlichen Netzwerk- und Teilnehmerumgebung getestet werden.
+Das fertige System funktioniert zwar im Regelfall (sog. „Lucky Path“) einwandfrei, allerdings ist die Zuverlässigkeit von PeerJS problematisch. Verbindungsverlust der Teilnehmer während einer Sitzung oder die Verwendung zu alter oder zu neuer Browser-Versionen können zu Fehlerzuständen führen. Ob WebRTC eine gute Wahl für den Praxisbetrieb in Lehrveranstaltungen ist, muss daher mit entsprechenden Tests in der tatsächlichen Netzwerk- und Teilnehmerumgebung getestet werden.
 
 \subsubsection*{Code-Formatierung}
 Es gibt eine große Anzahl von sehr aktiven JavaScript-Editor-Bibliotheken, allerdings bieten nur wenige davon auch eine überzeugende und aktuelle React-Integration an.
 
-Beide verwendeten Editor-Bibliotheken, Quill und CodeMirror wirken ausgereift und leistungsfähig. Im Praxiseinsatz wird dieser Eindruck aber durch qualitativ verbesserungswürdige und veraltete React-Wrapper-Bibliotheken zunichte gemacht.
+Beide verwendeten Editor-Bibliotheken, Quill und CodeMirror, wirken ausgereift und leistungsfähig. Im Praxiseinsatz wird dieser Eindruck aber teilweise durch qualitativ verbesserungswürdige und teilweise veraltete React-Wrapper-Bibliotheken zunichte gemacht.
 
 Dennoch funktioniert die Code-Formatierung in Weclare ohne Auffälligkeiten. Sowohl kleine Code-Fragmente als auch ganze Java-Klassen können mit wenigen Klicks in eine Fragestellung eingefügt und übersichtlich formatiert werden.
 
 \subsubsection*{Code-Ausführung im Browser}
 Weclare zeigt, dass die Ausführung von Java-Quellcode im Browser möglich ist. Wie praktikabel diese Funktion im Alltag von Dozenten ist, bleibt fraglich. Vor allem das notwendige Laden der JRE sorgt dafür, dass die Ausführungsdauer von Code-Beispielen oft unangenehm hoch ist. Bei geladener Runtime können Code-Beispiele meistens innerhalb von 15 bis 30 Sekunden kompiliert und ausgeführt werden. Je nach Geschwindigkeit der Internetverbindung kann sich dieser Wert beim ersten Laden der Runtime aber auf mehrere Minuten verlängern. Die Funktion der Code-Ausführung ist aber optional und Weclare kann auch ohne sie eingesetzt werden.
 
-Während der Implementierung lag der Fokus auf der Umsetzung der erwähnten Kern-Anforderungen, so dass einige Funktionen, die in StuReSy vorhanden sind, nicht in Weclare umgesetzt werden konnten:
+Während der Implementierung von Weclare lag der Fokus auf der Umsetzung der erwähnten Kern-Anforderungen, so dass einige Funktionen, die in StuReSy vorhanden sind, nicht in Weclare umgesetzt werden konnten:
 \begin{itemize}
     \item Freitext-Fragen werden nicht unterstützt.
-    \item Die Visualisierung der erhaltenen Antworten in Form von Diagrammen und der Export als Grafik oder CSV wird nicht unterstützt
+    \item Die Visualisierung der erhaltenen Antworten in Form von Diagrammen und der Export als Grafik oder CSV wird nicht unterstützt.
+    \item Es können nur vollständige Fragesätze importiert werden. Das Importieren einzelner Fragen aus einem Fragesatz wird nicht unterstützt.
 \end{itemize}
 
-Außerdem gibt es Schwachstellen in der Implementierung von Weclare, die definitiv adressiert werden müssen, sollte ein Praxiseinsatz in Erwägung gezogen werden:
+
+Außerdem gibt es Schwachstellen in der Implementierung von Weclare, die adressiert werden müssen, sollte ein Praxiseinsatz in Erwägung gezogen werden:
 \begin{itemize}
-    \item Unit- und Integrationstest für die Anwendung sind dringend notwendig.
+    \item Unit- und Integrationstest für die Anwendung sind notwendig.
     \item Die Instantiierung der DoppioJVM sollte in einem eigenen Thread erfolgen und deswegen in einen WebWorker ausgelagert werden.
     \item Die Robustheit und das Error-Handling der WebRTC-Verbindung muss erhöht und mit verschiedenen Browsern und Netzwerk-Konstellationen getestet werden.
     \item Grundsätzlich unterstützt das verwendete Bootstrap-CSS-Framework responsives Design für verschiedene Bildschirmgrößen, allerdings wurde während der Entwicklung fast nur mit Desktop-Geräten getestet. Eine Optimierung für mobile Geräte ist notwendig.
 \end{itemize}
-
-
-
-
